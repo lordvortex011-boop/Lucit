@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Name — Automated content creation</title>
+<title>Name — Content creation automated</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Fragment+Mono&display=swap" rel="stylesheet">
 <style>
@@ -15,14 +15,14 @@ a{color:inherit;text-decoration:none}
 ::selection{background:var(--accent);color:#000}
 
 /* nav */
-.nav-wrap{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:50;width:min(860px,calc(100% - 32px));transition:.4s}
-.nav{ display:flex;align-items:center;justify-content:space-between; padding:10px 10px 10px 22px; background:rgba(20,20,20,.72); backdrop-filter:blur(20px) saturate(1.2); -webkit-backdrop-filter:blur(20px) saturate(1.2); border:1px solid var(--line); border-radius:999px; transition:.4s}
-.nav.scrolled{background:rgba(12,12,12,.86);border-color:rgba(255,255,255,.09);box-shadow:0 16px 40px rgba(0,0,0,.5)}
-.nav-logo{font-family:'Instrument Serif',serif;font-size:22px;letter-spacing:-.03em;font-weight:400}
-.nav-links{display:flex;gap:28px;align-items:center}
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 32px;background:rgba(8,8,8,.0);border-bottom:1px solid transparent;transition:.4s}
+.nav.scrolled{background:rgba(8,8,8,.82);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom-color:var(--line)}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:20px;letter-spacing:-.04em;font-weight:400;flex-shrink:0}
+.nav-links{display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%)}
 .nav-links a{font-size:13.5px;letter-spacing:-.01em;color:var(--muted);transition:.2s}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{ background:var(--text);color:#080808 !important;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:500;transition:.2s}
+.nav-cta{background:var(--text);color:#080808 !important;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:500;transition:.2s;flex-shrink:0}
 .nav-cta:hover{background:#fff;transform:translateY(-1px)}
 .nav-mobile-btn{display:none;background:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--muted);font-size:13px}
 
@@ -30,58 +30,17 @@ a{color:inherit;text-decoration:none}
 .hero{padding:180px 0 0;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:-20% 0 auto 0;height:70%;background:radial-gradient(60% 60% at 50% 0%,rgba(237,230,222,.07) 0%,transparent 70%);pointer-events:none}
 .eyebrow{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:36px;display:inline-block}
-.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,108px);line-height:.88;letter-spacing:-.04em;font-weight:400}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,108px);line-height:.86;letter-spacing:-.055em;font-weight:400;text-wrap:balance;font-feature-settings:'liga' 1,'onum' 1}
 .hero h1 span{display:block}
-.hero h1 .line2{margin-top:2px}
-.hero h1 i{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:var(--accent)}
+.hero h1 .line2{margin-top:4px}
+.hero h1 i{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#EDE6DE;letter-spacing:-.06em;padding-right:.04em}
+.hero h1::after{content:'';display:block;width:48px;height:1px;background:rgba(237,230,222,.18);margin:28px auto 0}
 .hero-sub{margin:28px auto 0;max-width:520px;color:var(--muted);font-size:19px;line-height:1.6;letter-spacing:-.01em}
 .hero-btns{margin-top:40px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
 .btn-primary{background:var(--text);color:#080808;padding:14px 26px;border-radius:999px;font-size:14.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:.2s;border:1px solid var(--text)}
 .btn-primary:hover{background:#fff;transform:translateY(-1px)}
 .btn-ghost{padding:14px 26px;border-radius:999px;font-size:14.5px;color:var(--muted);border:1px solid var(--line);transition:.2s;display:inline-flex;align-items:center}
 .btn-ghost:hover{border-color:var(--line2);color:var(--text)}
-
-/* hero visual */
-.hero-visual{margin:72px auto 0;width:min(980px,calc(100% - 32px));background:linear-gradient(180deg,#141414 0%,#0F0F0F 100%);border:1px solid var(--line);border-radius:20px;overflow:hidden;text-align:left;position:relative}
-.hv-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
-.hv-dots{display:flex;gap:6px}
-.hv-dots i{width:8px;height:8px;border-radius:50%;display:block}
-.hv-dots i:nth-child(1){background:#2a2a2a;border:1px solid #333}
-.hv-dots i:nth-child(2){background:#2a2a2a;border:1px solid #333}
-.hv-dots i:nth-child(3){background:#2a2a2a;border:1px solid #333}
-.hv-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2)}
-.hv-live{display:flex;align-items:center;gap:8px;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted)}
-.hv-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#5DB86C;box-shadow:0 0 8px rgba(93,184,108,.6)}
-.hv-body{padding:32px 28px 28px;display:grid;grid-template-columns:320px 1fr;gap:28px}
-.hv-input-col{}
-.hv-input-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2);margin-bottom:14px}
-.hv-input{ background:#0A0A0A;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px}
-.hv-input-field{ background:#141414;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--text);display:flex;align-items:center;gap:10px;min-height:48px}
-.hv-input-field span{color:var(--text)}
-.hv-cursor{width:10px;height:16px;background:var(--text);opacity:.9;animation:blink 1s step-end infinite}
-@keyframes blink{50%{opacity:0}}
-.hv-progress{height:2px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
-.hv-progress-bar{height:100%;width:0%;background:var(--accent);transition:width 1.2s cubic-bezier(.4,0,.2,1);border-radius:999px}
-.hv-status{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);letter-spacing:-.01em}
-.hv-status::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--muted2)}
-.hv-status.active::before{background:#5DB86C;box-shadow:0 0 6px rgba(93,184,108,.5)}
-.hv-status.active{color:#CFCBC6}
-.hv-output-col{}
-.hv-output-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.hv-output-head span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2)}
-.hv-count{font-size:12px;color:var(--muted2)}
-.hv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.hv-card{ background:#0A0A0A;border:1px solid var(--line);border-radius:12px;padding:14px 14px 12px;opacity:0;transform:translateY(8px) scale(.98);transition:.6s cubic-bezier(.16,1,.3,1)}
-.hv-card.on{opacity:1;transform:none}
-.hv-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.hv-card-type{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--muted2);text-transform:uppercase}
-.hv-card-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18)}
-.hv-card.on .hv-card-dot{background:#5DB86C}
-.hv-card-title{font-size:13.5px;font-weight:500;letter-spacing:-.02em;line-height:1.3;margin-bottom:4px}
-.hv-card-sub{font-size:12px;color:var(--muted);line-height:1.4}
-.hv-card-bar{height:2px;background:rgba(255,255,255,.06);border-radius:999px;margin-top:12px;overflow:hidden}
-.hv-card-bar i{display:block;height:100%;width:0%;background:var(--accent);transition:width .8s .3s}
-.hv-card.on .hv-card-bar i{width:100%}
 
 /* sections */
 section{padding:120px 0;border-top:1px solid var(--line)}
@@ -227,7 +186,6 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 
 /* responsive */
 @media(max-width:900px){
-  .hv-body{grid-template-columns:1fr}
   .type-grid{grid-template-columns:1fr 1fr}
   .split{grid-template-columns:1fr}
   .timeline{grid-template-columns:1fr 1fr}
@@ -240,11 +198,10 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
   .nav-links{display:none}
   .nav-mobile-btn{display:inline-flex}
   .type-grid{grid-template-columns:1fr}
-  .hv-grid{grid-template-columns:1fr}
   .flow{border-radius:20px;flex-direction:column;padding:10px}
   .flow-arrow{width:1px;height:18px}
   .flow-arrow::after{content:'↓';right:auto;left:50%;transform:translateX(-50%)}
-  .nav{padding:10px 10px 10px 18px}
+  .nav{padding:16px 18px}
   .container{width:min(1120px,calc(100% - 32px))}
   section{padding:80px 0}
 }
@@ -257,9 +214,8 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
   <nav class="nav" id="nav">
     <a href="#" class="nav-logo">Name</a>
     <div class="nav-links">
-      <a href="#product">Product</a>
-      <a href="#how">How it works</a>
       <a href="#features">Features</a>
+      <a href="#resources">Resources</a>
     </div>
     <a href="#get-started" class="nav-cta">Get started →</a>
     <button class="nav-mobile-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">Menu</button>
@@ -267,41 +223,14 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 </div>
 
 <!-- HERO -->
-<section class="hero" style="border-top:none;padding-bottom:64px">
+<section class="hero" style="border-top:none;padding-bottom:120px">
   <div class="container center">
-    <div class="eyebrow reveal">AUTOMATED CONTENT CREATION</div>
+    <div class="eyebrow reveal">CONTENT CREATION AUTOMATED</div>
     <h1 class="reveal reveal-d1"><span>Create more.</span><span class="line2">Do <i>less.</i></span></h1>
-    <p class="hero-sub reveal reveal-d2">Name turns ideas into finished content automatically.</p>
+    <p class="hero-sub reveal reveal-d2">Content creation automated.</p>
     <div class="hero-btns reveal reveal-d3">
       <a href="#get-started" class="btn-primary">Get started →</a>
       <a href="#how" class="btn-ghost">See how it works</a>
-    </div>
-  </div>
-
-  <!-- product visual -->
-  <div class="hero-visual reveal reveal-d3" id="product">
-    <div class="hv-top">
-      <div style="display:flex;align-items:center;gap:14px">
-        <div class="hv-dots"><i></i><i></i><i></i></div>
-        <span class="hv-label">NAME — AUTOMATION</span>
-      </div>
-      <span class="hv-live">Live</span>
-    </div>
-    <div class="hv-body">
-      <div class="hv-input-col">
-        <div class="hv-input-label">YOUR IDEA</div>
-        <div class="hv-input">
-          <div class="hv-input-field"><span>Launch a new product</span><span class="hv-cursor"></span></div>
-          <div class="hv-progress"><div class="hv-progress-bar" id="hvProgress"></div></div>
-          <div class="hv-status" id="hvStatus">Creating content…</div>
-        </div>
-      </div>
-      <div class="hv-output-col">
-        <div class="hv-output-head"><span>OUTPUTS</span><span class="hv-count" id="hvCount">0 / 5 ready</span></div>
-        <div class="hv-grid" id="hvGrid">
-          <!-- cards via JS -->
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -310,13 +239,13 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 <section class="center" id="how">
   <div class="container">
     <h2 class="h2 reveal">Start with an idea.</h2>
-    <p class="p reveal reveal-d1">Name handles the rest.</p>
+    <p class="p reveal reveal-d1">Content creation automated — from first thought to ready to share.</p>
     <div class="flow reveal reveal-d2" id="flow">
       <div class="flow-step active"><em>Idea</em></div>
       <div class="flow-arrow"></div>
       <div class="flow-step"><em>Create</em></div>
       <div class="flow-arrow"></div>
-      <div class="flow-step"><em>Refine</em></div>
+      <div class="flow-step"><em>Automate</em></div>
       <div class="flow-arrow"></div>
       <div class="flow-step"><em>Publish</em></div>
     </div>
@@ -326,14 +255,14 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 <!-- AUTOMATION -->
 <section class="center">
   <div class="container">
-    <div class="kicker reveal">AUTOMATION</div>
-    <h2 class="h2 reveal">Content, without<br>the <i>busywork.</i></h2>
+    <div class="kicker reveal">AUTOMATION · 24/7</div>
+    <h2 class="h2 reveal">Content creation<br><i>Automated 24/7.</i></h2>
     <p class="p reveal reveal-d1">Plan, create, and prepare content automatically — without moving between a dozen tools.</p>
     <div class="workflow reveal reveal-d2" id="workflow">
       <div class="wf-node"><span class="dot"></span><span class="wf-label">Idea</span><span class="wf-sub">You</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Name</span><span class="wf-sub">Automating</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Content</span><span class="wf-sub">Ready</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Ready</span><span class="wf-sub">To share</span></div>
+      <div class="wf-node"><span class="dot"></span><span class="wf-label">Create</span><span class="wf-sub">Building</span></div>
+      <div class="wf-node"><span class="dot"></span><span class="wf-label">Automate</span><span class="wf-sub">In progress</span></div>
+      <div class="wf-node"><span class="dot"></span><span class="wf-label">Publish</span><span class="wf-sub">Ready</span></div>
     </div>
   </div>
 </section>
@@ -365,7 +294,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
       </div>
       <div class="split-visual reveal reveal-d1">
         <div class="prompt-box"><span class="prompt-badge">IDEA</span><span>“A quiet morning routine for busy founders”</span></div>
-        <div class="transform"><i></i><span style="font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em;color:var(--muted)">NAME CREATES</span><i></i></div>
+        <div class="transform"><i></i><span style="font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em;color:var(--muted)">AUTOMATED</span><i></i></div>
         <div class="output-preview"><h5>Morning, without the rush —</h5><p>A calm, 30-second read on starting the day with intention. Paired with a minimal visual and a caption ready to post. No extra tools needed.</p></div>
       </div>
     </div>
@@ -378,7 +307,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
     <div class="split">
       <div class="split-visual reveal repurpose-visual">
         <div class="source-card"><div class="source-thumb"></div><div class="source-meta"><b>Your article</b><span>“How we launched in 30 days” — 1 source</span></div></div>
-        <div style="text-align:center;padding:4px;color:var(--muted2);font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em">NAME ADAPTS ↓</div>
+        <div style="text-align:center;padding:4px;color:var(--muted2);font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em">AUTOMATED ↓</div>
         <div class="branch">
           <div class="branch-card"><b>Video</b><span>45s cut</span></div>
           <div class="branch-card"><b>Post</b><span>Carousel</span></div>
@@ -451,7 +380,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 <section class="system center">
   <div class="container">
     <h2 class="h2 reveal">A quieter way<br>to <i>create.</i></h2>
-    <p class="p reveal reveal-d1">Name works in the background, turning simple inputs into finished content.</p>
+    <p class="p reveal reveal-d1">Works in the background, turning simple inputs into finished content.</p>
     <div class="sys-graph reveal reveal-d2" id="sysGraph">
       <div class="sys-node active"><i></i> Idea</div><div class="sys-line"></div>
       <div class="sys-node"><i></i> Create</div><div class="sys-line"></div>
@@ -473,20 +402,20 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 <section class="cta" id="get-started">
   <div class="container">
     <h2 class="reveal">Create more.<br>Do <i>less.</i></h2>
-    <p class="reveal reveal-d1">Let Name handle the work behind the content.</p>
+    <p class="reveal reveal-d1">Content creation automated.</p>
     <div class="cta-btns reveal reveal-d2">
       <a href="#" class="btn-primary">Get started →</a>
     </div>
-    <div class="cta-note reveal reveal-d2">Start creating with Name.</div>
+    <div class="cta-note reveal reveal-d2">Content creation automated.</div>
   </div>
 </section>
 
 <footer>
   <div class="container">
     <div class="footer-top">
-      <div class="footer-wordmark">Name<span>Automated content creation.</span></div>
+      <div class="footer-wordmark">Name<span>Content creation automated.</span></div>
       <div class="footer-links">
-        <a href="#product">Product</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#">Pricing</a><a href="#">Contact</a>
+        <a href="#features">Features</a><a href="#resources">Resources</a><a href="#">Pricing</a><a href="#">Contact</a>
       </div>
     </div>
     <div class="footer-bottom"><span>© 2026 Name</span><span style="color:var(--muted)">Quiet luxury. Precision. Simplicity.</span></div>
@@ -501,39 +430,6 @@ addEventListener('scroll',()=>{ nav.classList.toggle('scrolled', scrollY>20) }, 
 // reveals
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in') }),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// hero cards data
-const outputs=[
-  {type:'Post',title:'Introducing something new',sub:'Clean editorial layout, ready to share.'},
-  {type:'Video',title:'30s product teaser',sub:'Captions and cuts applied.'},
-  {type:'Caption',title:'Launch day words',sub:'Three variants, tone-matched.'},
-  {type:'Visual',title:'Hero image set',sub:'Resized for every platform.'},
-  {type:'Article',title:'The story behind it',sub:'Long-form, structured and polished.'},
-];
-const grid=document.getElementById('hvGrid');
-outputs.forEach(o=>{
-  const d=document.createElement('div');
-  d.className='hv-card';
-  d.innerHTML=`<div class="hv-card-top"><span class="hv-card-type">${o.type}</span><span class="hv-card-dot"></span></div><div class="hv-card-title">${o.title}</div><div class="hv-card-sub">${o.sub}</div><div class="hv-card-bar"><i></i></div>`;
-  grid.appendChild(d);
-});
-// animate hero sequentially
-let idx=0;
-const bar=document.getElementById('hvProgress');
-const status=document.getElementById('hvStatus');
-const countEl=document.getElementById('hvCount');
-const cards=[...grid.children];
-function step(){
-  if(idx < cards.length){
-    cards[idx].classList.add('on');
-    idx++;
-    bar.style.width = (idx/cards.length*100)+'%';
-    countEl.textContent = idx+' / '+cards.length+' ready';
-    if(idx===cards.length){ status.textContent='All content ready —'; status.classList.add('active'); }
-    setTimeout(step, 520);
-  }
-}
-setTimeout(()=>{ bar.style.width='14%'; setTimeout(step, 600)}, 800);
 
 // flow auto-activate on scroll
 const flowSteps=[...document.querySelectorAll('.flow-step')];
