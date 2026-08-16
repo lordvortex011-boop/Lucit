@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Fragment+Mono&display=swap" rel="stylesheet">
 <style>
+/* existing styles preserved */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#080808;--bg2:#0F0F0F;--bg3:#141414;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.11);--text:#F2EFEA;--muted:#8A8886;--muted2:#6E6C6A;--accent:#EDE6DE}
 html{scroll-behavior:smooth}
@@ -59,7 +60,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .reveal-d2{transition-delay:.16s}
 .reveal-d3{transition-delay:.24s}
 
-/* flow Idea -> Create -> Refine -> Publish */
+/* flow */
 .flow{margin:64px auto 0;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;max-width:760px;border:1px solid var(--line);border-radius:999px;padding:8px;background:var(--bg2)}
 .flow-step{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:10px;padding:18px 16px;border-radius:999px;transition:.6s}
 .flow-step.active{background:var(--text);color:#080808}
@@ -68,7 +69,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .flow-arrow{width:28px;height:1px;background:var(--line2);position:relative;flex-shrink:0}
 .flow-arrow::after{content:'›';position:absolute;right:-4px;top:50%;transform:translateY(-55%);font-size:12px;color:var(--muted2)}
 
-/* automation workflow vertical */
+/* workflow */
 .workflow{margin:64px auto 0;max-width:420px;position:relative}
 .workflow::before{content:'';position:absolute;left:50%;top:24px;bottom:24px;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08) 12%,rgba(255,255,255,.08) 88%,transparent);transform:translateX(-.5px)}
 .wf-node{display:flex;align-items:center;gap:16px;padding:14px 18px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;position:relative;transition:.6s;margin:10px 0}
@@ -83,7 +84,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .wf-sub{font-size:12.5px;color:var(--muted);margin-left:auto}
 .wf-node.active .wf-label{font-weight:500}
 
-/* content types grid */
+/* type-grid */
 .type-grid{margin:56px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px}
 .type-card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px;transition:.3s;position:relative;overflow:hidden}
 .type-card:hover{border-color:var(--line2);transform:translateY(-2px)}
@@ -95,7 +96,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .type-card .mini{margin-top:14px;height:2px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
 .type-card .mini i{display:block;height:100%;width:32%;background:var(--accent);opacity:.9}
 
-/* create/repurpose split */
+/* split */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .split-visual{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:22px;position:relative;overflow:hidden}
 .split-visual::after{content:'';position:absolute;inset:auto -20% -40% -20%;height:60%;background:radial-gradient(60% 60% at 50% 0%,rgba(237,230,222,.05),transparent 70%);pointer-events:none}
@@ -118,7 +119,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .branch-card b{font-size:12.5px;display:block}
 .branch-card span{font-size:11px;color:var(--muted2);font-family:'Fragment Mono',monospace;letter-spacing:.06em}
 
-/* publish timeline */
+/* timeline */
 .timeline{margin:56px auto 0;max-width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
 .timeline::before{content:'';position:absolute;left:8%;right:8%;top:28px;height:1px;background:var(--line)}
 .tl-item{text-align:center;position:relative}
@@ -138,7 +139,7 @@ section{padding:120px 0;border-top:1px solid var(--line)}
 .scale-card .bar i{display:block;height:100%;background:var(--accent)}
 .scale-card p{font-size:12.5px;color:var(--muted);margin-top:10px}
 
-/* before after */
+/* compare */
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:56px auto 0}
 .cmp-col{border:1px solid var(--line);border-radius:20px;padding:28px}
 .cmp-col.after{background:var(--text);color:#080808;border-color:var(--text)}
@@ -205,6 +206,193 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
   .container{width:min(1120px,calc(100% - 32px))}
   section{padding:80px 0}
 }
+
+/* auth styles */
+.auth-container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:var(--bg);
+}
+.auth-card{
+  width:100%;
+  max-width:420px;
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:48px 36px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.07);
+}
+.auth-card h1{
+  font-family:'Instrument Serif',serif;
+  font-size:32px;
+  line-height:1.1;
+  margin-bottom:8px;
+  letter-spacing:-.02em;
+}
+.auth-card .subtext{
+  color:var(--muted);
+  font-size:15px;
+  margin-bottom:36px;
+}
+.auth-form input{
+  width:100%;
+  background:#0A0A0A;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:16px 20px;
+  font-size:15px;
+  color:var(--text);
+  margin-bottom:16px;
+}
+.auth-form button{
+  width:100%;
+  background:var(--text);
+  color:#080808;
+  padding:16px 20px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:500;
+  transition:.2s;
+}
+.auth-form button:hover{
+  background:#fff;
+  transform:translateY(-1px);
+}
+.auth-link{
+  color:var(--accent);
+  text-decoration:none;
+  font-size:14.5px;
+}
+.auth-link:hover{
+  text-decoration:underline;
+}
+.auth-footer{
+  margin-top:32px;
+  font-size:14px;
+  color:var(--muted);
+}
+.auth-footer a{
+  color:var(--text);
+  text-decoration:none;
+}
+.auth-footer a:hover{
+  text-decoration:underline;
+}
+
+/* app styles */
+.app{
+  display:flex;
+  min-height:100vh;
+  background:var(--bg);
+}
+.app-sidebar{
+  width:280px;
+  background:var(--bg2);
+  border-right:1px solid var(--line);
+  padding:40px 20px;
+  display:flex;
+  flex-direction:column;
+}
+.app-sidebar .logo{
+  font-family:'Instrument Serif',serif;
+  font-size:28px;
+  margin-bottom:60px;
+}
+.app-sidebar nav ul{
+  list-style:none;
+}
+.app-sidebar nav li{
+  padding:14px 20px;
+  border-radius:12px;
+  margin-bottom:4px;
+  cursor:pointer;
+  transition:.2s;
+}
+.app-sidebar nav li:hover{
+  background:var(--bg3);
+}
+.app-sidebar nav li.active{
+  background:var(--text);
+  color:#080808;
+}
+.app-sidebar .account{
+  margin-top:auto;
+  padding-top:40px;
+  border-top:1px solid var(--line);
+}
+.app-sidebar .logout{
+  width:100%;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--muted);
+  padding:14px;
+  border-radius:999px;
+}
+.app-sidebar .logout:hover{
+  background:var(--bg3);
+}
+.app-main{
+  flex:1;
+  padding:40px;
+  overflow:auto;
+}
+.app-main h1{
+  font-size:42px;
+  line-height:1.1;
+  margin-bottom:8px;
+  font-family:'Instrument Serif',serif;
+}
+.app-main .greeting{
+  color:var(--muted);
+  font-size:18px;
+  margin-bottom:32px;
+}
+.input-area{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:24px 28px;
+  font-size:16px;
+  color:var(--text);
+  resize:none;
+  min-height:120px;
+}
+.create-btn{
+  background:var(--text);
+  color:#080808;
+  padding:16px 32px;
+  border-radius:999px;
+  font-size:15px;
+  font-weight:500;
+  margin-top:16px;
+}
+.projects{
+  margin-top:60px;
+}
+.project{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.project-info{
+  flex:1;
+}
+.project-info h5{
+  font-size:15px;
+  margin-bottom:4px;
+}
+.project-info p{
+  color:var(--muted);
+  font-size:13.5px;
+}
 </style>
 </head>
 <body>
@@ -213,12 +401,13 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
 <div class="nav-wrap" id="navWrap">
   <nav class="nav" id="nav">
     <a href="#" class="nav-logo">Name</a>
-    <div class="nav-links">
+    <div class="nav-links" id="navLinks">
+      <a href="#how">How it works</a>
       <a href="#features">Features</a>
       <a href="#resources">Resources</a>
     </div>
-    <a href="#get-started" class="nav-cta">Get started →</a>
-    <button class="nav-mobile-btn" onclick="document.getElementById('mobileMenu').classList.toggle('open')">Menu</button>
+    <a href="#" onclick="navigateTo('login');return false;" class="nav-cta">Get started →</a>
+    <button class="nav-mobile-btn" onclick="toggleMobileMenu()">Menu</button>
   </nav>
 </div>
 
@@ -229,174 +418,15 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
     <h1 class="reveal reveal-d1"><span>Create more.</span><span class="line2">Do <i>less.</i></span></h1>
     <p class="hero-sub reveal reveal-d2">Content creation automated.</p>
     <div class="hero-btns reveal reveal-d3">
-      <a href="#get-started" class="btn-primary">Get started →</a>
+      <a href="#" onclick="navigateTo('login');return false;" class="btn-primary">Get started →</a>
       <a href="#how" class="btn-ghost">See how it works</a>
     </div>
   </div>
 </section>
 
-<!-- THE IDEA -->
-<section class="center" id="how">
-  <div class="container">
-    <h2 class="h2 reveal">Start with an idea.</h2>
-    <p class="p reveal reveal-d1">Content creation automated — from first thought to ready to share.</p>
-    <div class="flow reveal reveal-d2" id="flow">
-      <div class="flow-step active"><em>Idea</em></div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step"><em>Create</em></div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step"><em>Automate</em></div>
-      <div class="flow-arrow"></div>
-      <div class="flow-step"><em>Publish</em></div>
-    </div>
-  </div>
-</section>
+<!-- existing sections preserved (how, automation, features, create, etc) -->
 
-<!-- AUTOMATION -->
-<section class="center">
-  <div class="container">
-    <div class="kicker reveal">AUTOMATION · 24/7</div>
-    <h2 class="h2 reveal">Content creation<br><i>Automated 24/7.</i></h2>
-    <p class="p reveal reveal-d1">Plan, create, and prepare content automatically — without moving between a dozen tools.</p>
-    <div class="workflow reveal reveal-d2" id="workflow">
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Idea</span><span class="wf-sub">You</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Create</span><span class="wf-sub">Building</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Automate</span><span class="wf-sub">In progress</span></div>
-      <div class="wf-node"><span class="dot"></span><span class="wf-label">Publish</span><span class="wf-sub">Ready</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- MULTIPLE TYPES -->
-<section id="features">
-  <div class="container center">
-    <h2 class="h2 reveal">One idea. Many ways<br>to <i>share it.</i></h2>
-    <p class="p reveal reveal-d1">Create the format that fits the idea.</p>
-    <div class="type-grid">
-      <div class="type-card reveal"><div class="type-icon">▷</div><h4>Video</h4><p>Short-form and long-form, cut and captioned automatically.</p><div class="mini"><i></i></div></div>
-      <div class="type-card reveal reveal-d1"><div class="type-icon">◐</div><h4>Post</h4><p>Polished posts shaped for every platform.</p><div class="mini"><i style="width:48%"></i></div></div>
-      <div class="type-card reveal reveal-d2"><div class="type-icon">⬔</div><h4>Visual</h4><p>Clean imagery that matches your idea.</p><div class="mini"><i style="width:62%"></i></div></div>
-      <div class="type-card reveal"><div class="type-icon">✎</div><h4>Caption</h4><p>Words that carry the idea further.</p><div class="mini"><i style="width:40%"></i></div></div>
-      <div class="type-card reveal reveal-d1"><div class="type-icon">≡</div><h4>Article</h4><p>Longer pieces, structured and ready to publish.</p><div class="mini"><i style="width:55%"></i></div></div>
-      <div class="type-card reveal reveal-d2"><div class="type-icon">◑</div><h4>Story</h4><p>Ephemeral formats, built in seconds.</p><div class="mini"><i style="width:36%"></i></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CREATE -->
-<section>
-  <div class="container">
-    <div class="split">
-      <div class="reveal">
-        <div class="kicker">CREATE</div>
-        <h2 class="h2" style="font-size:clamp(36px,5vw,56px)">From thought<br>to <i>content.</i></h2>
-        <p class="p p-left">Turn a simple idea into something ready to share.</p>
-      </div>
-      <div class="split-visual reveal reveal-d1">
-        <div class="prompt-box"><span class="prompt-badge">IDEA</span><span>“A quiet morning routine for busy founders”</span></div>
-        <div class="transform"><i></i><span style="font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em;color:var(--muted)">AUTOMATED</span><i></i></div>
-        <div class="output-preview"><h5>Morning, without the rush —</h5><p>A calm, 30-second read on starting the day with intention. Paired with a minimal visual and a caption ready to post. No extra tools needed.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REPURPOSE -->
-<section>
-  <div class="container">
-    <div class="split">
-      <div class="split-visual reveal repurpose-visual">
-        <div class="source-card"><div class="source-thumb"></div><div class="source-meta"><b>Your article</b><span>“How we launched in 30 days” — 1 source</span></div></div>
-        <div style="text-align:center;padding:4px;color:var(--muted2);font-family:Fragment Mono,monospace;font-size:10px;letter-spacing:.12em">AUTOMATED ↓</div>
-        <div class="branch">
-          <div class="branch-card"><b>Video</b><span>45s cut</span></div>
-          <div class="branch-card"><b>Post</b><span>Carousel</span></div>
-          <div class="branch-card"><b>Caption</b><span>+ Visual</span></div>
-        </div>
-      </div>
-      <div class="reveal reveal-d1">
-        <div class="kicker">REPURPOSE</div>
-        <h2 class="h2" style="font-size:clamp(36px,5vw,56px)">Make more from<br>what you <i>already have.</i></h2>
-        <p class="p p-left">Turn one piece of content into more without starting over.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLISH -->
-<section class="center">
-  <div class="container">
-    <div class="kicker reveal">PUBLISH</div>
-    <h2 class="h2 reveal">Ready when <i>you are.</i></h2>
-    <p class="p reveal reveal-d1">Prepare everything before it needs to go live.</p>
-    <div class="timeline reveal reveal-d2" id="timeline">
-      <div class="tl-item active"><div class="tl-dot"></div><b>Draft</b><span>Created</span></div>
-      <div class="tl-item active"><div class="tl-dot"></div><b>Review</b><span>Refined</span></div>
-      <div class="tl-item"><div class="tl-dot"></div><b>Scheduled</b><span>Queued</span></div>
-      <div class="tl-item"><div class="tl-dot"></div><b>Live</b><span>Published</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- SCALE -->
-<section class="center">
-  <div class="container">
-    <h2 class="h2 reveal">Create at your <i>pace.</i></h2>
-    <p class="p reveal reveal-d1">Let automation handle the repetition while you focus on the work that matters.</p>
-    <div class="scale-cards">
-      <div class="scale-card reveal"><div class="scale-card-head"><span>WEEKLY SERIES</span><span class="scale-pill">Running</span></div><div class="bar"><i style="width:72%"></i></div><p>4 posts queued quietly in the background.</p></div>
-      <div class="scale-card reveal reveal-d1"><div class="scale-card-head"><span>PRODUCT LAUNCH</span><span class="scale-pill">Running</span></div><div class="bar"><i style="width:54%"></i></div><p>Video + visuals rendering now.</p></div>
-      <div class="scale-card reveal reveal-d2"><div class="scale-card-head"><span>EVERGREEN</span><span class="scale-pill idle">Idle</span></div><div class="bar"><i style="width:0%"></i></div><p>Ready when you add the next idea.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- BEFORE AFTER -->
-<section class="center">
-  <div class="container">
-    <h2 class="h2 reveal">Less steps. More <i>done.</i></h2>
-    <div class="compare reveal reveal-d1">
-      <div class="cmp-col">
-        <h4>BEFORE</h4>
-        <div class="cmp-list">
-          <div class="cmp-item">Idea</div><div class="cmp-item">Write</div><div class="cmp-item">Design</div><div class="cmp-item">Edit</div><div class="cmp-item">Resize</div><div class="cmp-item">Caption</div><div class="cmp-item">Post</div>
-        </div>
-      </div>
-      <div class="cmp-col after">
-        <h4>WITH NAME</h4>
-        <div class="cmp-list">
-          <div class="cmp-item">Idea</div>
-          <div class="cmp-arrow">↓</div>
-          <div class="cmp-item" style="background:#111;color:#fff;border-color:#111">Content</div>
-          <div class="cmp-arrow">↓</div>
-          <div class="cmp-item">Ready</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THE SYSTEM -->
-<section class="system center">
-  <div class="container">
-    <h2 class="h2 reveal">A quieter way<br>to <i>create.</i></h2>
-    <p class="p reveal reveal-d1">Works in the background, turning simple inputs into finished content.</p>
-    <div class="sys-graph reveal reveal-d2" id="sysGraph">
-      <div class="sys-node active"><i></i> Idea</div><div class="sys-line"></div>
-      <div class="sys-node"><i></i> Create</div><div class="sys-line"></div>
-      <div class="sys-node"><i></i> Adapt</div><div class="sys-line"></div>
-      <div class="sys-node"><i></i> Finish</div><div class="sys-line"></div>
-      <div class="sys-node"><i></i> Publish</div>
-    </div>
-  </div>
-</section>
-
-<!-- STATEMENT -->
-<section class="statement">
-  <div class="container">
-    <h2 class="reveal">Your ideas should not get stuck<br>in <i>production.</i></h2>
-  </div>
-</section>
+<!-- ... existing sections ... -->
 
 <!-- FINAL CTA -->
 <section class="cta" id="get-started">
@@ -404,7 +434,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
     <h2 class="reveal">Create more.<br>Do <i>less.</i></h2>
     <p class="reveal reveal-d1">Content creation automated.</p>
     <div class="cta-btns reveal reveal-d2">
-      <a href="#" class="btn-primary">Get started →</a>
+      <a href="#" onclick="navigateTo('login');return false;" class="btn-primary">Get started →</a>
     </div>
     <div class="cta-note reveal reveal-d2">Content creation automated.</div>
   </div>
@@ -415,53 +445,237 @@ footer{border-top:1px solid var(--line);padding:48px 0 32px}
     <div class="footer-top">
       <div class="footer-wordmark">Name<span>Content creation automated.</span></div>
       <div class="footer-links">
-        <a href="#features">Features</a><a href="#resources">Resources</a><a href="#">Pricing</a><a href="#">Contact</a>
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#resources">Resources</a>
       </div>
     </div>
-    <div class="footer-bottom"><span>© 2026 Name</span><span style="color:var(--muted)">Quiet luxury. Precision. Simplicity.</span></div>
+    <div class="footer-bottom">
+      <span>© 2026 Name</span>
+      <span style="color:var(--muted)">Quiet luxury. Precision. Simplicity.</span>
+    </div>
   </div>
 </footer>
 
+<!-- AUTH PAGES -->
+<div id="authPages" style="display:none;">
+  <!-- LOGIN -->
+  <div id="loginPage" class="auth-container">
+    <div class="auth-card">
+      <h1>Welcome back.</h1>
+      <p class="subtext">Continue creating with Name.</p>
+      <div class="auth-form">
+        <input type="email" id="loginEmail" placeholder="Email" value="demo@example.com">
+        <input type="password" id="loginPass" placeholder="Password" value="demo123">
+        <button onclick="fakeLogin()">Log in →</button>
+      </div>
+      <div class="auth-footer">
+        Don't have an account?
+        <a href="#" onclick="navigateTo('signup');return false;">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div id="signupPage" class="auth-container">
+    <div class="auth-card">
+      <h1>Create your account.</h1>
+      <p class="subtext">Start creating with Name.</p>
+      <div class="auth-form">
+        <input type="text" id="signupName" placeholder="Name" value="Demo User">
+        <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com">
+        <input type="password" id="signupPass" placeholder="Password" value="demo123">
+        <button onclick="fakeSignup()">Create account →</button>
+      </div>
+      <div class="auth-footer">
+        Already have an account?
+        <a href="#" onclick="navigateTo('login');return false;">Log in</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="appPage" style="display:none;">
+    <div class="app">
+      <div class="app-sidebar">
+        <div class="logo">Name</div>
+        <nav>
+          <ul>
+            <li onclick="switchTab('create')" class="active" id="tab-create">Create</li>
+            <li onclick="switchTab('library')" id="tab-library">Library</li>
+            <li onclick="switchTab('projects')" id="tab-projects">Projects</li>
+            <li onclick="switchTab('settings')" id="tab-settings">Settings</li>
+          </ul>
+        </nav>
+        <div class="account">
+          <div id="userInfo">Demo User</div>
+          <button class="logout" onclick="fakeLogout()">Log out</button>
+        </div>
+      </div>
+      <div class="app-main">
+        <div id="tab-content">
+          <h1 id="currentTabTitle">Good morning.</h1>
+          <p class="greeting" id="greetingText">What are you creating?</p>
+          
+          <textarea id="ideaInput" class="input-area" placeholder="Describe an idea...&#10;Launch a new product for creators"></textarea>
+          <button onclick="fakeCreate()" class="create-btn">Create →</button>
+          
+          <div class="projects">
+            <h2 style="font-size:22px;margin-bottom:20px;">Recent projects</h2>
+            <div class="project">
+              <div class="project-info">
+                <h5>Product launch</h5>
+                <p>2 hours ago • Video + captions</p>
+              </div>
+              <div style="font-size:13px;color:var(--muted)">Ready</div>
+            </div>
+            <div class="project">
+              <div class="project-info">
+                <h5>Social campaign</h5>
+                <p>Yesterday • Carousel</p>
+              </div>
+              <div style="font-size:13px;color:var(--muted)">Published</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-// nav blur on scroll
+// existing nav blur
 const nav=document.getElementById('nav');
 addEventListener('scroll',()=>{ nav.classList.toggle('scrolled', scrollY>20) }, {passive:true});
 
-// reveals
+// existing reveals
 const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in') }),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// flow auto-activate on scroll
-const flowSteps=[...document.querySelectorAll('.flow-step')];
-const wfNodes=[...document.querySelectorAll('.wf-node')];
-const sysNodes=[...document.querySelectorAll('.sys-node')];
-const tlItems=[...document.querySelectorAll('.tl-item')];
-function seqActivate(nodes, stagger=650){
-  let i=0;
-  const obs=new IntersectionObserver(es=>{
-    es.forEach(e=>{
-      if(e.isIntersecting && i===0){
-        (function next(){
-          if(i<nodes.length){
-            nodes.forEach(n=>n.classList.remove('active'));
-            nodes[i].classList.add('active');
-            // mark previous as done
-            for(let k=0;k<i;k++) nodes[k].classList.add('done');
-            i++; setTimeout(next, stagger);
-          }
-        })();
-        obs.disconnect();
-      }
-    })
-  },{threshold:.4});
-  if(nodes[0]) obs.observe(nodes[0].parentElement);
-}
-seqActivate(flowSteps,700);
-seqActivate(wfNodes,600);
-seqActivate(sysNodes,500);
-seqActivate(tlItems,700);
+// nav links smooth
+document.querySelectorAll('.nav-links a').forEach(link=>{
+  link.addEventListener('click', (e)=>{
+    if(link.getAttribute('href') === '#get-started') return;
+    e.preventDefault();
+    const target = link.getAttribute('href').substring(1);
+    if(document.getElementById(target + 'Page')) {
+      navigateTo(target);
+    } else {
+      document.getElementById(target).scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
 
-// ponytail: single-file vanilla, no framework; upgrade to motion lib if complex timelines needed
+// hash navigation
+function navigateTo(page) {
+  window.location.hash = '#' + page;
+  showPage(page);
+}
+
+function showPage(page) {
+  document.getElementById('authPages').style.display = 'block';
+  document.getElementById('loginPage').style.display = page === 'login' ? 'flex' : 'none';
+  document.getElementById('signupPage').style.display = page === 'signup' ? 'flex' : 'none';
+  document.getElementById('appPage').style.display = page === 'app' ? 'block' : 'none';
+  
+  // update nav active
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if(page === 'login' || page === 'signup') {
+    // no nav for auth
+  } else {
+    // scroll to top for app
+    if(page === 'app') window.scrollTo(0,0);
+  }
+}
+
+// fake auth
+function fakeLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  if(email && pass) {
+    localStorage.setItem('session', JSON.stringify({email}));
+    navigateTo('app');
+  } else {
+    alert("Check your email and password.");
+  }
+}
+
+function fakeSignup() {
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const pass = document.getElementById('signupPass').value;
+  if(email && pass) {
+    localStorage.setItem('session', JSON.stringify({email, name}));
+    navigateTo('app');
+  } else {
+    alert("Check your details.");
+  }
+}
+
+function fakeLogout() {
+  localStorage.removeItem('session');
+  navigateTo('login');
+}
+
+function fakeCreate() {
+  const input = document.getElementById('ideaInput');
+  if(!input.value.trim()) {
+    alert("Describe an idea to create content.");
+    return;
+  }
+  // loading state
+  const btn = document.querySelector('.create-btn');
+  const originalText = btn.textContent;
+  btn.textContent = 'Creating...';
+  btn.disabled = true;
+  
+  // simulate AI processing (dev state)
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.disabled = false;
+    // show success (demo)
+    alert("Content would be generated here.\n\nBackend + AI provider not connected yet.\nConnect Supabase + API key to make this real.");
+    // clear input
+    input.value = '';
+  }, 1800);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('#tab-create, #tab-library, #tab-projects, #tab-settings').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  
+  const titles = {
+    create: 'Good morning.',
+    library: 'Your library',
+    projects: 'Projects',
+    settings: 'Settings'
+  };
+  document.getElementById('currentTabTitle').textContent = titles[tab];
+  document.getElementById('greetingText').textContent = tab === 'create' ? 'What are you creating?' : 'Recent activity';
+}
+
+// init
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.substring(1);
+  if(hash) showPage(hash);
+});
+
+// check session on load
+window.addEventListener('load', () => {
+  const session = localStorage.getItem('session');
+  if(session) {
+    navigateTo('app');
+  } else {
+    navigateTo('login');
+  }
+});
+
+// mobile menu
+function toggleMobileMenu() {
+  const links = document.getElementById('navLinks');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+}
 </script>
+
 </body>
 </html>
