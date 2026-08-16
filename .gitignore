@@ -1,0 +1,11 @@
+.env
+.env.local
+.env.*.local
+node_modules
+dist
+build
+.next
+out
+.vercel
+*.log
+vite-env.d.ts
