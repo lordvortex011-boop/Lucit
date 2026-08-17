@@ -3,679 +3,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Name — Content creation automated</title>
+<title>Lucit — Upload once. Wake up to a week posted.</title>
+<meta name="description" content="Lucit turns one long video into a week of posted shorts. Clipped, captioned, posted — zero editing. For solo faceless creators building toward monetization.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Fragment+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&family=Inter:wght@400;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
 <style>
-/* existing styles preserved */
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#080808;--bg2:#0F0F0F;--bg3:#141414;--line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.11);--text:#F2EFEA;--muted:#8A8886;--muted2:#6E6C6A;--accent:#EDE6DE}
+:root{
+  --bg:#FAF8F3;
+  --bg2:#F5F1E8;
+  --ink:#1C1A17;
+  --ink2:#1C1A17;
+  --brass:#B8935F;
+  --brass2:#A67C3A;
+  --line:rgba(28,26,23,.08);
+  --line2:rgba(28,26,23,.13);
+  --line-brass:rgba(184,147,95,.22);
+  --muted:#6B6760;
+  --muted2:#9A9690;
+  --paper:#FFFFFF;
+}
 html{scroll-behavior:smooth}
-body{font-family:'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-::selection{background:var(--accent);color:#000}
+::selection{background:rgba(184,147,95,.2)}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:10px 16px;z-index:100}
+.skip:focus{left:12px;top:12px}
 
 /* nav */
-.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px 32px;background:rgba(8,8,8,.0);border-bottom:1px solid transparent;transition:.4s}
-.nav.scrolled{background:rgba(8,8,8,.82);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom-color:var(--line)}
-.nav-logo{font-family:'Instrument Serif',serif;font-size:20px;letter-spacing:-.04em;font-weight:400;flex-shrink:0}
-.nav-links{display:flex;gap:32px;align-items:center;position:absolute;left:50%;transform:translateX(-50%)}
-.nav-links a{font-size:13.5px;letter-spacing:-.01em;color:var(--muted);transition:.2s}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--text);color:#080808 !important;padding:9px 18px;border-radius:999px;font-size:13.5px;font-weight:500;transition:.2s;flex-shrink:0}
-.nav-cta:hover{background:#fff;transform:translateY(-1px)}
-.nav-mobile-btn{display:none;background:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--muted);font-size:13px}
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,248,243,.72);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.3s}
+.nav{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-logo{font-family:'Fraunces',serif;font-size:22px;letter-spacing:-.04em;font-weight:500;display:flex;align-items:center;gap:8px}
+.nav-logo i{width:8px;height:8px;border-radius:50%;background:var(--brass);display:inline-block;box-shadow:0 0 0 6px rgba(184,147,95,.14)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{font-size:13.5px;color:var(--muted);transition:.2s;letter-spacing:-.01em}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink);color:var(--bg)!important;padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:500;transition:.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink)}
+.nav-cta:hover{background:#2A2622;transform:translateY(-1px)}
+.nav-ghost{font-size:13.5px;color:var(--muted);padding:9px 14px}
+.nav-ghost:hover{color:var(--ink)}
+.mob-btn{display:none;border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--ink)}
 
 /* hero */
-.hero{padding:180px 0 0;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:-20% 0 auto 0;height:70%;background:radial-gradient(60% 60% at 50% 0%,rgba(237,230,222,.07) 0%,transparent 70%);pointer-events:none}
-.eyebrow{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);margin-bottom:36px;display:inline-block}
-.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,108px);line-height:.86;letter-spacing:-.055em;font-weight:400;text-wrap:balance;font-feature-settings:'liga' 1,'onum' 1}
-.hero h1 span{display:block}
-.hero h1 .line2{margin-top:4px}
-.hero h1 i{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#EDE6DE;letter-spacing:-.06em;padding-right:.04em}
-.hero h1::after{content:'';display:block;width:48px;height:1px;background:rgba(237,230,222,.18);margin:28px auto 0}
-.hero-sub{margin:28px auto 0;max-width:520px;color:var(--muted);font-size:19px;line-height:1.6;letter-spacing:-.01em}
-.hero-btns{margin-top:40px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
-.btn-primary{background:var(--text);color:#080808;padding:14px 26px;border-radius:999px;font-size:14.5px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:.2s;border:1px solid var(--text)}
-.btn-primary:hover{background:#fff;transform:translateY(-1px)}
-.btn-ghost{padding:14px 26px;border-radius:999px;font-size:14.5px;color:var(--muted);border:1px solid var(--line);transition:.2s;display:inline-flex;align-items:center}
-.btn-ghost:hover{border-color:var(--line2);color:var(--text)}
+.hero{padding:112px 0 0;border-bottom:1px solid var(--line)}
+.hero-inner{max-width:1160px;margin:0 auto;padding:0 24px}
+.hero-head{text-align:center;padding:48px 0 36px;max-width:760px;margin:0 auto}
+.eyebrow{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted2);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:'';width:18px;height:1px;background:var(--line-brass)}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.2vw,68px);line-height:.92;letter-spacing:-.045em;font-weight:400;text-wrap:balance}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--brass2);letter-spacing:-.05em}
+.hero-sub{margin:18px auto 0;max-width:560px;color:var(--muted);font-size:17px;line-height:1.6;letter-spacing:-.01em}
+.hero-actions{margin-top:26px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:var(--bg);padding:13px 22px;border-radius:999px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);transition:.2s}
+.btn-primary:hover{background:#2A2622;transform:translateY(-1px)}
+.btn-ghost{padding:13px 22px;border-radius:999px;font-size:14px;color:var(--ink);border:1px solid var(--line2);background:var(--paper);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn-ghost:hover{border-color:var(--ink)}
+.hero-note{margin-top:14px;font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
+.hero-note b{color:var(--muted);font-weight:400}
+
+/* TRANSFORMATION — the product */
+.transform-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(to bottom, var(--bg), #FFFFFF 50%, var(--bg));padding:28px 0 32px;overflow:hidden}
+.transform-inner{max-width:1160px;margin:0 auto;padding:0 24px}
+.transform-grid{display:grid;grid-template-columns: 1.15fr auto 1.55fr;gap:20px;align-items:center}
+@media(max-width:900px){.transform-grid{grid-template-columns:1fr;gap:18px}}
+
+/* source */
+.source-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.source-label::after{content:'';flex:1;height:1px;background:var(--line);max-width:80px}
+.source-card{background:var(--paper);border:1px solid var(--line2);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(28,26,23,.06)}
+.source-thumb{aspect-ratio:16/9;background:#111;position:relative;overflow:hidden;display:grid;place-items:center}
+.source-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(80% 80% at 35% 30%, #2A2622 0%, #0F0E0C 65%), linear-gradient(180deg, rgba(184,147,95,.08), transparent 60%)}
+.source-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 55%)}
+.thumb-play{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 4px 20px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.6)}
+.thumb-play::after{content:'▶';font-size:13px;margin-left:2px;color:var(--ink);font-family:system-ui}
+.thumb-meta{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;display:flex;justify-content:space-between;align-items:end;gap:12px}
+.thumb-title{color:#fff;font-size:13px;letter-spacing:-.01em;line-height:1.3;max-width:70%;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.thumb-badge{font-family:'Fragment Mono',monospace;font-size:10px;background:rgba(0,0,0,.68);color:#fff;padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.14);white-space:nowrap}
+.source-foot{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.source-foot b{font-size:13px;letter-spacing:-.01em}
+.source-foot span{font-size:12.5px;color:var(--muted)}
+.source-dots{display:flex;gap:6px;align-items:center}
+.source-dots i{width:6px;height:6px;border-radius:50%;background:var(--line2)}
+.source-dots i.on{background:var(--brass)}
+
+/* flow connector — brass hairline, no extra chrome */
+.flow-bridge{display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 4px;position:relative}
+.flow-bridge .line{width:1px;height:22px;background:var(--line-brass)}
+.flow-bridge .label{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--brass2);writing-mode:vertical-rl;text-orientation:mixed}
+@media(max-width:900px){
+  .flow-bridge{flex-direction:row;justify-content:center}
+  .flow-bridge .line{width:22px;height:1px}
+  .flow-bridge .label{writing-mode:horizontal-tb}
+}
+.flow-svg{width:1px;height:48px;overflow:visible}
+.flow-svg line{stroke:var(--brass);stroke-width:1}
+@media(max-width:900px){.flow-svg{width:48px;height:1px}}
+
+/* clips */
+.clips-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.clips-label em{font-style:normal;color:var(--brass2);letter-spacing:.10em}
+.clips-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media(max-width:1100px){.clips-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.clips-grid{grid-template-columns:repeat(6, 132px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}.clips-grid::-webkit-scrollbar{display:none}.clip{scroll-snap-align:start}}
+.clip{background:var(--paper);border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(28,26,23,.05);transition:.2s}
+.clip:hover{transform:translateY(-2px);border-color:rgba(184,147,95,.22);box-shadow:0 8px 24px rgba(28,26,23,.08)}
+.clip-v{aspect-ratio:9/16;background:#0E0D0C;position:relative;overflow:hidden}
+.clip-v::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.58) 100%), radial-gradient(90% 60% at 50% 0%, rgba(184,147,95,.14), transparent 60%)}
+.clip-cap{position:absolute;left:8px;right:8px;bottom:8px;z-index:1}
+.clip-cap p{font-size:11px;line-height:1.35;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.clip-top{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:1}
+.clip-plat{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.08em;background:rgba(255,255,255,.92);padding:3px 6px;border-radius:999px;color:var(--ink);border:1px solid rgba(0,0,0,.06)}
+.clip-time{font-family:'Fragment Mono',monospace;font-size:9px;color:rgba(255,255,255,.9);background:rgba(0,0,0,.45);padding:3px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
+.clip-foot{padding:10px 10px 11px}
+.clip-foot b{font-size:12px;letter-spacing:-.01em;display:block;line-height:1.2}
+.clip-foot span{font-size:11px;color:var(--muted);display:block;margin-top:2px}
+.clip-foot .meta{margin-top:8px;display:flex;align-items:center;gap:6px;font-family:'Fragment Mono',monospace;font-size:9.5px;color:var(--muted2);letter-spacing:.06em}
+.clip-foot .meta i{width:5px;height:5px;border-radius:50%;background:var(--brass)}
+.clip-foot .meta i.queued{background:var(--muted2)}
 
 /* sections */
-section{padding:120px 0;border-top:1px solid var(--line)}
-.container{width:min(1120px,calc(100% - 48px));margin:0 auto}
+section.s{padding:72px 0;border-top:1px solid var(--line)}
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.kicker{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted2);margin-bottom:14px}
+.h2{font-family:'Fraunces',serif;font-size:clamp(32px,4.6vw,52px);line-height:.95;letter-spacing:-.04em;font-weight:400;text-wrap:balance}
+.h2 em{font-style:italic;color:var(--brass2);font-weight:400}
+.p{color:var(--muted);font-size:16.5px;line-height:1.65;max-width:560px;margin-top:14px;letter-spacing:-.01em}
 .center{text-align:center}
-.kicker{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted2);margin-bottom:18px}
-.h2{font-family:'Instrument Serif',serif;font-size:clamp(42px,6vw,72px);line-height:.9;letter-spacing:-.04em;font-weight:400}
-.h2 i{font-style:italic;color:var(--accent);font-weight:400}
-.p{color:var(--muted);font-size:18px;line-height:1.65;max-width:560px;margin:18px auto 0;letter-spacing:-.01em}
-.p-left{margin:18px 0 0}
+.center .p{margin-left:auto;margin-right:auto}
 
-/* reveal */
-.reveal{opacity:0;transform:translateY(18px);transition:.8s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-.reveal-d1{transition-delay:.08s}
-.reveal-d2{transition-delay:.16s}
-.reveal-d3{transition-delay:.24s}
+/* pipeline signature */
+.pipeline{margin:40px auto 0;max-width:900px;position:relative;padding:24px 0 8px}
+.pipe-track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:start}
+@media(max-width:640px){.pipe-track{grid-template-columns:1fr;gap:18px}}
+.pipe-line{position:absolute;left:12%;right:12%;top:28px;height:1px;background:var(--line);overflow:hidden}
+.pipe-line i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--brass);transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.pipe-line.played i{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.pipe-line i{transform:scaleX(1);transition:none}}
+@media(max-width:640px){.pipe-line{display:none}}
+.pipe-step{text-align:center;position:relative;padding:0 10px}
+.pipe-dot{width:56px;height:56px;border-radius:50%;background:var(--paper);border:1px solid var(--line2);margin:0 auto 14px;display:grid;place-items:center;position:relative;z-index:1;transition:.6s}
+.pipe-step.active .pipe-dot{border-color:rgba(184,147,95,.35);box-shadow:0 4px 20px rgba(184,147,95,.14)}
+.pipe-dot b{font-family:'Fraunces',serif;font-size:18px;font-weight:500;letter-spacing:-.02em}
+.pipe-dot small{position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--brass);color:#fff;display:grid;place-items:center;font-size:10px;border:2px solid var(--bg);opacity:0;transform:scale(.8);transition:.4s}
+.pipe-step.done small{opacity:1;transform:scale(1)}
+.pipe-step h4{font-size:14px;letter-spacing:-.01em}
+.pipe-step p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:4px}
+.pipe-step .when{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted2);margin-top:8px}
+.pipe-step.active h4{color:var(--ink)}
 
-/* flow */
-.flow{margin:64px auto 0;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;max-width:760px;border:1px solid var(--line);border-radius:999px;padding:8px;background:var(--bg2)}
-.flow-step{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:10px;padding:18px 16px;border-radius:999px;transition:.6s}
-.flow-step.active{background:var(--text);color:#080808}
-.flow-step em{font-family:'Instrument Serif',serif;font-style:italic;font-size:19px;letter-spacing:-.02em}
-.flow-step b{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;font-weight:400;opacity:.6}
-.flow-arrow{width:28px;height:1px;background:var(--line2);position:relative;flex-shrink:0}
-.flow-arrow::after{content:'›';position:absolute;right:-4px;top:50%;transform:translateY(-55%);font-size:12px;color:var(--muted2)}
+/* hairline cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);margin-top:36px}
+.grid3 > div{padding:28px 26px;border-right:1px solid var(--line)}
+.grid3 > div:last-child{border-right:none}
+@media(max-width:860px){.grid3{grid-template-columns:1fr}.grid3 > div{border-right:none;border-bottom:1px solid var(--line)}.grid3 > div:last-child{border-bottom:none}}
+.grid3 h4{font-size:15px;letter-spacing:-.01em;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.grid3 h4 i{width:6px;height:6px;border-radius:50%;background:var(--brass);display:inline-block}
+.grid3 p{font-size:13.5px;color:var(--muted);line-height:1.6}
+.grid3 .num{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted2);margin-top:14px;display:block}
 
-/* workflow */
-.workflow{margin:64px auto 0;max-width:420px;position:relative}
-.workflow::before{content:'';position:absolute;left:50%;top:24px;bottom:24px;width:1px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.08) 12%,rgba(255,255,255,.08) 88%,transparent);transform:translateX(-.5px)}
-.wf-node{display:flex;align-items:center;gap:16px;padding:14px 18px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;position:relative;transition:.6s;margin:10px 0}
-.wf-node .dot{width:28px;height:28px;border-radius:50%;background:#0A0A0A;border:1px solid var(--line2);display:grid;place-items:center;flex-shrink:0;transition:.6s}
-.wf-node .dot::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted2);transition:.6s}
-.wf-node.active{border-color:rgba(237,230,222,.18);background:#141414}
-.wf-node.active .dot{border-color:var(--accent);background:var(--accent)}
-.wf-node.active .dot::after{background:#080808}
-.wf-node.done .dot::after{background:#5DB86C}
-.wf-node.done .dot{border-color:rgba(93,184,108,.4)}
-.wf-label{font-size:14px;letter-spacing:-.01em}
-.wf-sub{font-size:12.5px;color:var(--muted);margin-left:auto}
-.wf-node.active .wf-label{font-weight:500}
-
-/* type-grid */
-.type-grid{margin:56px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:960px}
-.type-card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px 22px 20px;transition:.3s;position:relative;overflow:hidden}
-.type-card:hover{border-color:var(--line2);transform:translateY(-2px)}
-.type-card::before{content:'';position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);opacity:0;transition:.3s}
-.type-card:hover::before{opacity:1}
-.type-icon{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);display:grid;place-items:center;font-size:12px;color:var(--muted2);margin-bottom:18px}
-.type-card h4{font-size:15px;letter-spacing:-.02em;margin-bottom:6px}
-.type-card p{font-size:13.5px;color:var(--muted);line-height:1.5}
-.type-card .mini{margin-top:14px;height:2px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
-.type-card .mini i{display:block;height:100%;width:32%;background:var(--accent);opacity:.9}
-
-/* split */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.split-visual{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:22px;position:relative;overflow:hidden}
-.split-visual::after{content:'';position:absolute;inset:auto -20% -40% -20%;height:60%;background:radial-gradient(60% 60% at 50% 0%,rgba(237,230,222,.05),transparent 70%);pointer-events:none}
-.prompt-box{background:#0A0A0A;border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;gap:12px;align-items:start}
-.prompt-box span{font-size:14px;line-height:1.5}
-.prompt-badge{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--muted2);background:rgba(255,255,255,.06);padding:5px 8px;border-radius:999px;white-space:nowrap;margin-top:1px}
-.transform{margin:16px 0;display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted2)}
-.transform i{width:32px;height:1px;background:var(--line2);position:relative}
-.transform i::after{content:'↓';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--bg2);padding:0 6px;font-size:10px;font-style:normal}
-.output-preview{background:#0A0A0A;border:1px solid rgba(237,230,222,.12);border-radius:12px;padding:18px}
-.output-preview h5{font-size:13px;letter-spacing:-.01em;margin-bottom:8px}
-.output-preview p{font-size:13px;color:var(--muted);line-height:1.6}
-.repurpose-visual{display:flex;flex-direction:column;gap:10px}
-.source-card{background:#0A0A0A;border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px}
-.source-thumb{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a1a1a,#222);border:1px solid var(--line);flex-shrink:0}
-.source-meta b{font-size:13.5px;display:block;letter-spacing:-.01em}
-.source-meta span{font-size:12px;color:var(--muted)}
-.branch{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.branch-card{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-.branch-card b{font-size:12.5px;display:block}
-.branch-card span{font-size:11px;color:var(--muted2);font-family:'Fragment Mono',monospace;letter-spacing:.06em}
-
-/* timeline */
-.timeline{margin:56px auto 0;max-width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative}
-.timeline::before{content:'';position:absolute;left:8%;right:8%;top:28px;height:1px;background:var(--line)}
-.tl-item{text-align:center;position:relative}
-.tl-dot{width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--line2);margin:0 auto 16px;position:relative;z-index:1;transition:.6s}
-.tl-item.active .tl-dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 12px rgba(237,230,222,.4)}
-.tl-item b{font-size:13px;display:block;letter-spacing:-.01em}
-.tl-item span{font-size:12.5px;color:var(--muted)}
-
-/* scale */
-.scale-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:48px auto 0;max-width:960px}
-.scale-card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:20px}
-.scale-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.scale-card-head span{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted2)}
-.scale-pill{font-size:11px;padding:4px 8px;border-radius:999px;background:rgba(93,184,108,.12);color:#8ED49A;border:1px solid rgba(93,184,108,.2)}
-.scale-pill.idle{background:rgba(255,255,255,.06);color:var(--muted);border-color:var(--line)}
-.scale-card .bar{height:2px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
-.scale-card .bar i{display:block;height:100%;background:var(--accent)}
-.scale-card p{font-size:12.5px;color:var(--muted);margin-top:10px}
+/* week strip */
+.week{margin-top:36px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
+.week-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.week-head b{font-size:13px;letter-spacing:-.01em}
+.week-head span{font-size:12.5px;color:var(--muted)}
+.week-head em{font-family:'Fragment Mono',monospace;font-style:normal;font-size:10px;letter-spacing:.08em;color:var(--brass2);background:rgba(184,147,95,.1);padding:4px 8px;border-radius:999px;border:1px solid rgba(184,147,95,.18)}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0}
+@media(max-width:900px){.week-grid{grid-template-columns:repeat(7, 140px);overflow-x:auto;scroll-snap-type:x mandatory}.week-grid::-webkit-scrollbar{display:none}}
+.week-day{padding:16px 14px;border-right:1px solid var(--line);min-width:0}
+.week-day:last-child{border-right:none}
+.week-day head{display:block}
+.week-day small{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted2)}
+.week-day b{font-size:12.5px;display:block;margin-top:4px;letter-spacing:-.01em;line-height:1.3}
+.week-day p{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.week-day .status{margin-top:10px;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.week-day .status i{width:6px;height:6px;border-radius:50%;background:var(--brass)}
+.week-day.soon .status i{background:var(--muted2)}
+.week-day.soon{opacity:.72}
 
 /* compare */
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:56px auto 0}
-.cmp-col{border:1px solid var(--line);border-radius:20px;padding:28px}
-.cmp-col.after{background:var(--text);color:#080808;border-color:var(--text)}
-.cmp-col h4{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.16em;margin-bottom:20px;opacity:.6}
-.cmp-list{display:flex;flex-direction:column;gap:10px}
-.cmp-item{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:13.5px;display:flex;align-items:center;gap:10px}
-.cmp-col.after .cmp-item{background:#fff;border-color:rgba(0,0,0,.08);color:#111}
-.cmp-item::before{content:'·';opacity:.4}
-.cmp-arrow{ text-align:center;padding:6px;color:var(--muted2);font-size:12px}
-.cmp-col.after .cmp-arrow{color:rgba(0,0,0,.4)}
+.compare{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:860px){.compare{grid-template-columns:1fr}}
+.cmp{border:1px solid var(--line);border-radius:18px;padding:26px;background:var(--paper)}
+.cmp.after{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cmp h4{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.14em;margin-bottom:18px;opacity:.7}
+.cmp.after h4{opacity:.6;color:var(--bg)}
+.cmp ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cmp li{font-size:13.5px;display:flex;gap:10px;align-items:start;line-height:1.5;padding:10px 12px;border-radius:12px;background:rgba(28,26,23,.04);border:1px solid var(--line)}
+.cmp.after li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08);color:var(--bg)}
+.cmp li::before{content:'—';color:var(--muted2);flex-shrink:0;margin-top:1px;font-size:12px}
+.cmp.after li::before{color:var(--brass)}
 
-/* system */
-.system{position:relative;overflow:hidden}
-.system::before{content:'';position:absolute;inset:0;background:radial-gradient(70% 70% at 50% 110%,rgba(237,230,222,.06),transparent 60%);pointer-events:none}
-.sys-graph{margin:56px auto 0;max-width:900px;display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;position:relative}
-.sys-node{padding:16px 20px;border:1px solid var(--line);border-radius:999px;background:var(--bg2);font-size:13.5px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px;transition:.6s}
-.sys-node.active{border-color:rgba(237,230,222,.2);background:#141414;box-shadow:0 4px 24px rgba(0,0,0,.4)}
-.sys-node i{width:8px;height:8px;border-radius:50%;background:var(--muted2);transition:.6s}
-.sys-node.active i{background:var(--accent);box-shadow:0 0 8px rgba(237,230,222,.6)}
-.sys-line{width:36px;height:1px;background:var(--line2);flex-shrink:0}
+/* quote */
+.quote{max-width:760px;margin:0 auto;text-align:center;padding:12px 0 4px}
+.quote blockquote{font-family:'Fraunces',serif;font-size:clamp(22px,3.2vw,32px);line-height:1.15;letter-spacing:-.03em;font-weight:400;text-wrap:balance}
+.quote blockquote em{font-style:italic;color:var(--brass2)}
+.quote cite{margin-top:16px;display:block;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted2);font-style:normal}
 
-/* statement */
-.statement{padding:140px 0;text-align:center}
-.statement h2{font-family:'Instrument Serif',serif;font-size:clamp(36px,5.5vw,64px);line-height:1.05;letter-spacing:-.04em;font-weight:400;max-width:900px;margin:0 auto}
-.statement i{font-style:italic;color:var(--accent)}
+/* FAQ */
+.faq{max-width:760px;margin:36px auto 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);text-align:left}
+.faq-item{border-bottom:1px solid var(--line);padding:20px 22px}
+.faq-item:last-child{border-bottom:none}
+.faq-item b{font-size:14px;letter-spacing:-.01em;display:block}
+.faq-item p{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:6px}
 
-/* final cta */
-.cta{padding:100px 0 80px;text-align:center;border-top:1px solid var(--line)}
-.cta h2{font-family:'Instrument Serif',serif;font-size:clamp(48px,7vw,84px);line-height:.9;letter-spacing:-.04em;font-weight:400}
-.cta h2 i{font-style:italic;color:var(--accent)}
-.cta p{color:var(--muted);margin:20px auto 0;max-width:480px;font-size:18px;line-height:1.6}
-.cta-btns{margin-top:36px;display:flex;gap:12px;justify-content:center}
-.cta-note{margin-top:16px;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted2)}
+/* CTA charcoal */
+.cta-charcoal{background:var(--ink);color:var(--bg);padding:72px 0;border-top:1px solid var(--ink)}
+.cta-charcoal .h2{color:var(--bg)}
+.cta-charcoal .h2 em{color:var(--brass)}
+.cta-charcoal .p{color:rgba(250,248,243,.68)}
+.cta-charcoal .btn-primary{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.cta-charcoal .btn-primary:hover{background:#fff}
+.cta-charcoal .btn-ghost{background:transparent;color:var(--bg);border-color:rgba(250,248,243,.18)}
+.cta-charcoal .btn-ghost:hover{border-color:rgba(250,248,243,.35)}
+.micro{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:rgba(250,248,243,.5);margin-top:14px}
 
 /* footer */
-footer{border-top:1px solid var(--line);padding:48px 0 32px}
-.footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:start}
-.footer-wordmark{font-family:'Instrument Serif',serif;font-size:44px;letter-spacing:-.04em;line-height:1}
-.footer-wordmark span{display:block;font-family:'Instrument Sans',sans-serif;font-size:13px;letter-spacing:.04em;color:var(--muted);margin-top:8px}
-.footer-links{display:flex;gap:36px;flex-wrap:wrap}
-.footer-links a{font-size:13.5px;color:var(--muted);transition:.2s}
-.footer-links a:hover{color:var(--text)}
-.footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-bottom span{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted2)}
+footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)}
+.foot-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start;max-width:1160px;margin:0 auto;padding:0 24px}
+.foot-mark{font-family:'Fraunces',serif;font-size:28px;letter-spacing:-.04em}
+.foot-mark span{display:block;font-family:'Inter',sans-serif;font-size:12.5px;letter-spacing:-.01em;color:var(--muted);margin-top:6px;max-width:280px;line-height:1.5}
+.foot-links{display:flex;gap:28px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:var(--muted)}
+.foot-links a:hover{color:var(--ink)}
+.foot-bottom{max-width:1160px;margin:28px auto 0;padding:16px 24px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot-bottom span{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
 
-/* responsive */
-@media(max-width:900px){
-  .type-grid{grid-template-columns:1fr 1fr}
-  .split{grid-template-columns:1fr}
-  .timeline{grid-template-columns:1fr 1fr}
-  .scale-cards{grid-template-columns:1fr}
-  .compare{grid-template-columns:1fr}
-  .sys-graph{gap:10px}
-  .sys-line{display:none}
-}
-@media(max-width:640px){
-  .nav-links{display:none}
-  .nav-mobile-btn{display:inline-flex}
-  .type-grid{grid-template-columns:1fr}
-  .flow{border-radius:20px;flex-direction:column;padding:10px}
-  .flow-arrow{width:1px;height:18px}
-  .flow-arrow::after{content:'↓';right:auto;left:50%;transform:translateX(-50%)}
-  .nav{padding:16px 18px}
-  .container{width:min(1120px,calc(100% - 32px))}
-  section{padding:80px 0}
-}
+/* reveal */
+.reveal{opacity:0;transform:translateY(10px);transition:.7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 
-/* auth styles */
-.auth-container{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:var(--bg);
-}
-.auth-card{
-  width:100%;
-  max-width:420px;
-  background:var(--bg2);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:48px 36px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.07);
-}
-.auth-card h1{
-  font-family:'Instrument Serif',serif;
-  font-size:32px;
-  line-height:1.1;
-  margin-bottom:8px;
-  letter-spacing:-.02em;
-}
-.auth-card .subtext{
-  color:var(--muted);
-  font-size:15px;
-  margin-bottom:36px;
-}
-.auth-form input{
-  width:100%;
-  background:#0A0A0A;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:16px 20px;
-  font-size:15px;
-  color:var(--text);
-  margin-bottom:16px;
-}
-.auth-form button{
-  width:100%;
-  background:var(--text);
-  color:#080808;
-  padding:16px 20px;
-  border-radius:12px;
-  font-size:15px;
-  font-weight:500;
-  transition:.2s;
-}
-.auth-form button:hover{
-  background:#fff;
-  transform:translateY(-1px);
-}
-.auth-link{
-  color:var(--accent);
-  text-decoration:none;
-  font-size:14.5px;
-}
-.auth-link:hover{
-  text-decoration:underline;
-}
-.auth-footer{
-  margin-top:32px;
-  font-size:14px;
-  color:var(--muted);
-}
-.auth-footer a{
-  color:var(--text);
-  text-decoration:none;
-}
-.auth-footer a:hover{
-  text-decoration:underline;
-}
-
-/* app styles */
-.app{
-  display:flex;
-  min-height:100vh;
-  background:var(--bg);
-}
-.app-sidebar{
-  width:280px;
-  background:var(--bg2);
-  border-right:1px solid var(--line);
-  padding:40px 20px;
-  display:flex;
-  flex-direction:column;
-}
-.app-sidebar .logo{
-  font-family:'Instrument Serif',serif;
-  font-size:28px;
-  margin-bottom:60px;
-}
-.app-sidebar nav ul{
-  list-style:none;
-}
-.app-sidebar nav li{
-  padding:14px 20px;
-  border-radius:12px;
-  margin-bottom:4px;
-  cursor:pointer;
-  transition:.2s;
-}
-.app-sidebar nav li:hover{
-  background:var(--bg3);
-}
-.app-sidebar nav li.active{
-  background:var(--text);
-  color:#080808;
-}
-.app-sidebar .account{
-  margin-top:auto;
-  padding-top:40px;
-  border-top:1px solid var(--line);
-}
-.app-sidebar .logout{
-  width:100%;
-  background:transparent;
-  border:1px solid var(--line);
-  color:var(--muted);
-  padding:14px;
-  border-radius:999px;
-}
-.app-sidebar .logout:hover{
-  background:var(--bg3);
-}
-.app-main{
-  flex:1;
-  padding:40px;
-  overflow:auto;
-}
-.app-main h1{
-  font-size:42px;
-  line-height:1.1;
-  margin-bottom:8px;
-  font-family:'Instrument Serif',serif;
-}
-.app-main .greeting{
-  color:var(--muted);
-  font-size:18px;
-  margin-bottom:32px;
-}
-.input-area{
-  background:var(--bg2);
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:24px 28px;
-  font-size:16px;
-  color:var(--text);
-  resize:none;
-  min-height:120px;
-}
-.create-btn{
-  background:var(--text);
-  color:#080808;
-  padding:16px 32px;
-  border-radius:999px;
-  font-size:15px;
-  font-weight:500;
-  margin-top:16px;
-}
-.projects{
-  margin-top:60px;
-}
-.project{
-  background:var(--bg2);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:16px;
-  display:flex;
-  align-items:center;
-  gap:20px;
-}
-.project-info{
-  flex:1;
-}
-.project-info h5{
-  font-size:15px;
-  margin-bottom:4px;
-}
-.project-info p{
-  color:var(--muted);
-  font-size:13.5px;
-}
+/* auth */
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg)}
+.auth-card{width:100%;max-width:420px;background:var(--paper);border:1px solid var(--line2);border-radius:20px;padding:36px 28px;box-shadow:0 12px 40px rgba(28,26,23,.06)}
+.auth-card h1{font-family:'Fraunces',serif;font-size:30px;letter-spacing:-.03em;line-height:1}
+.auth-card .sub{color:var(--muted);font-size:14px;margin:8px 0 24px}
+.auth-card input{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;font-size:14px;color:var(--ink);margin-bottom:12px}
+.auth-card input:focus{outline:2px solid rgba(184,147,95,.35);border-color:var(--brass)}
+.auth-card button{width:100%;background:var(--ink);color:var(--bg);padding:13px;border-radius:999px;font-size:14px;font-weight:500;border:1px solid var(--ink)}
+.auth-card a{color:var(--brass2);font-size:13.5px}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
+<a class="skip" href="#main">Skip to content</a>
 <div class="nav-wrap" id="navWrap">
-  <nav class="nav" id="nav">
-    <a href="#" class="nav-logo">Name</a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#" class="nav-logo" aria-label="Lucit home">Lucit <i aria-hidden="true"></i></a>
     <div class="nav-links" id="navLinks">
-      <a href="#how">How it works</a>
-      <a href="#features">Features</a>
-      <a href="#resources">Resources</a>
+      <a href="#pipeline">How it works</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#faq">FAQ</a>
     </div>
-    <a href="#" onclick="navigateTo('login');return false;" class="nav-cta">Get started →</a>
-    <button class="nav-mobile-btn" onclick="toggleMobileMenu()">Menu</button>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="#login" onclick="navigateTo('login');return false;" class="nav-ghost" id="navLogin">Log in</a>
+      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Start posting →</a>
+      <button class="mob-btn" onclick="toggleMobile()" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    </div>
   </nav>
 </div>
 
+<main id="main">
 <!-- HERO -->
-<section class="hero" style="border-top:none;padding-bottom:120px">
-  <div class="container center">
-    <div class="eyebrow reveal">CONTENT CREATION AUTOMATED</div>
-    <h1 class="reveal reveal-d1"><span>Create more.</span><span class="line2">Do <i>less.</i></span></h1>
-    <p class="hero-sub reveal reveal-d2">Content creation automated.</p>
-    <div class="hero-btns reveal reveal-d3">
-      <a href="#" onclick="navigateTo('login');return false;" class="btn-primary">Get started →</a>
-      <a href="#how" class="btn-ghost">See how it works</a>
-    </div>
-  </div>
-</section>
-
-<!-- existing sections preserved (how, automation, features, create, etc) -->
-
-<!-- ... existing sections ... -->
-
-<!-- FINAL CTA -->
-<section class="cta" id="get-started">
-  <div class="container">
-    <h2 class="reveal">Create more.<br>Do <i>less.</i></h2>
-    <p class="reveal reveal-d1">Content creation automated.</p>
-    <div class="cta-btns reveal reveal-d2">
-      <a href="#" onclick="navigateTo('login');return false;" class="btn-primary">Get started →</a>
-    </div>
-    <div class="cta-note reveal reveal-d2">Content creation automated.</div>
-  </div>
-</section>
-
-<footer>
-  <div class="container">
-    <div class="footer-top">
-      <div class="footer-wordmark">Name<span>Content creation automated.</span></div>
-      <div class="footer-links">
-        <a href="#how">How it works</a>
-        <a href="#features">Features</a>
-        <a href="#resources">Resources</a>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-head">
+      <div class="eyebrow">FOR SOLO FACELESS CREATORS — NOT HOBBYISTS</div>
+      <h1>Upload once.<br><em>Wake up to a week posted.</em></h1>
+      <p class="hero-sub">One long video in. Six finished shorts out — clipped, captioned, and already posted to TikTok, Reels &amp; Shorts. <b style="color:var(--ink);font-weight:500">Never open an editor again.</b></p>
+      <div class="hero-actions">
+        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start posting — free <span aria-hidden="true">→</span></a>
+        <a href="#pipeline" class="btn-ghost">See the pipeline</a>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Name</span>
-      <span style="color:var(--muted)">Quiet luxury. Precision. Simplicity.</span>
-    </div>
-  </div>
-</footer>
-
-<!-- AUTH PAGES -->
-<div id="authPages" style="display:none;">
-  <!-- LOGIN -->
-  <div id="loginPage" class="auth-container">
-    <div class="auth-card">
-      <h1>Welcome back.</h1>
-      <p class="subtext">Continue creating with Name.</p>
-      <div class="auth-form">
-        <input type="email" id="loginEmail" placeholder="Email" value="demo@example.com">
-        <input type="password" id="loginPass" placeholder="Password" value="demo123">
-        <button onclick="fakeLogin()">Log in →</button>
-      </div>
-      <div class="auth-footer">
-        Don't have an account?
-        <a href="#" onclick="navigateTo('signup');return false;">Sign up</a>
-      </div>
+      <div class="hero-note">No editor. No scheduling. No backlog. <b>Posted, not just generated.</b></div>
     </div>
   </div>
 
-  <!-- SIGNUP -->
-  <div id="signupPage" class="auth-container">
-    <div class="auth-card">
-      <h1>Create your account.</h1>
-      <p class="subtext">Start creating with Name.</p>
-      <div class="auth-form">
-        <input type="text" id="signupName" placeholder="Name" value="Demo User">
-        <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com">
-        <input type="password" id="signupPass" placeholder="Password" value="demo123">
-        <button onclick="fakeSignup()">Create account →</button>
-      </div>
-      <div class="auth-footer">
-        Already have an account?
-        <a href="#" onclick="navigateTo('login');return false;">Log in</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- APP -->
-  <div id="appPage" style="display:none;">
-    <div class="app">
-      <div class="app-sidebar">
-        <div class="logo">Name</div>
-        <nav>
-          <ul>
-            <li onclick="switchTab('create')" class="active" id="tab-create">Create</li>
-            <li onclick="switchTab('library')" id="tab-library">Library</li>
-            <li onclick="switchTab('projects')" id="tab-projects">Projects</li>
-            <li onclick="switchTab('settings')" id="tab-settings">Settings</li>
-          </ul>
-        </nav>
-        <div class="account">
-          <div id="userInfo">Demo User</div>
-          <button class="logout" onclick="fakeLogout()">Log out</button>
+  <!-- TRANSFORMATION VISUAL — this IS the product -->
+  <div class="transform-wrap" aria-label="Transformation: one long video becomes six shorts">
+    <div class="transform-inner">
+      <div class="transform-grid">
+        <!-- source -->
+        <div>
+          <div class="source-label">YOUR LONG VIDEO</div>
+          <div class="source-card">
+            <div class="source-thumb" role="img" aria-label="Long video thumbnail, 28 minutes 42 seconds">
+              <div class="thumb-play" aria-hidden="true"></div>
+              <div class="thumb-meta">
+                <div class="thumb-title">How I built a faceless channel to $4k/mo — full breakdown</div>
+                <div class="thumb-badge">28:42</div>
+              </div>
+            </div>
+            <div class="source-foot">
+              <div>
+                <b>Episode #42</b>
+                <span>· 4K · 18.3k views</span>
+              </div>
+              <div class="source-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="app-main">
-        <div id="tab-content">
-          <h1 id="currentTabTitle">Good morning.</h1>
-          <p class="greeting" id="greetingText">What are you creating?</p>
-          
-          <textarea id="ideaInput" class="input-area" placeholder="Describe an idea...&#10;Launch a new product for creators"></textarea>
-          <button onclick="fakeCreate()" class="create-btn">Create →</button>
-          
-          <div class="projects">
-            <h2 style="font-size:22px;margin-bottom:20px;">Recent projects</h2>
-            <div class="project">
-              <div class="project-info">
-                <h5>Product launch</h5>
-                <p>2 hours ago • Video + captions</p>
+
+        <!-- bridge — hairline brass, no extra chrome -->
+        <div class="flow-bridge" aria-hidden="true">
+          <div class="line"></div>
+          <svg class="flow-svg" viewBox="0 0 1 48" preserveAspectRatio="none" aria-hidden="true"><line x1="0.5" y1="0" x2="0.5" y2="48" stroke="#B8935F" stroke-width="1" opacity="0.55"/></svg>
+          <div class="label">LUCIT DOES THE REST</div>
+          <div class="line"></div>
+        </div>
+
+        <!-- clips -->
+        <div>
+          <div class="clips-label"><span>6 FINISHED SHORTS — READY POSTED</span> <em>THIS WEEK</em></div>
+          <div class="clips-grid">
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 1: hook about monetization">
+                <div class="clip-top"><span class="clip-plat">REELS</span><span class="clip-time">0:28</span></div>
+                <div class="clip-cap"><p>The one editing mistake killing your watch time</p></div>
               </div>
-              <div style="font-size:13px;color:var(--muted)">Ready</div>
-            </div>
-            <div class="project">
-              <div class="project-info">
-                <h5>Social campaign</h5>
-                <p>Yesterday • Carousel</p>
+              <div class="clip-foot"><b>Mon · 07:30</b><span>Captions + hook baked in</span><div class="meta"><i></i> Posted</div></div>
+            </article>
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 2: revenue breakdown">
+                <div class="clip-top"><span class="clip-plat">SHORTS</span><span class="clip-time">0:34</span></div>
+                <div class="clip-cap"><p>$0 to $4k: what actually got me monetized</p></div>
               </div>
-              <div style="font-size:13px;color:var(--muted)">Published</div>
-            </div>
+              <div class="clip-foot"><b>Tue · 18:00</b><span>Auto-reframed 9:16</span><div class="meta"><i></i> Posted</div></div>
+            </article>
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 3: faceless setup">
+                <div class="clip-top"><span class="clip-plat">TIKTOK</span><span class="clip-time">0:22</span></div>
+                <div class="clip-cap"><p>Faceless setup that looks human, not AI</p></div>
+              </div>
+              <div class="clip-foot"><b>Wed · 07:30</b><span>Sound-synced cuts</span><div class="meta"><i></i> Posted</div></div>
+            </article>
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 4: retention tip">
+                <div class="clip-top"><span class="clip-plat">REELS</span><span class="clip-time">0:31</span></div>
+                <div class="clip-cap"><p>Retention trick I stole from MrBeast editors</p></div>
+              </div>
+              <div class="clip-foot"><b>Thu · 18:00</b><span>Brass captions</span><div class="meta"><i class="queued"></i> Queued</div></div>
+            </article>
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 5: posting time">
+                <div class="clip-top"><span class="clip-plat">SHORTS</span><span class="clip-time">0:27</span></div>
+                <div class="clip-cap"><p>Why you post at the wrong hour</p></div>
+              </div>
+              <div class="clip-foot"><b>Fri · 07:30</b><span>Title + hashtags done</span><div class="meta"><i class="queued"></i> Queued</div></div>
+            </article>
+            <article class="clip">
+              <div class="clip-v" role="img" aria-label="Clip 6: monetization check">
+                <div class="clip-top"><span class="clip-plat">TIKTOK</span><span class="clip-time">0:29</span></div>
+                <div class="clip-cap"><p>The monetization check nobody shows you</p></div>
+              </div>
+              <div class="clip-foot"><b>Sat · 12:00</b><span>Already scheduled</span><div class="meta"><i class="queued"></i> Queued</div></div>
+            </article>
           </div>
         </div>
       </div>
     </div>
   </div>
+</header>
+
+<!-- PIPELINE — signature moment -->
+<section class="s" id="pipeline">
+  <div class="container center">
+    <div class="kicker">ZERO TOUCH — ONE ORCHESTRATED MOMENT</div>
+    <h2 class="h2">You upload.<br><em>Lucit posts.</em></h2>
+    <p class="p" style="margin-left:auto;margin-right:auto">No timeline. No exports. No scheduler tab. The pipeline runs once, end to end, then goes still — because done is better than busy.</p>
+
+    <div class="pipeline" id="pipe" aria-label="Pipeline: upload, clip, caption, post">
+      <div class="pipe-line" id="pipeLine"><i></i></div>
+      <div class="pipe-track">
+        <div class="pipe-step" data-step="0">
+          <div class="pipe-dot"><b>1</b><small>✓</small></div>
+          <h4>Upload</h4>
+          <p>Drop one long video. Any length, any topic.</p>
+          <div class="when">30 SECONDS</div>
+        </div>
+        <div class="pipe-step" data-step="1">
+          <div class="pipe-dot"><b>2</b><small>✓</small></div>
+          <h4>Clip</h4>
+          <p>Lucit finds the 6 strongest moments. No filler cuts.</p>
+          <div class="when">AUTO</div>
+        </div>
+        <div class="pipe-step" data-step="2">
+          <div class="pipe-dot"><b>3</b><small>✓</small></div>
+          <h4>Caption</h4>
+          <p>Burned-in captions, reframed 9:16, hook on frame one.</p>
+          <div class="when">AUTO</div>
+        </div>
+        <div class="pipe-step" data-step="3">
+          <div class="pipe-dot"><b>4</b><small>✓</small></div>
+          <h4>Post</h4>
+          <p>Scheduled across TikTok, Reels &amp; Shorts. Already live.</p>
+          <div class="when">WHILE YOU SLEEP</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid3 reveal">
+      <div>
+        <h4><i></i> Never open an editor again</h4>
+        <p>No Premiere. No CapCut. No “just one more tweak.” Your job is to record — ours is to ship.</p>
+        <span class="num">01 — EDITING = 0</span>
+      </div>
+      <div>
+        <h4><i></i> Posted, not “generated”</h4>
+        <p>Drafts don’t get monetized. Every clip is titled, captioned, scheduled — and posted.</p>
+        <span class="num">02 — OUTCOME = POSTED</span>
+      </div>
+      <div>
+        <h4><i></i> Built for monetization</h4>
+        <p>Hooks, retention cuts, and posting windows tuned for watch time — not vanity views.</p>
+        <span class="num">03 — GOAL = WATCH TIME</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO / NOT FOR -->
+<section class="s" style="padding-top:40px">
+  <div class="container">
+    <div class="compare reveal" id="outcomes">
+      <div class="cmp">
+        <h4>NOT FOR</h4>
+        <ul>
+          <li>Hobbyists collecting drafts and templates</li>
+          <li>Teams who love the timeline</li>
+          <li>Anyone who wants “AI tools” — not results</li>
+        </ul>
+      </div>
+      <div class="cmp after">
+        <h4>FOR SOLO FACELESS CREATORS</h4>
+        <ul>
+          <li>You record once a week — that’s the whole job</li>
+          <li>You want a calendar that’s full, not a folder that’s full</li>
+          <li>You’re building toward monetization, not likes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week reveal" aria-label="A week of content, posted">
+      <div class="week-head">
+        <div><b>This week — from one upload on Sunday</b> <span>· 6 posts · 3 platforms</span></div>
+        <em>PROOF, NOT PROMISE</em>
+      </div>
+      <div class="week-grid">
+        <div class="week-day"><small>MON 07:30</small><b>The edit mistake killing watch time</b><p>Burned captions, cold open on the payoff. 28s.</p><div class="status"><i></i> Posted to Reels</div></div>
+        <div class="week-day"><small>TUE 18:00</small><b>$0 → $4k breakdown</b><p>Numbers on screen, no fluff. 34s.</p><div class="status"><i></i> Posted to Shorts</div></div>
+        <div class="week-day"><small>WED 07:30</small><b>Faceless setup that looks human</b><p>Auto-reframe keeps you centered. 22s.</p><div class="status"><i></i> Posted to TikTok</div></div>
+        <div class="week-day"><small>THU 18:00</small><b>Retention trick from top editors</b><p>Beat-synced cuts, brass word highlights. 31s.</p><div class="status"><i></i> Posted to Reels</div></div>
+        <div class="week-day soon"><small>FRI 07:30</small><b>Wrong hour = wrong reach</b><p>Posting window set for your audience. 27s.</p><div class="status"><i></i> Queued</div></div>
+        <div class="week-day soon"><small>SAT 12:00</small><b>The monetization check</b><p>Thumbnail + title already set. 29s.</p><div class="status"><i></i> Queued</div></div>
+        <div class="week-day soon"><small>SUN —</small><b>You record again</b><p>One new long video. Week refills.</p><div class="status"><i></i> Ready</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="s" style="padding:56px 0">
+  <div class="container">
+    <div class="quote reveal">
+      <blockquote>“I used to spend Saturdays editing. Now I spend them <em>recording the next one.</em>”</blockquote>
+      <cite>— solo creator, 47k → 214k in 11 weeks · faceless finance</cite>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="s" id="faq" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container center">
+    <div class="kicker">STRAIGHT ANSWERS</div>
+    <h2 class="h2">No filler.<br><em>Just posted.</em></h2>
+    <div class="faq reveal">
+      <div class="faq-item"><b>Do I need to edit anything?</b><p>No. Captions, reframe, cuts, titles, hashtags, scheduling — Lucit handles it. You review only if you want to; posting doesn’t wait for you.</p></div>
+      <div class="faq-item"><b>What do I upload?</b><p>One long video per week — talking head, screen share, voiceover, whatever your channel is. 10 minutes to 2 hours, we handle the rest.</p></div>
+      <div class="faq-item"><b>Where does it post?</b><p>TikTok, Instagram Reels, YouTube Shorts. One toggle per platform. We schedule for watch-time windows, not all at once.</p></div>
+      <div class="faq-item"><b>What if I don’t like a clip?</b><p>Skip it with one tap — the rest still posts. No re-editing, no re-exporting.</p></div>
+      <div class="faq-item"><b>Is this for beginners chasing trends?</b><p>No. It’s for solo faceless creators treating this like a business and aiming to get monetized. Consistency beats tricks.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA — charcoal -->
+<section class="cta-charcoal">
+  <div class="container center">
+    <h2 class="h2">Record one.<br><em>We post the week.</em></h2>
+    <p class="p" style="margin-left:auto;margin-right:auto">Start free. Upload your next long video and wake up to content already live.</p>
+    <div class="hero-actions" style="margin-top:28px">
+      <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start posting — free →</a>
+      <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
+    </div>
+    <div class="micro">No credit card · Cancel anytime · Posted, not just generated</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-mark">Lucit</div>
+      <span>From <em style="color:var(--brass2);font-family:'Fraunces',serif;font-style:italic">lux</em> — light. We turn one recording into a week of light, already posted.</span>
+    </div>
+    <div class="foot-links">
+      <a href="#pipeline">How it works</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#faq">FAQ</a>
+      <a href="#login" onclick="navigateTo('login');return false;">Log in</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Lucit</span>
+    <span>Notion-calm. Brass-lit. Posted, not promised.</span>
+  </div>
+</footer>
+
+<!-- AUTH OVERLAY (keeps existing hash routing, now in warm palette) -->
+<div id="authPages" style="display:none">
+  <div id="loginPage" class="auth-wrap" style="display:none">
+    <div class="auth-card">
+      <h1>Welcome back.</h1>
+      <p class="sub">Continue with Lucit.</p>
+      <div>
+        <input type="email" id="loginEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
+        <input type="password" id="loginPass" placeholder="Password" value="demo123" autocomplete="current-password">
+        <button onclick="fakeLogin()">Log in →</button>
+      </div>
+      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">No account? <a href="#" onclick="navigateTo('signup');return false;">Sign up</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
+    </div>
+  </div>
+  <div id="signupPage" class="auth-wrap" style="display:none">
+    <div class="auth-card">
+      <h1>Create your account.</h1>
+      <p class="sub">One upload → a week posted.</p>
+      <div>
+        <input type="text" id="signupName" placeholder="Name" value="Demo User" autocomplete="name">
+        <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
+        <input type="password" id="signupPass" placeholder="Password" value="demo123" autocomplete="new-password">
+        <button onclick="fakeSignup()">Create account →</button>
+      </div>
+      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">Have an account? <a href="#" onclick="navigateTo('login');return false;">Log in</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
+    </div>
+  </div>
+  <div id="appPage" class="auth-wrap" style="display:none">
+    <div class="auth-card" style="max-width:560px">
+      <h1>You're in.</h1>
+      <p class="sub">Pipeline connected. Drop a long video to fill the week.</p>
+      <div style="border:1px dashed var(--line2);border-radius:14px;padding:18px;background:var(--bg);margin:18px 0">
+        <b style="font-size:13px">Demo project</b>
+        <p style="font-size:13px;color:var(--muted);margin-top:4px">Backend + Supabase not wired in this preview. Your upload would appear here as 6 scheduled shorts.</p>
+      </div>
+      <button onclick="fakeLogout()" style="background:var(--paper);color:var(--ink)">Log out</button>
+      <p style="margin-top:16px"><a href="#" onclick="navigateTo('home');return false;">← Back to landing</a></p>
+    </div>
+  </div>
 </div>
 
 <script>
-// existing nav blur
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>{ nav.classList.toggle('scrolled', scrollY>20) }, {passive:true});
-
-// existing reveals
-const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in') }),{threshold:.15});
+// reveals
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// nav links smooth
-document.querySelectorAll('.nav-links a').forEach(link=>{
-  link.addEventListener('click', (e)=>{
-    if(link.getAttribute('href') === '#get-started') return;
-    e.preventDefault();
-    const target = link.getAttribute('href').substring(1);
-    if(document.getElementById(target + 'Page')) {
-      navigateTo(target);
-    } else {
-      document.getElementById(target).scrollIntoView({behavior:'smooth'});
+// signature pipeline — plays once on scroll
+const pipe=document.getElementById('pipe');
+const pipeLine=document.getElementById('pipeLine');
+let played=false;
+const pio=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting && !played){
+      played=true;
+      pipeLine.classList.add('played');
+      const steps=[...document.querySelectorAll('.pipe-step')];
+      steps.forEach((s,i)=>{
+        setTimeout(()=>{
+          s.classList.add('active');
+          if(i<steps.length-1) s.classList.add('done');
+        }, 300 + i*420);
+      });
+      pio.unobserve(pipe);
     }
   });
+},{threshold:.35});
+if(pipe) pio.observe(pipe);
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  // show immediately, no animation
+  if(pipeLine) pipeLine.classList.add('played');
+  document.querySelectorAll('.pipe-step').forEach(s=>{s.classList.add('active');s.classList.add('done')});
+}
+
+// nav
+function toggleMobile(){
+  const l=document.getElementById('navLinks');
+  const btn=document.querySelector('.mob-btn');
+  const open=l.style.display==='flex';
+  l.style.display=open?'none':'flex';
+  if(btn) btn.setAttribute('aria-expanded', String(!open));
+  if(!open){
+    l.style.flexDirection='column';l.style.position='absolute';l.style.top='56px';l.style.right='12px';l.style.background='var(--paper)';l.style.border='1px solid var(--line2)';l.style.borderRadius='14px';l.style.padding='12px';l.style.boxShadow='0 12px 32px rgba(0,0,0,.08)';
+  }
+}
+
+// hash routing — preserves existing behavior, adds home
+function navigateTo(page){
+  if(page==='home'){ history.pushState('',document.title, location.pathname); showPage('home'); return; }
+  location.hash='#'+page; showPage(page);
+}
+function showPage(page){
+  const auth=document.getElementById('authPages');
+  const login=document.getElementById('loginPage');
+  const signup=document.getElementById('signupPage');
+  const app=document.getElementById('appPage');
+  const main=document.querySelector('main');
+  const foot=document.querySelector('footer');
+  const navLogin=document.getElementById('navLogin');
+  const isAuth=['login','signup','app'].includes(page);
+  if(isAuth){
+    auth.style.display='block';
+    login.style.display=page==='login'?'flex':'none';
+    signup.style.display=page==='signup'?'flex':'none';
+    app.style.display=page==='app'?'flex':'none';
+    if(main) main.style.display='none';
+    if(foot) foot.style.display='none';
+    window.scrollTo(0,0);
+    if(navLogin) navLogin.style.display='none';
+  } else {
+    auth.style.display='none';
+    if(main) main.style.display='block';
+    if(foot) foot.style.display='block';
+    if(login) login.style.display='none';
+    if(signup) signup.style.display='none';
+    if(app) app.style.display='none';
+    if(navLogin) navLogin.style.display='';
+  }
+}
+window.addEventListener('hashchange',()=>{
+  const h=location.hash.slice(1);
+  if(h) showPage(h);
 });
-
-// hash navigation
-function navigateTo(page) {
-  window.location.hash = '#' + page;
-  showPage(page);
-}
-
-function showPage(page) {
-  document.getElementById('authPages').style.display = 'block';
-  document.getElementById('loginPage').style.display = page === 'login' ? 'flex' : 'none';
-  document.getElementById('signupPage').style.display = page === 'signup' ? 'flex' : 'none';
-  document.getElementById('appPage').style.display = page === 'app' ? 'block' : 'none';
-  
-  // update nav active
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  if(page === 'login' || page === 'signup') {
-    // no nav for auth
-  } else {
-    // scroll to top for app
-    if(page === 'app') window.scrollTo(0,0);
-  }
-}
-
-// fake auth
-function fakeLogin() {
-  const email = document.getElementById('loginEmail').value;
-  const pass = document.getElementById('loginPass').value;
-  if(email && pass) {
-    localStorage.setItem('session', JSON.stringify({email}));
-    navigateTo('app');
-  } else {
-    alert("Check your email and password.");
-  }
-}
-
-function fakeSignup() {
-  const name = document.getElementById('signupName').value;
-  const email = document.getElementById('signupEmail').value;
-  const pass = document.getElementById('signupPass').value;
-  if(email && pass) {
-    localStorage.setItem('session', JSON.stringify({email, name}));
-    navigateTo('app');
-  } else {
-    alert("Check your details.");
-  }
-}
-
-function fakeLogout() {
-  localStorage.removeItem('session');
-  navigateTo('login');
-}
-
-function fakeCreate() {
-  const input = document.getElementById('ideaInput');
-  if(!input.value.trim()) {
-    alert("Describe an idea to create content.");
-    return;
-  }
-  // loading state
-  const btn = document.querySelector('.create-btn');
-  const originalText = btn.textContent;
-  btn.textContent = 'Creating...';
-  btn.disabled = true;
-  
-  // simulate AI processing (dev state)
-  setTimeout(() => {
-    btn.textContent = originalText;
-    btn.disabled = false;
-    // show success (demo)
-    alert("Content would be generated here.\n\nBackend + AI provider not connected yet.\nConnect Supabase + API key to make this real.");
-    // clear input
-    input.value = '';
-  }, 1800);
-}
-
-function switchTab(tab) {
-  document.querySelectorAll('#tab-create, #tab-library, #tab-projects, #tab-settings').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  
-  const titles = {
-    create: 'Good morning.',
-    library: 'Your library',
-    projects: 'Projects',
-    settings: 'Settings'
-  };
-  document.getElementById('currentTabTitle').textContent = titles[tab];
-  document.getElementById('greetingText').textContent = tab === 'create' ? 'What are you creating?' : 'Recent activity';
-}
-
-// init
-window.addEventListener('hashchange', () => {
-  const hash = window.location.hash.substring(1);
-  if(hash) showPage(hash);
+window.addEventListener('load',()=>{
+  const h=location.hash.slice(1);
+  if(['login','signup','app'].includes(h)) showPage(h);
+  else showPage('home');
+  const s=localStorage.getItem('session');
+  // don't auto-redirect on landing anymore — respect brief; only if user explicitly was in app
+  // if(s && !h) navigateTo('app');
 });
-
-// check session on load
-window.addEventListener('load', () => {
-  const session = localStorage.getItem('session');
-  if(session) {
-    navigateTo('app');
-  } else {
-    navigateTo('login');
-  }
-});
-
-// mobile menu
-function toggleMobileMenu() {
-  const links = document.getElementById('navLinks');
-  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+function fakeLogin(){
+  const e=document.getElementById('loginEmail').value;
+  const p=document.getElementById('loginPass').value;
+  if(e&&p){ localStorage.setItem('session', JSON.stringify({email:e})); navigateTo('app'); }
+  else alert('Check email and password.');
 }
+function fakeSignup(){
+  const n=document.getElementById('signupName').value;
+  const e=document.getElementById('signupEmail').value;
+  const p=document.getElementById('signupPass').value;
+  if(e&&p){ localStorage.setItem('session', JSON.stringify({email:e,name:n})); navigateTo('app'); }
+  else alert('Check your details.');
+}
+function fakeLogout(){ localStorage.removeItem('session'); navigateTo('home'); }
 </script>
-
 </body>
 </html>

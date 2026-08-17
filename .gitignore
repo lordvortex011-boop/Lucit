@@ -9,3 +9,4 @@ out
 .vercel
 *.log
 vite-env.d.ts
+screenshot-*.png
