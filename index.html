@@ -35,8 +35,7 @@ a{color:inherit;text-decoration:none}
 /* nav */
 .nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,248,243,.72);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.3s}
 .nav{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav-logo{font-family:'Fraunces',serif;font-size:22px;letter-spacing:-.04em;font-weight:500;display:flex;align-items:center;gap:8px}
-.nav-logo i{width:8px;height:8px;border-radius:50%;background:var(--brass);display:inline-block;box-shadow:0 0 0 6px rgba(184,147,95,.14)}
+.nav-logo{font-family:'Fraunces',serif;font-size:22px;letter-spacing:-.04em;font-weight:500}
 .nav-links{display:flex;gap:28px;align-items:center}
 .nav-links a{font-size:13.5px;color:var(--muted);transition:.2s;letter-spacing:-.01em}
 .nav-links a:hover{color:var(--ink)}
@@ -49,7 +48,7 @@ a{color:inherit;text-decoration:none}
 /* hero */
 .hero{padding:112px 0 0;border-bottom:1px solid var(--line)}
 .hero-inner{max-width:1160px;margin:0 auto;padding:0 24px}
-.hero-head{text-align:center;padding:48px 0 36px;max-width:760px;margin:0 auto}
+.hero-head{text-align:center;padding:72px 0 48px;max-width:760px;margin:0 auto}
 .eyebrow{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted2);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
 .eyebrow::before{content:'';width:18px;height:1px;background:var(--line-brass)}
 .hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.2vw,68px);line-height:.92;letter-spacing:-.045em;font-weight:400;text-wrap:balance}
@@ -63,65 +62,55 @@ a{color:inherit;text-decoration:none}
 .hero-note{margin-top:14px;font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
 .hero-note b{color:var(--muted);font-weight:400}
 
-/* TRANSFORMATION — the product */
-.transform-wrap{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(to bottom, var(--bg), #FFFFFF 50%, var(--bg));padding:28px 0 32px;overflow:hidden}
-.transform-inner{max-width:1160px;margin:0 auto;padding:0 24px}
-.transform-grid{display:grid;grid-template-columns: 1.15fr auto 1.55fr;gap:20px;align-items:center}
-@media(max-width:900px){.transform-grid{grid-template-columns:1fr;gap:18px}}
-
-/* source */
-.source-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.source-label::after{content:'';flex:1;height:1px;background:var(--line);max-width:80px}
-.source-card{background:var(--paper);border:1px solid var(--line2);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(28,26,23,.06)}
-.source-thumb{aspect-ratio:16/9;background:#111;position:relative;overflow:hidden;display:grid;place-items:center}
-.source-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(80% 80% at 35% 30%, #2A2622 0%, #0F0E0C 65%), linear-gradient(180deg, rgba(184,147,95,.08), transparent 60%)}
-.source-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 55%)}
-.thumb-play{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 4px 20px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.6)}
-.thumb-play::after{content:'▶';font-size:13px;margin-left:2px;color:var(--ink);font-family:system-ui}
-.thumb-meta{position:absolute;left:12px;right:12px;bottom:12px;z-index:1;display:flex;justify-content:space-between;align-items:end;gap:12px}
-.thumb-title{color:#fff;font-size:13px;letter-spacing:-.01em;line-height:1.3;max-width:70%;text-shadow:0 1px 8px rgba(0,0,0,.5)}
-.thumb-badge{font-family:'Fragment Mono',monospace;font-size:10px;background:rgba(0,0,0,.68);color:#fff;padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.14);white-space:nowrap}
-.source-foot{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.source-foot b{font-size:13px;letter-spacing:-.01em}
-.source-foot span{font-size:12.5px;color:var(--muted)}
-.source-dots{display:flex;gap:6px;align-items:center}
-.source-dots i{width:6px;height:6px;border-radius:50%;background:var(--line2)}
-.source-dots i.on{background:var(--brass)}
-
-/* flow connector — brass hairline, no extra chrome */
-.flow-bridge{display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 4px;position:relative}
-.flow-bridge .line{width:1px;height:22px;background:var(--line-brass)}
-.flow-bridge .label{font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--brass2);writing-mode:vertical-rl;text-orientation:mixed}
+/* system diagram — replaces fake transform grid */
+.system-wrap{border-top:1px solid var(--line);background:var(--paper);padding:28px 0 28px}
+.system-inner{max-width:1160px;margin:0 auto;padding:0 24px}
+.system-card{max-width:980px;margin:0 auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
+.system-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.system-card-head b{font-size:13px;letter-spacing:-.01em}
+.system-card-head span{font-size:12.5px;color:var(--muted)}
+.system-card-head em{font-family:'Fragment Mono',monospace;font-style:normal;font-size:10px;letter-spacing:.08em;color:var(--brass2);background:rgba(184,147,95,.1);padding:4px 8px;border-radius:999px;border:1px solid rgba(184,147,95,.18)}
+.sys-diagram{display:grid;grid-template-columns:280px 72px 1fr;align-items:stretch}
+@media(max-width:900px){.sys-diagram{grid-template-columns:1fr;}}
+.sys-source{padding:22px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+@media(max-width:900px){.sys-source{border-right:none;border-bottom:1px solid var(--line)}}
+.sys-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2)}
+.sys-source-visual{aspect-ratio:16/9;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:grid;place-items:center;position:relative}
+.sys-source-visual::before{content:'';position:absolute;inset:12px;border:1px dashed rgba(28,26,23,.12);border-radius:8px;pointer-events:none}
+.sys-source-icon{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:var(--paper);display:grid;place-items:center;font-size:13px;color:var(--muted);position:relative;z-index:1}
+.sys-source-meta{text-align:left}
+.sys-source-meta b{font-size:13px;letter-spacing:-.01em;display:block}
+.sys-source-meta span{font-size:12.5px;color:var(--muted);line-height:1.5;display:block;margin-top:2px}
+.sys-source-meta small{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);margin-top:8px;display:block}
+.sys-bridge{position:relative;display:flex;align-items:center;justify-content:center;padding:16px;border-right:1px solid var(--line)}
+.sys-bridge::before{content:'';position:absolute;left:50%;top:14%;bottom:14%;width:1px;background:var(--line-brass)}
 @media(max-width:900px){
-  .flow-bridge{flex-direction:row;justify-content:center}
-  .flow-bridge .line{width:22px;height:1px}
-  .flow-bridge .label{writing-mode:horizontal-tb}
+  .sys-bridge{border-right:none;border-bottom:1px solid var(--line);padding:18px}
+  .sys-bridge::before{left:14%;right:14%;top:50%;bottom:auto;height:1px;width:auto}
 }
-.flow-svg{width:1px;height:48px;overflow:visible}
-.flow-svg line{stroke:var(--brass);stroke-width:1}
-@media(max-width:900px){.flow-svg{width:48px;height:1px}}
-
-/* clips */
-.clips-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:8px;justify-content:space-between}
-.clips-label em{font-style:normal;color:var(--brass2);letter-spacing:.10em}
-.clips-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-@media(max-width:1100px){.clips-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.clips-grid{grid-template-columns:repeat(6, 132px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:none}.clips-grid::-webkit-scrollbar{display:none}.clip{scroll-snap-align:start}}
-.clip{background:var(--paper);border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(28,26,23,.05);transition:.2s}
-.clip:hover{transform:translateY(-2px);border-color:rgba(184,147,95,.22);box-shadow:0 8px 24px rgba(28,26,23,.08)}
-.clip-v{aspect-ratio:9/16;background:#0E0D0C;position:relative;overflow:hidden}
-.clip-v::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.58) 100%), radial-gradient(90% 60% at 50% 0%, rgba(184,147,95,.14), transparent 60%)}
-.clip-cap{position:absolute;left:8px;right:8px;bottom:8px;z-index:1}
-.clip-cap p{font-size:11px;line-height:1.35;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.clip-top{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;z-index:1}
-.clip-plat{font-family:'Fragment Mono',monospace;font-size:8.5px;letter-spacing:.08em;background:rgba(255,255,255,.92);padding:3px 6px;border-radius:999px;color:var(--ink);border:1px solid rgba(0,0,0,.06)}
-.clip-time{font-family:'Fragment Mono',monospace;font-size:9px;color:rgba(255,255,255,.9);background:rgba(0,0,0,.45);padding:3px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.14)}
-.clip-foot{padding:10px 10px 11px}
-.clip-foot b{font-size:12px;letter-spacing:-.01em;display:block;line-height:1.2}
-.clip-foot span{font-size:11px;color:var(--muted);display:block;margin-top:2px}
-.clip-foot .meta{margin-top:8px;display:flex;align-items:center;gap:6px;font-family:'Fragment Mono',monospace;font-size:9.5px;color:var(--muted2);letter-spacing:.06em}
-.clip-foot .meta i{width:5px;height:5px;border-radius:50%;background:var(--brass)}
-.clip-foot .meta i.queued{background:var(--muted2)}
+.sys-bridge-dot{width:36px;height:36px;border-radius:50%;background:var(--paper);border:1px solid rgba(184,147,95,.28);display:grid;place-items:center;position:relative;z-index:1}
+.sys-bridge-dot i{width:6px;height:6px;border-radius:50%;background:var(--brass);display:block}
+.sys-bridge-label{position:absolute;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--brass2);background:var(--paper);padding:2px 6px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+@media(min-width:901px){.sys-bridge-label{writing-mode:vertical-rl;text-orientation:mixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(0deg);}}
+@media(max-width:900px){.sys-bridge-label{top:50%;left:50%;transform:translate(-50%,-50%)}}
+.sys-output{padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
+.sys-output-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sys-output-head b{font-size:12px;letter-spacing:.08em;font-family:'Fragment Mono',monospace;color:var(--ink);font-weight:400}
+.sys-output-head span{font-size:12px;color:var(--muted)}
+.sys-clips{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media(max-width:600px){.sys-clips{grid-template-columns:repeat(6, 110px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}.sys-clips::-webkit-scrollbar{display:none}.sys-clip{scroll-snap-align:start}}
+.sys-clip{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.sys-clip-v{aspect-ratio:9/16;background:#0E0D0C;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.sys-clip-v::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.42) 100%)}
+.sys-clip-lines{position:absolute;left:10px;right:10px;bottom:10px;z-index:1;display:flex;flex-direction:column;gap:5px;align-items:stretch}
+.sys-clip-lines i{height:2px;background:rgba(255,255,255,.88);border-radius:999px;display:block}
+.sys-clip-lines i:nth-child(2){width:78%;background:rgba(255,255,255,.68)}
+.sys-clip-lines i:nth-child(3){width:56%;background:rgba(255,255,255,.38)}
+.sys-clip-num{position:absolute;top:8px;left:8px;z-index:1;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.08em;background:rgba(255,255,255,.92);color:var(--ink);padding:3px 6px;border-radius:999px;border:1px solid rgba(0,0,0,.06)}
+.sys-clip-foot{padding:8px 8px 9px;text-align:center;background:var(--paper)}
+.sys-clip-foot b{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--muted);font-weight:400;display:block}
+.sys-clip-foot span{font-size:11px;color:var(--muted2);display:block;margin-top:1px}
+.sys-footnote{max-width:980px;margin:14px auto 0;text-align:center;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);line-height:1.6;padding:0 12px}
 
 /* sections */
 section.s{padding:72px 0;border-top:1px solid var(--line)}
@@ -163,25 +152,6 @@ section.s{padding:72px 0;border-top:1px solid var(--line)}
 .grid3 p{font-size:13.5px;color:var(--muted);line-height:1.6}
 .grid3 .num{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted2);margin-top:14px;display:block}
 
-/* week strip */
-.week{margin-top:36px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
-.week-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
-.week-head b{font-size:13px;letter-spacing:-.01em}
-.week-head span{font-size:12.5px;color:var(--muted)}
-.week-head em{font-family:'Fragment Mono',monospace;font-style:normal;font-size:10px;letter-spacing:.08em;color:var(--brass2);background:rgba(184,147,95,.1);padding:4px 8px;border-radius:999px;border:1px solid rgba(184,147,95,.18)}
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0}
-@media(max-width:900px){.week-grid{grid-template-columns:repeat(7, 140px);overflow-x:auto;scroll-snap-type:x mandatory}.week-grid::-webkit-scrollbar{display:none}}
-.week-day{padding:16px 14px;border-right:1px solid var(--line);min-width:0}
-.week-day:last-child{border-right:none}
-.week-day head{display:block}
-.week-day small{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted2)}
-.week-day b{font-size:12.5px;display:block;margin-top:4px;letter-spacing:-.01em;line-height:1.3}
-.week-day p{font-size:12px;color:var(--muted);line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.week-day .status{margin-top:10px;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
-.week-day .status i{width:6px;height:6px;border-radius:50%;background:var(--brass)}
-.week-day.soon .status i{background:var(--muted2)}
-.week-day.soon{opacity:.72}
-
 /* compare */
 .compare{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:860px){.compare{grid-template-columns:1fr}}
@@ -194,12 +164,6 @@ section.s{padding:72px 0;border-top:1px solid var(--line)}
 .cmp.after li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08);color:var(--bg)}
 .cmp li::before{content:'—';color:var(--muted2);flex-shrink:0;margin-top:1px;font-size:12px}
 .cmp.after li::before{color:var(--brass)}
-
-/* quote */
-.quote{max-width:760px;margin:0 auto;text-align:center;padding:12px 0 4px}
-.quote blockquote{font-family:'Fraunces',serif;font-size:clamp(22px,3.2vw,32px);line-height:1.15;letter-spacing:-.03em;font-weight:400;text-wrap:balance}
-.quote blockquote em{font-style:italic;color:var(--brass2)}
-.quote cite{margin-top:16px;display:block;font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted2);font-style:normal}
 
 /* FAQ */
 .faq{max-width:760px;margin:36px auto 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);text-align:left}
@@ -250,7 +214,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <a class="skip" href="#main">Skip to content</a>
 <div class="nav-wrap" id="navWrap">
   <nav class="nav" aria-label="Primary">
-    <a href="#" class="nav-logo" aria-label="Lucit home">Lucit <i aria-hidden="true"></i></a>
+    <a href="#" class="nav-logo" aria-label="Lucit home">Lucit</a>
     <div class="nav-links" id="navLinks">
       <a href="#pipeline">How it works</a>
       <a href="#outcomes">Outcomes</a>
@@ -258,7 +222,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
     </div>
     <div style="display:flex;gap:8px;align-items:center">
       <a href="#login" onclick="navigateTo('login');return false;" class="nav-ghost" id="navLogin">Log in</a>
-      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Start posting →</a>
+      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Start Posting</a>
       <button class="mob-btn" onclick="toggleMobile()" aria-expanded="false" aria-controls="navLinks">Menu</button>
     </div>
   </nav>
@@ -273,95 +237,75 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
       <h1>Upload once.<br><em>Wake up to a week posted.</em></h1>
       <p class="hero-sub">One long video in. Six finished shorts out — clipped, captioned, and already posted to TikTok, Reels &amp; Shorts. <b style="color:var(--ink);font-weight:500">Never open an editor again.</b></p>
       <div class="hero-actions">
-        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start posting — free <span aria-hidden="true">→</span></a>
-        <a href="#pipeline" class="btn-ghost">See the pipeline</a>
+        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
       </div>
       <div class="hero-note">No editor. No scheduling. No backlog. <b>Posted, not just generated.</b></div>
     </div>
   </div>
 
-  <!-- TRANSFORMATION VISUAL — this IS the product -->
-  <div class="transform-wrap" aria-label="Transformation: one long video becomes six shorts">
-    <div class="transform-inner">
-      <div class="transform-grid">
-        <!-- source -->
-        <div>
-          <div class="source-label">YOUR LONG VIDEO</div>
-          <div class="source-card">
-            <div class="source-thumb" role="img" aria-label="Long video thumbnail, 28 minutes 42 seconds">
-              <div class="thumb-play" aria-hidden="true"></div>
-              <div class="thumb-meta">
-                <div class="thumb-title">How I built a faceless channel to $4k/mo — full breakdown</div>
-                <div class="thumb-badge">28:42</div>
-              </div>
+  <!-- SYSTEM DIAGRAM — honest structure, no fake video, no invented captions -->
+  <div class="system-wrap" aria-label="System diagram: one long video becomes six scheduled shorts">
+    <div class="system-inner">
+      <div class="system-card">
+        <div class="system-card-head">
+          <div><b>1 in → 6 out, posted</b> <span>· clipped · captioned · reframed · scheduled</span></div>
+          <em>STRUCTURE, NOT A SCREENSHOT</em>
+        </div>
+        <div class="sys-diagram">
+          <!-- source -->
+          <div class="sys-source">
+            <div class="sys-label">YOUR LONG VIDEO</div>
+            <div class="sys-source-visual" role="img" aria-label="One long video file, any length">
+              <div class="sys-source-icon" aria-hidden="true">▷</div>
             </div>
-            <div class="source-foot">
-              <div>
-                <b>Episode #42</b>
-                <span>· 4K · 18.3k views</span>
-              </div>
-              <div class="source-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+            <div class="sys-source-meta">
+              <b>One file. Any length.</b>
+              <span>Upload once — talking head, voiceover, screen share. Close the tab after.</span>
+              <small>INPUT · 10 MIN → 2 HOURS</small>
             </div>
           </div>
-        </div>
-
-        <!-- bridge — hairline brass, no extra chrome -->
-        <div class="flow-bridge" aria-hidden="true">
-          <div class="line"></div>
-          <svg class="flow-svg" viewBox="0 0 1 48" preserveAspectRatio="none" aria-hidden="true"><line x1="0.5" y1="0" x2="0.5" y2="48" stroke="#B8935F" stroke-width="1" opacity="0.55"/></svg>
-          <div class="label">LUCIT DOES THE REST</div>
-          <div class="line"></div>
-        </div>
-
-        <!-- clips -->
-        <div>
-          <div class="clips-label"><span>6 FINISHED SHORTS — READY POSTED</span> <em>THIS WEEK</em></div>
-          <div class="clips-grid">
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 1: hook about monetization">
-                <div class="clip-top"><span class="clip-plat">REELS</span><span class="clip-time">0:28</span></div>
-                <div class="clip-cap"><p>The one editing mistake killing your watch time</p></div>
+          <!-- bridge -->
+          <div class="sys-bridge" aria-hidden="true">
+            <div class="sys-bridge-dot"><i></i></div>
+            <span class="sys-bridge-label">LUCIT DOES THE REST</span>
+          </div>
+          <!-- output -->
+          <div class="sys-output">
+            <div class="sys-output-head">
+              <b>SIX SHORTS — 9:16, READY SCHEDULED</b>
+              <span>TikTok · Reels · Shorts</span>
+            </div>
+            <div class="sys-clips" role="list" aria-label="Six output clips, abstract representation">
+              <div class="sys-clip" role="listitem" aria-label="Clip 1">
+                <div class="sys-clip-v"><span class="sys-clip-num">01</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 01</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Mon · 07:30</b><span>Captions + hook baked in</span><div class="meta"><i></i> Posted</div></div>
-            </article>
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 2: revenue breakdown">
-                <div class="clip-top"><span class="clip-plat">SHORTS</span><span class="clip-time">0:34</span></div>
-                <div class="clip-cap"><p>$0 to $4k: what actually got me monetized</p></div>
+              <div class="sys-clip" role="listitem" aria-label="Clip 2">
+                <div class="sys-clip-v"><span class="sys-clip-num">02</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 02</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Tue · 18:00</b><span>Auto-reframed 9:16</span><div class="meta"><i></i> Posted</div></div>
-            </article>
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 3: faceless setup">
-                <div class="clip-top"><span class="clip-plat">TIKTOK</span><span class="clip-time">0:22</span></div>
-                <div class="clip-cap"><p>Faceless setup that looks human, not AI</p></div>
+              <div class="sys-clip" role="listitem" aria-label="Clip 3">
+                <div class="sys-clip-v"><span class="sys-clip-num">03</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 03</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Wed · 07:30</b><span>Sound-synced cuts</span><div class="meta"><i></i> Posted</div></div>
-            </article>
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 4: retention tip">
-                <div class="clip-top"><span class="clip-plat">REELS</span><span class="clip-time">0:31</span></div>
-                <div class="clip-cap"><p>Retention trick I stole from MrBeast editors</p></div>
+              <div class="sys-clip" role="listitem" aria-label="Clip 4">
+                <div class="sys-clip-v"><span class="sys-clip-num">04</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 04</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Thu · 18:00</b><span>Brass captions</span><div class="meta"><i class="queued"></i> Queued</div></div>
-            </article>
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 5: posting time">
-                <div class="clip-top"><span class="clip-plat">SHORTS</span><span class="clip-time">0:27</span></div>
-                <div class="clip-cap"><p>Why you post at the wrong hour</p></div>
+              <div class="sys-clip" role="listitem" aria-label="Clip 5">
+                <div class="sys-clip-v"><span class="sys-clip-num">05</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 05</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Fri · 07:30</b><span>Title + hashtags done</span><div class="meta"><i class="queued"></i> Queued</div></div>
-            </article>
-            <article class="clip">
-              <div class="clip-v" role="img" aria-label="Clip 6: monetization check">
-                <div class="clip-top"><span class="clip-plat">TIKTOK</span><span class="clip-time">0:29</span></div>
-                <div class="clip-cap"><p>The monetization check nobody shows you</p></div>
+              <div class="sys-clip" role="listitem" aria-label="Clip 6">
+                <div class="sys-clip-v"><span class="sys-clip-num">06</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
+                <div class="sys-clip-foot"><b>CLIP 06</b><span>18–34s</span></div>
               </div>
-              <div class="clip-foot"><b>Sat · 12:00</b><span>Already scheduled</span><div class="meta"><i class="queued"></i> Queued</div></div>
-            </article>
+            </div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px">Each clip is auto-cut, reframed 9:16, burned-in captions, hook on frame one — titled, captioned, and scheduled to watch-time windows. No timeline, no exports.</p>
           </div>
         </div>
       </div>
+      <p class="sys-footnote">Diagram shows structure, not a real customer's video. After upload your dashboard shows these same six slots — captioned, scheduled, already posting. No fake thumbnails, no invented titles.</p>
     </div>
   </div>
 </header>
@@ -444,32 +388,6 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
         </ul>
       </div>
     </div>
-
-    <div class="week reveal" aria-label="A week of content, posted">
-      <div class="week-head">
-        <div><b>This week — from one upload on Sunday</b> <span>· 6 posts · 3 platforms</span></div>
-        <em>PROOF, NOT PROMISE</em>
-      </div>
-      <div class="week-grid">
-        <div class="week-day"><small>MON 07:30</small><b>The edit mistake killing watch time</b><p>Burned captions, cold open on the payoff. 28s.</p><div class="status"><i></i> Posted to Reels</div></div>
-        <div class="week-day"><small>TUE 18:00</small><b>$0 → $4k breakdown</b><p>Numbers on screen, no fluff. 34s.</p><div class="status"><i></i> Posted to Shorts</div></div>
-        <div class="week-day"><small>WED 07:30</small><b>Faceless setup that looks human</b><p>Auto-reframe keeps you centered. 22s.</p><div class="status"><i></i> Posted to TikTok</div></div>
-        <div class="week-day"><small>THU 18:00</small><b>Retention trick from top editors</b><p>Beat-synced cuts, brass word highlights. 31s.</p><div class="status"><i></i> Posted to Reels</div></div>
-        <div class="week-day soon"><small>FRI 07:30</small><b>Wrong hour = wrong reach</b><p>Posting window set for your audience. 27s.</p><div class="status"><i></i> Queued</div></div>
-        <div class="week-day soon"><small>SAT 12:00</small><b>The monetization check</b><p>Thumbnail + title already set. 29s.</p><div class="status"><i></i> Queued</div></div>
-        <div class="week-day soon"><small>SUN —</small><b>You record again</b><p>One new long video. Week refills.</p><div class="status"><i></i> Ready</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUOTE -->
-<section class="s" style="padding:56px 0">
-  <div class="container">
-    <div class="quote reveal">
-      <blockquote>“I used to spend Saturdays editing. Now I spend them <em>recording the next one.</em>”</blockquote>
-      <cite>— solo creator, 47k → 214k in 11 weeks · faceless finance</cite>
-    </div>
   </div>
 </section>
 
@@ -494,7 +412,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
     <h2 class="h2">Record one.<br><em>We post the week.</em></h2>
     <p class="p" style="margin-left:auto;margin-right:auto">Start free. Upload your next long video and wake up to content already live.</p>
     <div class="hero-actions" style="margin-top:28px">
-      <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start posting — free →</a>
+      <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
       <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
     </div>
     <div class="micro">No credit card · Cancel anytime · Posted, not just generated</div>
@@ -521,7 +439,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
   </div>
 </footer>
 
-<!-- AUTH OVERLAY (keeps existing hash routing, now in warm palette) -->
+<!-- AUTH OVERLAY -->
 <div id="authPages" style="display:none">
   <div id="loginPage" class="auth-wrap" style="display:none">
     <div class="auth-card">
@@ -589,7 +507,6 @@ const pio=new IntersectionObserver(es=>{
 },{threshold:.35});
 if(pipe) pio.observe(pipe);
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  // show immediately, no animation
   if(pipeLine) pipeLine.classList.add('played');
   document.querySelectorAll('.pipe-step').forEach(s=>{s.classList.add('active');s.classList.add('done')});
 }
@@ -648,8 +565,6 @@ window.addEventListener('load',()=>{
   if(['login','signup','app'].includes(h)) showPage(h);
   else showPage('home');
   const s=localStorage.getItem('session');
-  // don't auto-redirect on landing anymore — respect brief; only if user explicitly was in app
-  // if(s && !h) navigateTo('app');
 });
 function fakeLogin(){
   const e=document.getElementById('loginEmail').value;
