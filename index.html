@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucit — Upload once. Wake up to a week posted.</title>
+<title>Lucit — Turn one video into a week of posted shorts.</title>
 <meta name="description" content="Lucit turns one long video into a week of posted shorts. Clipped, captioned, posted — zero editing. For solo faceless creators building toward monetization.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&family=Inter:wght@400;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
@@ -49,10 +49,7 @@ a{color:inherit;text-decoration:none}
 .hero{padding:112px 0 0;border-bottom:1px solid var(--line)}
 .hero-inner{max-width:1160px;margin:0 auto;padding:0 24px}
 .hero-head{text-align:center;padding:72px 0 48px;max-width:760px;margin:0 auto}
-.eyebrow{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted2);display:inline-flex;align-items:center;gap:10px;margin-bottom:18px}
-.eyebrow::before{content:'';width:18px;height:1px;background:var(--line-brass)}
 .hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.2vw,68px);line-height:.92;letter-spacing:-.045em;font-weight:400;text-wrap:balance}
-.hero h1 em{font-style:italic;font-weight:400;color:var(--brass2);letter-spacing:-.05em}
 .hero-sub{margin:18px auto 0;max-width:560px;color:var(--muted);font-size:17px;line-height:1.6;letter-spacing:-.01em}
 .hero-actions{margin-top:26px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
 .btn-primary{background:var(--ink);color:var(--bg);padding:13px 22px;border-radius:999px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);transition:.2s}
@@ -62,14 +59,13 @@ a{color:inherit;text-decoration:none}
 .hero-note{margin-top:14px;font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
 .hero-note b{color:var(--muted);font-weight:400}
 
-/* system diagram — replaces fake transform grid */
+/* system diagram */
 .system-wrap{border-top:1px solid var(--line);background:var(--paper);padding:28px 0 28px}
 .system-inner{max-width:1160px;margin:0 auto;padding:0 24px}
 .system-card{max-width:980px;margin:0 auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
 .system-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .system-card-head b{font-size:13px;letter-spacing:-.01em}
 .system-card-head span{font-size:12.5px;color:var(--muted)}
-.system-card-head em{font-family:'Fragment Mono',monospace;font-style:normal;font-size:10px;letter-spacing:.08em;color:var(--brass2);background:rgba(184,147,95,.1);padding:4px 8px;border-radius:999px;border:1px solid rgba(184,147,95,.18)}
 .sys-diagram{display:grid;grid-template-columns:280px 72px 1fr;align-items:stretch}
 @media(max-width:900px){.sys-diagram{grid-template-columns:1fr;}}
 .sys-source{padding:22px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
@@ -115,9 +111,8 @@ a{color:inherit;text-decoration:none}
 /* sections */
 section.s{padding:72px 0;border-top:1px solid var(--line)}
 .container{max-width:1160px;margin:0 auto;padding:0 24px}
-.kicker{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted2);margin-bottom:14px}
+.section-label{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted2);margin-bottom:14px}
 .h2{font-family:'Fraunces',serif;font-size:clamp(32px,4.6vw,52px);line-height:.95;letter-spacing:-.04em;font-weight:400;text-wrap:balance}
-.h2 em{font-style:italic;color:var(--brass2);font-weight:400}
 .p{color:var(--muted);font-size:16.5px;line-height:1.65;max-width:560px;margin-top:14px;letter-spacing:-.01em}
 .center{text-align:center}
 .center .p{margin-left:auto;margin-right:auto}
@@ -175,7 +170,6 @@ section.s{padding:72px 0;border-top:1px solid var(--line)}
 /* CTA charcoal */
 .cta-charcoal{background:var(--ink);color:var(--bg);padding:72px 0;border-top:1px solid var(--ink)}
 .cta-charcoal .h2{color:var(--bg)}
-.cta-charcoal .h2 em{color:var(--brass)}
 .cta-charcoal .p{color:rgba(250,248,243,.68)}
 .cta-charcoal .btn-primary{background:var(--bg);color:var(--ink);border-color:var(--bg)}
 .cta-charcoal .btn-primary:hover{background:#fff}
@@ -233,23 +227,21 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-head">
-      <div class="eyebrow">FOR SOLO FACELESS CREATORS — NOT HOBBYISTS</div>
-      <h1>Upload once.<br><em>Wake up to a week posted.</em></h1>
-      <p class="hero-sub">One long video in. Six finished shorts out — clipped, captioned, and already posted to TikTok, Reels &amp; Shorts. <b style="color:var(--ink);font-weight:500">Never open an editor again.</b></p>
+      <h1>Turn one video into a week of posted shorts.</h1>
+      <p class="hero-sub">Upload one long video and get six shorts clipped, captioned, and posted to TikTok, Instagram Reels, and YouTube Shorts. No editor needed.</p>
       <div class="hero-actions">
         <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
       </div>
-      <div class="hero-note">No editor. No scheduling. No backlog. <b>Posted, not just generated.</b></div>
+      <div class="hero-note">Your shorts are posted automatically, not saved as drafts.</div>
     </div>
   </div>
 
-  <!-- SYSTEM DIAGRAM — honest structure, no fake video, no invented captions -->
+  <!-- SYSTEM DIAGRAM -->
   <div class="system-wrap" aria-label="System diagram: one long video becomes six scheduled shorts">
     <div class="system-inner">
       <div class="system-card">
         <div class="system-card-head">
-          <div><b>1 in → 6 out, posted</b> <span>· clipped · captioned · reframed · scheduled</span></div>
-          <em>STRUCTURE, NOT A SCREENSHOT</em>
+          <div><b>1 video in, 6 shorts out</b> <span>· clipped · captioned · posted</span></div>
         </div>
         <div class="sys-diagram">
           <!-- source -->
@@ -260,8 +252,8 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
             </div>
             <div class="sys-source-meta">
               <b>One file. Any length.</b>
-              <span>Upload once — talking head, voiceover, screen share. Close the tab after.</span>
-              <small>INPUT · 10 MIN → 2 HOURS</small>
+              <span>Upload a talking head, voiceover, or screen share. Close the tab when you are done.</span>
+              <small>INPUT · 10 MIN TO 2 HOURS</small>
             </div>
           </div>
           <!-- bridge -->
@@ -301,21 +293,21 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
                 <div class="sys-clip-foot"><b>CLIP 06</b><span>18–34s</span></div>
               </div>
             </div>
-            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px">Each clip is auto-cut, reframed 9:16, burned-in captions, hook on frame one — titled, captioned, and scheduled to watch-time windows. No timeline, no exports.</p>
+            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px">Each clip is auto-cut, reframed to 9:16, and captioned with a hook on the first frame. Titles, captions, and posting times are handled automatically.</p>
           </div>
         </div>
       </div>
-      <p class="sys-footnote">Diagram shows structure, not a real customer's video. After upload your dashboard shows these same six slots — captioned, scheduled, already posting. No fake thumbnails, no invented titles.</p>
+      <p class="sys-footnote">Your dashboard shows the same six slots after upload, captioned and scheduled to your connected accounts.</p>
     </div>
   </div>
 </header>
 
-<!-- PIPELINE — signature moment -->
+<!-- PIPELINE -->
 <section class="s" id="pipeline">
   <div class="container center">
-    <div class="kicker">ZERO TOUCH — ONE ORCHESTRATED MOMENT</div>
-    <h2 class="h2">You upload.<br><em>Lucit posts.</em></h2>
-    <p class="p" style="margin-left:auto;margin-right:auto">No timeline. No exports. No scheduler tab. The pipeline runs once, end to end, then goes still — because done is better than busy.</p>
+    <div class="section-label">How it works</div>
+    <h2 class="h2">Upload a video. Get six shorts posted.</h2>
+    <p class="p" style="margin-left:auto;margin-right:auto">Lucit handles clipping, captioning, reframing, and scheduling in one pass. You upload once and your week is posted.</p>
 
     <div class="pipeline" id="pipe" aria-label="Pipeline: upload, clip, caption, post">
       <div class="pipe-line" id="pipeLine"><i></i></div>
@@ -329,7 +321,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
         <div class="pipe-step" data-step="1">
           <div class="pipe-dot"><b>2</b><small>✓</small></div>
           <h4>Clip</h4>
-          <p>Lucit finds the 6 strongest moments. No filler cuts.</p>
+          <p>Lucit finds the six strongest moments.</p>
           <div class="when">AUTO</div>
         </div>
         <div class="pipe-step" data-step="2">
@@ -341,7 +333,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
         <div class="pipe-step" data-step="3">
           <div class="pipe-dot"><b>4</b><small>✓</small></div>
           <h4>Post</h4>
-          <p>Scheduled across TikTok, Reels &amp; Shorts. Already live.</p>
+          <p>Scheduled to TikTok, Reels, and Shorts.</p>
           <div class="when">WHILE YOU SLEEP</div>
         </div>
       </div>
@@ -349,18 +341,18 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 
     <div class="grid3 reveal">
       <div>
-        <h4><i></i> Never open an editor again</h4>
-        <p>No Premiere. No CapCut. No “just one more tweak.” Your job is to record — ours is to ship.</p>
+        <h4><i></i> No editing needed</h4>
+        <p>You do not need Premiere, CapCut, or a timeline. Just record and upload.</p>
         <span class="num">01 — EDITING = 0</span>
       </div>
       <div>
-        <h4><i></i> Posted, not “generated”</h4>
-        <p>Drafts don’t get monetized. Every clip is titled, captioned, scheduled — and posted.</p>
+        <h4><i></i> Actually posted, not just generated</h4>
+        <p>Every clip gets a title, captions, and a scheduled post time. No drafts sitting in a folder.</p>
         <span class="num">02 — OUTCOME = POSTED</span>
       </div>
       <div>
-        <h4><i></i> Built for monetization</h4>
-        <p>Hooks, retention cuts, and posting windows tuned for watch time — not vanity views.</p>
+        <h4><i></i> Built for watch time</h4>
+        <p>Cuts and posting times are optimized for watch time to help you reach monetization.</p>
         <span class="num">03 — GOAL = WATCH TIME</span>
       </div>
     </div>
@@ -376,15 +368,15 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
         <ul>
           <li>Hobbyists collecting drafts and templates</li>
           <li>Teams who love the timeline</li>
-          <li>Anyone who wants “AI tools” — not results</li>
+          <li>Anyone who wants AI tools instead of finished posts</li>
         </ul>
       </div>
       <div class="cmp after">
         <h4>FOR SOLO FACELESS CREATORS</h4>
         <ul>
-          <li>You record once a week — that’s the whole job</li>
-          <li>You want a calendar that’s full, not a folder that’s full</li>
-          <li>You’re building toward monetization, not likes</li>
+          <li>You record once a week and want the rest handled</li>
+          <li>You want a posting calendar that stays full</li>
+          <li>You are building toward monetization</li>
         </ul>
       </div>
     </div>
@@ -394,14 +386,14 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <!-- FAQ -->
 <section class="s" id="faq" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="container center">
-    <div class="kicker">STRAIGHT ANSWERS</div>
-    <h2 class="h2">No filler.<br><em>Just posted.</em></h2>
+    <div class="section-label">FAQ</div>
+    <h2 class="h2">Frequently asked questions</h2>
     <div class="faq reveal">
-      <div class="faq-item"><b>Do I need to edit anything?</b><p>No. Captions, reframe, cuts, titles, hashtags, scheduling — Lucit handles it. You review only if you want to; posting doesn’t wait for you.</p></div>
-      <div class="faq-item"><b>What do I upload?</b><p>One long video per week — talking head, screen share, voiceover, whatever your channel is. 10 minutes to 2 hours, we handle the rest.</p></div>
-      <div class="faq-item"><b>Where does it post?</b><p>TikTok, Instagram Reels, YouTube Shorts. One toggle per platform. We schedule for watch-time windows, not all at once.</p></div>
-      <div class="faq-item"><b>What if I don’t like a clip?</b><p>Skip it with one tap — the rest still posts. No re-editing, no re-exporting.</p></div>
-      <div class="faq-item"><b>Is this for beginners chasing trends?</b><p>No. It’s for solo faceless creators treating this like a business and aiming to get monetized. Consistency beats tricks.</p></div>
+      <div class="faq-item"><b>Do I need to edit anything?</b><p>No. Captions, reframe, cuts, titles, hashtags, and scheduling are handled automatically. You can review if you want, but posting does not wait for you.</p></div>
+      <div class="faq-item"><b>What do I upload?</b><p>One long video per week. Talking head, screen share, or voiceover, 10 minutes to 2 hours, whatever your channel is about.</p></div>
+      <div class="faq-item"><b>Where does it post?</b><p>TikTok, Instagram Reels, and YouTube Shorts. One toggle per platform. Posts are scheduled for watch-time windows instead of all at once.</p></div>
+      <div class="faq-item"><b>What if I do not like a clip?</b><p>Skip it with one tap. The rest still posts. No re-editing or re-exporting needed.</p></div>
+      <div class="faq-item"><b>Is this for beginners chasing trends?</b><p>No. It is for solo faceless creators who post consistently and are working toward monetization.</p></div>
     </div>
   </div>
 </section>
@@ -409,8 +401,8 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <!-- FINAL CTA — charcoal -->
 <section class="cta-charcoal">
   <div class="container center">
-    <h2 class="h2">Record one.<br><em>We post the week.</em></h2>
-    <p class="p" style="margin-left:auto;margin-right:auto">Start free. Upload your next long video and wake up to content already live.</p>
+    <h2 class="h2">Record one video. We post the week.</h2>
+    <p class="p" style="margin-left:auto;margin-right:auto">Start free. Upload your next long video and get six shorts posted this week.</p>
     <div class="hero-actions" style="margin-top:28px">
       <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
       <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
@@ -424,7 +416,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
   <div class="foot-top">
     <div>
       <div class="foot-mark">Lucit</div>
-      <span>From <em style="color:var(--brass2);font-family:'Fraunces',serif;font-style:italic">lux</em> — light. We turn one recording into a week of light, already posted.</span>
+      <span>Turn one long video into a week of posted shorts.</span>
     </div>
     <div class="foot-links">
       <a href="#pipeline">How it works</a>
@@ -435,7 +427,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
   </div>
   <div class="foot-bottom">
     <span>© 2026 Lucit</span>
-    <span>Notion-calm. Brass-lit. Posted, not promised.</span>
+    <span></span>
   </div>
 </footer>
 
@@ -456,7 +448,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
   <div id="signupPage" class="auth-wrap" style="display:none">
     <div class="auth-card">
       <h1>Create your account.</h1>
-      <p class="sub">One upload → a week posted.</p>
+      <p class="sub">One upload to a week posted.</p>
       <div>
         <input type="text" id="signupName" placeholder="Name" value="Demo User" autocomplete="name">
         <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
