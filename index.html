@@ -3,205 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucit — Turn one video into a week of posted shorts.</title>
-<meta name="description" content="Lucit turns one long video into a week of posted shorts. Clipped, captioned, posted — zero editing. For solo faceless creators building toward monetization.">
+<title>Lucit</title>
+<meta name="description" content="Lucit turns one long video into a week of posted shorts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400&family=Inter:wght@400;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#FAF8F3;
-  --bg2:#F5F1E8;
-  --ink:#1C1A17;
-  --ink2:#1C1A17;
-  --brass:#B8935F;
-  --brass2:#A67C3A;
-  --line:rgba(28,26,23,.08);
-  --line2:rgba(28,26,23,.13);
-  --line-brass:rgba(184,147,95,.22);
-  --muted:#6B6760;
-  --muted2:#9A9690;
+  --bg:#FFFFFF;
+  --bg2:#F8FAFC;
+  --ink:#0F172A;
+  --ink2:#0F172A;
+  --brass:#2563EB;
+  --brass2:#1D4ED8;
+  --line:rgba(15,23,42,.08);
+  --line2:rgba(15,23,42,.12);
+  --line-brass:rgba(37,99,235,.18);
+  --muted:#475569;
+  --muted2:#94A3B8;
   --paper:#FFFFFF;
 }
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-::selection{background:rgba(184,147,95,.2)}
+::selection{background:rgba(37,99,235,.18)}
 :focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
 .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:10px 16px;z-index:100}
 .skip:focus{left:12px;top:12px}
 
 /* nav */
-.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,248,243,.72);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.3s}
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.3s}
 .nav{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav-logo{font-family:'Fraunces',serif;font-size:22px;letter-spacing:-.04em;font-weight:500}
-.nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{font-size:13.5px;color:var(--muted);transition:.2s;letter-spacing:-.01em}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{background:var(--ink);color:var(--bg)!important;padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:500;transition:.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink)}
-.nav-cta:hover{background:#2A2622;transform:translateY(-1px)}
-.nav-ghost{font-size:13.5px;color:var(--muted);padding:9px 14px}
+.nav-logo{font-family:'Inter',system-ui,sans-serif;font-size:20px;letter-spacing:-.03em;font-weight:700}
+.nav-cta{background:var(--brass);color:#fff!important;padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:600;transition:.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--brass)}
+.nav-cta:hover{background:var(--brass2);border-color:var(--brass2);transform:translateY(-1px)}
+.nav-ghost{font-size:13.5px;color:var(--muted);padding:9px 14px;font-weight:500}
 .nav-ghost:hover{color:var(--ink)}
 .mob-btn{display:none;border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--ink)}
 
-/* hero */
+/* hero - minimal */
 .hero{padding:112px 0 0;border-bottom:1px solid var(--line)}
 .hero-inner{max-width:1160px;margin:0 auto;padding:0 24px}
-.hero-head{text-align:center;padding:72px 0 48px;max-width:760px;margin:0 auto}
-.hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.2vw,68px);line-height:.92;letter-spacing:-.045em;font-weight:400;text-wrap:balance}
-.hero-sub{margin:18px auto 0;max-width:560px;color:var(--muted);font-size:17px;line-height:1.6;letter-spacing:-.01em}
-.hero-actions{margin-top:26px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
-.btn-primary{background:var(--ink);color:var(--bg);padding:13px 22px;border-radius:999px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);transition:.2s}
-.btn-primary:hover{background:#2A2622;transform:translateY(-1px)}
-.btn-ghost{padding:13px 22px;border-radius:999px;font-size:14px;color:var(--ink);border:1px solid var(--line2);background:var(--paper);transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.hero-head{text-align:center;padding:72px 0 72px;max-width:760px;margin:0 auto}
+.hero h1{font-family:'Inter',system-ui,sans-serif;font-size:clamp(42px,6vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:700;text-wrap:balance}
+.hero-actions{margin-top:24px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--brass);color:#fff;padding:13px 22px;border-radius:999px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--brass);transition:.2s}
+.btn-primary:hover{background:var(--brass2);border-color:var(--brass2);transform:translateY(-1px)}
+.btn-ghost{padding:13px 22px;border-radius:999px;font-size:14px;color:var(--ink);border:1px solid var(--line2);background:var(--paper);transition:.2s;display:inline-flex;align-items:center;gap:6px;font-weight:500}
 .btn-ghost:hover{border-color:var(--ink)}
-.hero-note{margin-top:14px;font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
-.hero-note b{color:var(--muted);font-weight:400}
 
-/* system diagram */
-.system-wrap{border-top:1px solid var(--line);background:var(--paper);padding:28px 0 28px}
-.system-inner{max-width:1160px;margin:0 auto;padding:0 24px}
-.system-card{max-width:980px;margin:0 auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}
-.system-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.system-card-head b{font-size:13px;letter-spacing:-.01em}
-.system-card-head span{font-size:12.5px;color:var(--muted)}
-.sys-diagram{display:grid;grid-template-columns:280px 72px 1fr;align-items:stretch}
-@media(max-width:900px){.sys-diagram{grid-template-columns:1fr;}}
-.sys-source{padding:22px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
-@media(max-width:900px){.sys-source{border-right:none;border-bottom:1px solid var(--line)}}
-.sys-label{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted2)}
-.sys-source-visual{aspect-ratio:16/9;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:grid;place-items:center;position:relative}
-.sys-source-visual::before{content:'';position:absolute;inset:12px;border:1px dashed rgba(28,26,23,.12);border-radius:8px;pointer-events:none}
-.sys-source-icon{width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:var(--paper);display:grid;place-items:center;font-size:13px;color:var(--muted);position:relative;z-index:1}
-.sys-source-meta{text-align:left}
-.sys-source-meta b{font-size:13px;letter-spacing:-.01em;display:block}
-.sys-source-meta span{font-size:12.5px;color:var(--muted);line-height:1.5;display:block;margin-top:2px}
-.sys-source-meta small{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);margin-top:8px;display:block}
-.sys-bridge{position:relative;display:flex;align-items:center;justify-content:center;padding:16px;border-right:1px solid var(--line)}
-.sys-bridge::before{content:'';position:absolute;left:50%;top:14%;bottom:14%;width:1px;background:var(--line-brass)}
-@media(max-width:900px){
-  .sys-bridge{border-right:none;border-bottom:1px solid var(--line);padding:18px}
-  .sys-bridge::before{left:14%;right:14%;top:50%;bottom:auto;height:1px;width:auto}
-}
-.sys-bridge-dot{width:36px;height:36px;border-radius:50%;background:var(--paper);border:1px solid rgba(184,147,95,.28);display:grid;place-items:center;position:relative;z-index:1}
-.sys-bridge-dot i{width:6px;height:6px;border-radius:50%;background:var(--brass);display:block}
-.sys-bridge-label{position:absolute;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--brass2);background:var(--paper);padding:2px 6px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
-@media(min-width:901px){.sys-bridge-label{writing-mode:vertical-rl;text-orientation:mixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(0deg);}}
-@media(max-width:900px){.sys-bridge-label{top:50%;left:50%;transform:translate(-50%,-50%)}}
-.sys-output{padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px}
-.sys-output-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.sys-output-head b{font-size:12px;letter-spacing:.08em;font-family:'Fragment Mono',monospace;color:var(--ink);font-weight:400}
-.sys-output-head span{font-size:12px;color:var(--muted)}
-.sys-clips{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-@media(max-width:600px){.sys-clips{grid-template-columns:repeat(6, 110px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}.sys-clips::-webkit-scrollbar{display:none}.sys-clip{scroll-snap-align:start}}
-.sys-clip{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
-.sys-clip-v{aspect-ratio:9/16;background:#0E0D0C;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-.sys-clip-v::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.42) 100%)}
-.sys-clip-lines{position:absolute;left:10px;right:10px;bottom:10px;z-index:1;display:flex;flex-direction:column;gap:5px;align-items:stretch}
-.sys-clip-lines i{height:2px;background:rgba(255,255,255,.88);border-radius:999px;display:block}
-.sys-clip-lines i:nth-child(2){width:78%;background:rgba(255,255,255,.68)}
-.sys-clip-lines i:nth-child(3){width:56%;background:rgba(255,255,255,.38)}
-.sys-clip-num{position:absolute;top:8px;left:8px;z-index:1;font-family:'Fragment Mono',monospace;font-size:9px;letter-spacing:.08em;background:rgba(255,255,255,.92);color:var(--ink);padding:3px 6px;border-radius:999px;border:1px solid rgba(0,0,0,.06)}
-.sys-clip-foot{padding:8px 8px 9px;text-align:center;background:var(--paper)}
-.sys-clip-foot b{font-family:'Fragment Mono',monospace;font-size:9.5px;letter-spacing:.06em;color:var(--muted);font-weight:400;display:block}
-.sys-clip-foot span{font-size:11px;color:var(--muted2);display:block;margin-top:1px}
-.sys-footnote{max-width:980px;margin:14px auto 0;text-align:center;font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);line-height:1.6;padding:0 12px}
-
-/* sections */
-section.s{padding:72px 0;border-top:1px solid var(--line)}
-.container{max-width:1160px;margin:0 auto;padding:0 24px}
-.section-label{font-family:'Fragment Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--muted2);margin-bottom:14px}
-.h2{font-family:'Fraunces',serif;font-size:clamp(32px,4.6vw,52px);line-height:.95;letter-spacing:-.04em;font-weight:400;text-wrap:balance}
-.p{color:var(--muted);font-size:16.5px;line-height:1.65;max-width:560px;margin-top:14px;letter-spacing:-.01em}
-.center{text-align:center}
-.center .p{margin-left:auto;margin-right:auto}
-
-/* pipeline signature */
-.pipeline{margin:40px auto 0;max-width:900px;position:relative;padding:24px 0 8px}
-.pipe-track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:start}
-@media(max-width:640px){.pipe-track{grid-template-columns:1fr;gap:18px}}
-.pipe-line{position:absolute;left:12%;right:12%;top:28px;height:1px;background:var(--line);overflow:hidden}
-.pipe-line i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--brass);transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
-.pipe-line.played i{transform:scaleX(1)}
-@media(prefers-reduced-motion:reduce){.pipe-line i{transform:scaleX(1);transition:none}}
-@media(max-width:640px){.pipe-line{display:none}}
-.pipe-step{text-align:center;position:relative;padding:0 10px}
-.pipe-dot{width:56px;height:56px;border-radius:50%;background:var(--paper);border:1px solid var(--line2);margin:0 auto 14px;display:grid;place-items:center;position:relative;z-index:1;transition:.6s}
-.pipe-step.active .pipe-dot{border-color:rgba(184,147,95,.35);box-shadow:0 4px 20px rgba(184,147,95,.14)}
-.pipe-dot b{font-family:'Fraunces',serif;font-size:18px;font-weight:500;letter-spacing:-.02em}
-.pipe-dot small{position:absolute;bottom:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--brass);color:#fff;display:grid;place-items:center;font-size:10px;border:2px solid var(--bg);opacity:0;transform:scale(.8);transition:.4s}
-.pipe-step.done small{opacity:1;transform:scale(1)}
-.pipe-step h4{font-size:14px;letter-spacing:-.01em}
-.pipe-step p{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:4px}
-.pipe-step .when{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted2);margin-top:8px}
-.pipe-step.active h4{color:var(--ink)}
-
-/* hairline cards */
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);margin-top:36px}
-.grid3 > div{padding:28px 26px;border-right:1px solid var(--line)}
-.grid3 > div:last-child{border-right:none}
-@media(max-width:860px){.grid3{grid-template-columns:1fr}.grid3 > div{border-right:none;border-bottom:1px solid var(--line)}.grid3 > div:last-child{border-bottom:none}}
-.grid3 h4{font-size:15px;letter-spacing:-.01em;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.grid3 h4 i{width:6px;height:6px;border-radius:50%;background:var(--brass);display:inline-block}
-.grid3 p{font-size:13.5px;color:var(--muted);line-height:1.6}
-.grid3 .num{font-family:'Fragment Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted2);margin-top:14px;display:block}
-
-/* compare */
-.compare{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:860px){.compare{grid-template-columns:1fr}}
-.cmp{border:1px solid var(--line);border-radius:18px;padding:26px;background:var(--paper)}
-.cmp.after{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.cmp h4{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.14em;margin-bottom:18px;opacity:.7}
-.cmp.after h4{opacity:.6;color:var(--bg)}
-.cmp ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.cmp li{font-size:13.5px;display:flex;gap:10px;align-items:start;line-height:1.5;padding:10px 12px;border-radius:12px;background:rgba(28,26,23,.04);border:1px solid var(--line)}
-.cmp.after li{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08);color:var(--bg)}
-.cmp li::before{content:'—';color:var(--muted2);flex-shrink:0;margin-top:1px;font-size:12px}
-.cmp.after li::before{color:var(--brass)}
-
-/* FAQ */
-.faq{max-width:760px;margin:36px auto 0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper);text-align:left}
-.faq-item{border-bottom:1px solid var(--line);padding:20px 22px}
-.faq-item:last-child{border-bottom:none}
-.faq-item b{font-size:14px;letter-spacing:-.01em;display:block}
-.faq-item p{font-size:13.5px;color:var(--muted);line-height:1.6;margin-top:6px}
-
-/* CTA charcoal */
-.cta-charcoal{background:var(--ink);color:var(--bg);padding:72px 0;border-top:1px solid var(--ink)}
-.cta-charcoal .h2{color:var(--bg)}
-.cta-charcoal .p{color:rgba(250,248,243,.68)}
-.cta-charcoal .btn-primary{background:var(--bg);color:var(--ink);border-color:var(--bg)}
-.cta-charcoal .btn-primary:hover{background:#fff}
-.cta-charcoal .btn-ghost{background:transparent;color:var(--bg);border-color:rgba(250,248,243,.18)}
-.cta-charcoal .btn-ghost:hover{border-color:rgba(250,248,243,.35)}
-.micro{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:rgba(250,248,243,.5);margin-top:14px}
-
-/* footer */
-footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)}
-.foot-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start;max-width:1160px;margin:0 auto;padding:0 24px}
-.foot-mark{font-family:'Fraunces',serif;font-size:28px;letter-spacing:-.04em}
-.foot-mark span{display:block;font-family:'Inter',sans-serif;font-size:12.5px;letter-spacing:-.01em;color:var(--muted);margin-top:6px;max-width:280px;line-height:1.5}
-.foot-links{display:flex;gap:28px;flex-wrap:wrap}
-.foot-links a{font-size:13px;color:var(--muted)}
+/* footer - minimal */
+footer{border-top:1px solid var(--line);padding:32px 0 28px;background:var(--bg)}
+.foot-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center;max-width:1160px;margin:0 auto;padding:0 24px}
+.foot-mark{font-family:'Inter',system-ui,sans-serif;font-size:16px;letter-spacing:-.03em;font-weight:700}
+.foot-bottom{max-width:1160px;margin:24px auto 0;padding:16px 24px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot-bottom span{font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted2)}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:var(--muted);font-weight:500}
 .foot-links a:hover{color:var(--ink)}
-.foot-bottom{max-width:1160px;margin:28px auto 0;padding:16px 24px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.foot-bottom span{font-family:'Fragment Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--muted2)}
-
-/* reveal */
-.reveal{opacity:0;transform:translateY(10px);transition:.7s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 
 /* auth */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg)}
-.auth-card{width:100%;max-width:420px;background:var(--paper);border:1px solid var(--line2);border-radius:20px;padding:36px 28px;box-shadow:0 12px 40px rgba(28,26,23,.06)}
-.auth-card h1{font-family:'Fraunces',serif;font-size:30px;letter-spacing:-.03em;line-height:1}
+.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg2)}
+.auth-card{width:100%;max-width:420px;background:var(--paper);border:1px solid var(--line2);border-radius:16px;padding:32px 28px;box-shadow:0 8px 32px rgba(15,23,42,.06)}
+.auth-card h1{font-family:'Inter',system-ui,sans-serif;font-size:24px;letter-spacing:-.03em;line-height:1;font-weight:700}
 .auth-card .sub{color:var(--muted);font-size:14px;margin:8px 0 24px}
-.auth-card input{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;font-size:14px;color:var(--ink);margin-bottom:12px}
-.auth-card input:focus{outline:2px solid rgba(184,147,95,.35);border-color:var(--brass)}
-.auth-card button{width:100%;background:var(--ink);color:var(--bg);padding:13px;border-radius:999px;font-size:14px;font-weight:500;border:1px solid var(--ink)}
-.auth-card a{color:var(--brass2);font-size:13.5px}
+.auth-card input{width:100%;background:var(--paper);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink);margin-bottom:12px}
+.auth-card input:focus{outline:2px solid rgba(37,99,235,.2);border-color:var(--brass)}
+.auth-card button{width:100%;background:var(--brass);color:#fff;padding:12px;border-radius:999px;font-size:14px;font-weight:600;border:1px solid var(--brass);cursor:pointer}
+.auth-card button:hover{background:var(--brass2)}
+.auth-card a{color:var(--brass);font-size:13.5px;font-weight:500}
 </style>
 </head>
 <body>
@@ -209,224 +80,37 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <div class="nav-wrap" id="navWrap">
   <nav class="nav" aria-label="Primary">
     <a href="#" class="nav-logo" aria-label="Lucit home">Lucit</a>
-    <div class="nav-links" id="navLinks">
-      <a href="#pipeline">How it works</a>
-      <a href="#outcomes">Outcomes</a>
-      <a href="#faq">FAQ</a>
-    </div>
     <div style="display:flex;gap:8px;align-items:center">
       <a href="#login" onclick="navigateTo('login');return false;" class="nav-ghost" id="navLogin">Log in</a>
-      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Start Posting</a>
-      <button class="mob-btn" onclick="toggleMobile()" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Get Started</a>
     </div>
   </nav>
 </div>
 
 <main id="main">
-<!-- HERO -->
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-head">
-      <h1>Turn one video into a week of posted shorts.</h1>
-      <p class="hero-sub">Upload one long video and get six shorts clipped, captioned, and posted to TikTok, Instagram Reels, and YouTube Shorts. No editor needed.</p>
+      <h1>Lucit</h1>
       <div class="hero-actions">
-        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
+        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Get Started</a>
+        <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
       </div>
-      <div class="hero-note">Your shorts are posted automatically, not saved as drafts.</div>
-    </div>
-  </div>
-
-  <!-- SYSTEM DIAGRAM -->
-  <div class="system-wrap" aria-label="System diagram: one long video becomes six scheduled shorts">
-    <div class="system-inner">
-      <div class="system-card">
-        <div class="system-card-head">
-          <div><b>1 video in, 6 shorts out</b> <span>· clipped · captioned · posted</span></div>
-        </div>
-        <div class="sys-diagram">
-          <!-- source -->
-          <div class="sys-source">
-            <div class="sys-label">YOUR LONG VIDEO</div>
-            <div class="sys-source-visual" role="img" aria-label="One long video file, any length">
-              <div class="sys-source-icon" aria-hidden="true">▷</div>
-            </div>
-            <div class="sys-source-meta">
-              <b>One file. Any length.</b>
-              <span>Upload a talking head, voiceover, or screen share. Close the tab when you are done.</span>
-              <small>INPUT · 10 MIN TO 2 HOURS</small>
-            </div>
-          </div>
-          <!-- bridge -->
-          <div class="sys-bridge" aria-hidden="true">
-            <div class="sys-bridge-dot"><i></i></div>
-            <span class="sys-bridge-label">LUCIT DOES THE REST</span>
-          </div>
-          <!-- output -->
-          <div class="sys-output">
-            <div class="sys-output-head">
-              <b>SIX SHORTS — 9:16, READY SCHEDULED</b>
-              <span>TikTok · Reels · Shorts</span>
-            </div>
-            <div class="sys-clips" role="list" aria-label="Six output clips, abstract representation">
-              <div class="sys-clip" role="listitem" aria-label="Clip 1">
-                <div class="sys-clip-v"><span class="sys-clip-num">01</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 01</b><span>18–34s</span></div>
-              </div>
-              <div class="sys-clip" role="listitem" aria-label="Clip 2">
-                <div class="sys-clip-v"><span class="sys-clip-num">02</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 02</b><span>18–34s</span></div>
-              </div>
-              <div class="sys-clip" role="listitem" aria-label="Clip 3">
-                <div class="sys-clip-v"><span class="sys-clip-num">03</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 03</b><span>18–34s</span></div>
-              </div>
-              <div class="sys-clip" role="listitem" aria-label="Clip 4">
-                <div class="sys-clip-v"><span class="sys-clip-num">04</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 04</b><span>18–34s</span></div>
-              </div>
-              <div class="sys-clip" role="listitem" aria-label="Clip 5">
-                <div class="sys-clip-v"><span class="sys-clip-num">05</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 05</b><span>18–34s</span></div>
-              </div>
-              <div class="sys-clip" role="listitem" aria-label="Clip 6">
-                <div class="sys-clip-v"><span class="sys-clip-num">06</span><span class="sys-clip-lines" aria-hidden="true"><i></i><i></i><i></i></span></div>
-                <div class="sys-clip-foot"><b>CLIP 06</b><span>18–34s</span></div>
-              </div>
-            </div>
-            <p style="font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px">Each clip is auto-cut, reframed to 9:16, and captioned with a hook on the first frame. Titles, captions, and posting times are handled automatically.</p>
-          </div>
-        </div>
-      </div>
-      <p class="sys-footnote">Your dashboard shows the same six slots after upload, captioned and scheduled to your connected accounts.</p>
     </div>
   </div>
 </header>
-
-<!-- PIPELINE -->
-<section class="s" id="pipeline">
-  <div class="container center">
-    <div class="section-label">How it works</div>
-    <h2 class="h2">Upload a video. Get six shorts posted.</h2>
-    <p class="p" style="margin-left:auto;margin-right:auto">Lucit handles clipping, captioning, reframing, and scheduling in one pass. You upload once and your week is posted.</p>
-
-    <div class="pipeline" id="pipe" aria-label="Pipeline: upload, clip, caption, post">
-      <div class="pipe-line" id="pipeLine"><i></i></div>
-      <div class="pipe-track">
-        <div class="pipe-step" data-step="0">
-          <div class="pipe-dot"><b>1</b><small>✓</small></div>
-          <h4>Upload</h4>
-          <p>Drop one long video. Any length, any topic.</p>
-          <div class="when">30 SECONDS</div>
-        </div>
-        <div class="pipe-step" data-step="1">
-          <div class="pipe-dot"><b>2</b><small>✓</small></div>
-          <h4>Clip</h4>
-          <p>Lucit finds the six strongest moments.</p>
-          <div class="when">AUTO</div>
-        </div>
-        <div class="pipe-step" data-step="2">
-          <div class="pipe-dot"><b>3</b><small>✓</small></div>
-          <h4>Caption</h4>
-          <p>Burned-in captions, reframed 9:16, hook on frame one.</p>
-          <div class="when">AUTO</div>
-        </div>
-        <div class="pipe-step" data-step="3">
-          <div class="pipe-dot"><b>4</b><small>✓</small></div>
-          <h4>Post</h4>
-          <p>Scheduled to TikTok, Reels, and Shorts.</p>
-          <div class="when">WHILE YOU SLEEP</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid3 reveal">
-      <div>
-        <h4><i></i> No editing needed</h4>
-        <p>You do not need Premiere, CapCut, or a timeline. Just record and upload.</p>
-        <span class="num">01 — EDITING = 0</span>
-      </div>
-      <div>
-        <h4><i></i> Actually posted, not just generated</h4>
-        <p>Every clip gets a title, captions, and a scheduled post time. No drafts sitting in a folder.</p>
-        <span class="num">02 — OUTCOME = POSTED</span>
-      </div>
-      <div>
-        <h4><i></i> Built for watch time</h4>
-        <p>Cuts and posting times are optimized for watch time to help you reach monetization.</p>
-        <span class="num">03 — GOAL = WATCH TIME</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOR WHO / NOT FOR -->
-<section class="s" style="padding-top:40px">
-  <div class="container">
-    <div class="compare reveal" id="outcomes">
-      <div class="cmp">
-        <h4>NOT FOR</h4>
-        <ul>
-          <li>Hobbyists collecting drafts and templates</li>
-          <li>Teams who love the timeline</li>
-          <li>Anyone who wants AI tools instead of finished posts</li>
-        </ul>
-      </div>
-      <div class="cmp after">
-        <h4>FOR SOLO FACELESS CREATORS</h4>
-        <ul>
-          <li>You record once a week and want the rest handled</li>
-          <li>You want a posting calendar that stays full</li>
-          <li>You are building toward monetization</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="s" id="faq" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="container center">
-    <div class="section-label">FAQ</div>
-    <h2 class="h2">Frequently asked questions</h2>
-    <div class="faq reveal">
-      <div class="faq-item"><b>Do I need to edit anything?</b><p>No. Captions, reframe, cuts, titles, hashtags, and scheduling are handled automatically. You can review if you want, but posting does not wait for you.</p></div>
-      <div class="faq-item"><b>What do I upload?</b><p>One long video per week. Talking head, screen share, or voiceover, 10 minutes to 2 hours, whatever your channel is about.</p></div>
-      <div class="faq-item"><b>Where does it post?</b><p>TikTok, Instagram Reels, and YouTube Shorts. One toggle per platform. Posts are scheduled for watch-time windows instead of all at once.</p></div>
-      <div class="faq-item"><b>What if I do not like a clip?</b><p>Skip it with one tap. The rest still posts. No re-editing or re-exporting needed.</p></div>
-      <div class="faq-item"><b>Is this for beginners chasing trends?</b><p>No. It is for solo faceless creators who post consistently and are working toward monetization.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- FINAL CTA — charcoal -->
-<section class="cta-charcoal">
-  <div class="container center">
-    <h2 class="h2">Record one video. We post the week.</h2>
-    <p class="p" style="margin-left:auto;margin-right:auto">Start free. Upload your next long video and get six shorts posted this week.</p>
-    <div class="hero-actions" style="margin-top:28px">
-      <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Start Posting</a>
-      <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
-    </div>
-    <div class="micro">No credit card · Cancel anytime · Posted, not just generated</div>
-  </div>
-</section>
 </main>
 
 <footer>
   <div class="foot-top">
-    <div>
-      <div class="foot-mark">Lucit</div>
-      <span>Turn one long video into a week of posted shorts.</span>
-    </div>
+    <div class="foot-mark">Lucit</div>
     <div class="foot-links">
-      <a href="#pipeline">How it works</a>
-      <a href="#outcomes">Outcomes</a>
-      <a href="#faq">FAQ</a>
       <a href="#login" onclick="navigateTo('login');return false;">Log in</a>
+      <a href="#signup" onclick="navigateTo('signup');return false;">Get Started</a>
     </div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 Lucit</span>
+    <span>© Lucit</span>
     <span></span>
   </div>
 </footer>
@@ -435,87 +119,45 @@ footer{border-top:1px solid var(--line);padding:36px 0 28px;background:var(--bg)
 <div id="authPages" style="display:none">
   <div id="loginPage" class="auth-wrap" style="display:none">
     <div class="auth-card">
-      <h1>Welcome back.</h1>
-      <p class="sub">Continue with Lucit.</p>
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to continue.</p>
       <div>
         <input type="email" id="loginEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
         <input type="password" id="loginPass" placeholder="Password" value="demo123" autocomplete="current-password">
-        <button onclick="fakeLogin()">Log in →</button>
+        <button onclick="fakeLogin()">Log in</button>
       </div>
-      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">No account? <a href="#" onclick="navigateTo('signup');return false;">Sign up</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
+      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">No account? <a href="#" onclick="navigateTo('signup');return false;">Get Started</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
     </div>
   </div>
   <div id="signupPage" class="auth-wrap" style="display:none">
     <div class="auth-card">
-      <h1>Create your account.</h1>
-      <p class="sub">One upload to a week posted.</p>
+      <h1>Create your account</h1>
+      <p class="sub">Get started with Lucit.</p>
       <div>
         <input type="text" id="signupName" placeholder="Name" value="Demo User" autocomplete="name">
         <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
         <input type="password" id="signupPass" placeholder="Password" value="demo123" autocomplete="new-password">
-        <button onclick="fakeSignup()">Create account →</button>
+        <button onclick="fakeSignup()">Get Started</button>
       </div>
       <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">Have an account? <a href="#" onclick="navigateTo('login');return false;">Log in</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
     </div>
   </div>
   <div id="appPage" class="auth-wrap" style="display:none">
     <div class="auth-card" style="max-width:560px">
-      <h1>You're in.</h1>
-      <p class="sub">Pipeline connected. Drop a long video to fill the week.</p>
-      <div style="border:1px dashed var(--line2);border-radius:14px;padding:18px;background:var(--bg);margin:18px 0">
+      <h1>You're in</h1>
+      <p class="sub">Drop a long video to fill the week.</p>
+      <div style="border:1px dashed var(--line2);border-radius:12px;padding:18px;background:var(--bg2);margin:18px 0">
         <b style="font-size:13px">Demo project</b>
-        <p style="font-size:13px;color:var(--muted);margin-top:4px">Backend + Supabase not wired in this preview. Your upload would appear here as 6 scheduled shorts.</p>
+        <p style="font-size:13px;color:var(--muted);margin-top:4px">Backend not wired in this preview. Your upload would appear here as 6 scheduled shorts.</p>
       </div>
-      <button onclick="fakeLogout()" style="background:var(--paper);color:var(--ink)">Log out</button>
-      <p style="margin-top:16px"><a href="#" onclick="navigateTo('home');return false;">← Back to landing</a></p>
+      <button onclick="fakeLogout()" style="background:var(--paper);color:var(--ink);border-color:var(--line2)">Log out</button>
+      <p style="margin-top:16px"><a href="#" onclick="navigateTo('home');return false;">← Back to site</a></p>
     </div>
   </div>
 </div>
 
 <script>
-// reveals
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.14});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// signature pipeline — plays once on scroll
-const pipe=document.getElementById('pipe');
-const pipeLine=document.getElementById('pipeLine');
-let played=false;
-const pio=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting && !played){
-      played=true;
-      pipeLine.classList.add('played');
-      const steps=[...document.querySelectorAll('.pipe-step')];
-      steps.forEach((s,i)=>{
-        setTimeout(()=>{
-          s.classList.add('active');
-          if(i<steps.length-1) s.classList.add('done');
-        }, 300 + i*420);
-      });
-      pio.unobserve(pipe);
-    }
-  });
-},{threshold:.35});
-if(pipe) pio.observe(pipe);
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  if(pipeLine) pipeLine.classList.add('played');
-  document.querySelectorAll('.pipe-step').forEach(s=>{s.classList.add('active');s.classList.add('done')});
-}
-
 // nav
-function toggleMobile(){
-  const l=document.getElementById('navLinks');
-  const btn=document.querySelector('.mob-btn');
-  const open=l.style.display==='flex';
-  l.style.display=open?'none':'flex';
-  if(btn) btn.setAttribute('aria-expanded', String(!open));
-  if(!open){
-    l.style.flexDirection='column';l.style.position='absolute';l.style.top='56px';l.style.right='12px';l.style.background='var(--paper)';l.style.border='1px solid var(--line2)';l.style.borderRadius='14px';l.style.padding='12px';l.style.boxShadow='0 12px 32px rgba(0,0,0,.08)';
-  }
-}
-
-// hash routing — preserves existing behavior, adds home
 function navigateTo(page){
   if(page==='home'){ history.pushState('',document.title, location.pathname); showPage('home'); return; }
   location.hash='#'+page; showPage(page);
@@ -556,7 +198,6 @@ window.addEventListener('load',()=>{
   const h=location.hash.slice(1);
   if(['login','signup','app'].includes(h)) showPage(h);
   else showPage('home');
-  const s=localStorage.getItem('session');
 });
 function fakeLogin(){
   const e=document.getElementById('loginEmail').value;
