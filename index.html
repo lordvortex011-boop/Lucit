@@ -3,161 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucit</title>
-<meta name="description" content="Lucit turns one long video into a week of posted shorts.">
+<title>Lucit — Turn ideas into output.</title>
+<meta name="description" content="Lucit — Automated tools for creating, shaping, and publishing content. Join the waitlist.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#FFFFFF;
-  --bg2:#F8FAFC;
-  --ink:#0F172A;
-  --ink2:#0F172A;
-  --brass:#2563EB;
-  --brass2:#1D4ED8;
-  --line:rgba(15,23,42,.08);
-  --line2:rgba(15,23,42,.12);
-  --line-brass:rgba(37,99,235,.18);
-  --muted:#475569;
-  --muted2:#94A3B8;
-  --paper:#FFFFFF;
-}
-html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-::selection{background:rgba(37,99,235,.18)}
-:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:2px}
-.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--bg);padding:10px 16px;z-index:100}
-.skip:focus{left:12px;top:12px}
-
-/* nav */
-.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:.3s}
-.nav{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav-logo{font-family:'Inter',system-ui,sans-serif;font-size:20px;letter-spacing:-.03em;font-weight:700}
-.nav-cta{background:var(--brass);color:#fff!important;padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:600;transition:.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--brass)}
-.nav-cta:hover{background:var(--brass2);border-color:var(--brass2);transform:translateY(-1px)}
-.nav-ghost{font-size:13.5px;color:var(--muted);padding:9px 14px;font-weight:500}
-.nav-ghost:hover{color:var(--ink)}
-.mob-btn{display:none;border:1px solid var(--line2);background:var(--paper);border-radius:999px;padding:8px 14px;font-size:13px;color:var(--ink)}
-
-/* hero - minimal */
-.hero{padding:112px 0 0;border-bottom:1px solid var(--line)}
-.hero-inner{max-width:1160px;margin:0 auto;padding:0 24px}
-.hero-head{text-align:center;padding:72px 0 72px;max-width:760px;margin:0 auto}
-.hero h1{font-family:'Inter',system-ui,sans-serif;font-size:clamp(42px,6vw,64px);line-height:.95;letter-spacing:-.04em;font-weight:700;text-wrap:balance}
-.hero-actions{margin-top:24px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
-.btn-primary{background:var(--brass);color:#fff;padding:13px 22px;border-radius:999px;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--brass);transition:.2s}
-.btn-primary:hover{background:var(--brass2);border-color:var(--brass2);transform:translateY(-1px)}
-.btn-ghost{padding:13px 22px;border-radius:999px;font-size:14px;color:var(--ink);border:1px solid var(--line2);background:var(--paper);transition:.2s;display:inline-flex;align-items:center;gap:6px;font-weight:500}
-.btn-ghost:hover{border-color:var(--ink)}
-
-/* footer - minimal */
-footer{border-top:1px solid var(--line);padding:32px 0 28px;background:var(--bg)}
-.foot-top{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center;max-width:1160px;margin:0 auto;padding:0 24px}
-.foot-mark{font-family:'Inter',system-ui,sans-serif;font-size:16px;letter-spacing:-.03em;font-weight:700}
-.foot-bottom{max-width:1160px;margin:24px auto 0;padding:16px 24px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.foot-bottom span{font-family:'Inter',system-ui,sans-serif;font-size:12px;color:var(--muted2)}
-.foot-links{display:flex;gap:24px;flex-wrap:wrap}
-.foot-links a{font-size:13px;color:var(--muted);font-weight:500}
-.foot-links a:hover{color:var(--ink)}
-
-/* auth */
-.auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--bg2)}
-.auth-card{width:100%;max-width:420px;background:var(--paper);border:1px solid var(--line2);border-radius:16px;padding:32px 28px;box-shadow:0 8px 32px rgba(15,23,42,.06)}
-.auth-card h1{font-family:'Inter',system-ui,sans-serif;font-size:24px;letter-spacing:-.03em;line-height:1;font-weight:700}
-.auth-card .sub{color:var(--muted);font-size:14px;margin:8px 0 24px}
-.auth-card input{width:100%;background:var(--paper);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink);margin-bottom:12px}
-.auth-card input:focus{outline:2px solid rgba(37,99,235,.2);border-color:var(--brass)}
-.auth-card button{width:100%;background:var(--brass);color:#fff;padding:12px;border-radius:999px;font-size:14px;font-weight:600;border:1px solid var(--brass);cursor:pointer}
-.auth-card button:hover{background:var(--brass2)}
-.auth-card a{color:var(--brass);font-size:13.5px;font-weight:500}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<div class="nav-wrap" id="navWrap">
-  <nav class="nav" aria-label="Primary">
-    <a href="#" class="nav-logo" aria-label="Lucit home">Lucit</a>
-    <div style="display:flex;gap:8px;align-items:center">
-      <a href="#login" onclick="navigateTo('login');return false;" class="nav-ghost" id="navLogin">Log in</a>
-      <a href="#signup" onclick="navigateTo('signup');return false;" class="nav-cta">Get Started</a>
-    </div>
-  </nav>
-</div>
-
-<main id="main">
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-head">
-      <h1>Lucit</h1>
-      <div class="hero-actions">
-        <a href="#signup" onclick="navigateTo('signup');return false;" class="btn-primary">Get Started</a>
-        <a href="#login" onclick="navigateTo('login');return false;" class="btn-ghost">Log in</a>
-      </div>
-    </div>
-  </div>
-</header>
-</main>
-
-<footer>
-  <div class="foot-top">
-    <div class="foot-mark">Lucit</div>
-    <div class="foot-links">
-      <a href="#login" onclick="navigateTo('login');return false;">Log in</a>
-      <a href="#signup" onclick="navigateTo('signup');return false;">Get Started</a>
-    </div>
-  </div>
-  <div class="foot-bottom">
-    <span>© Lucit</span>
-    <span></span>
-  </div>
-</footer>
-
-<!-- AUTH OVERLAY -->
-<div id="authPages" style="display:none">
-  <div id="loginPage" class="auth-wrap" style="display:none">
-    <div class="auth-card">
-      <h1>Welcome back</h1>
-      <p class="sub">Log in to continue.</p>
-      <div>
-        <input type="email" id="loginEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
-        <input type="password" id="loginPass" placeholder="Password" value="demo123" autocomplete="current-password">
-        <button onclick="fakeLogin()">Log in</button>
-      </div>
-      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">No account? <a href="#" onclick="navigateTo('signup');return false;">Get Started</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
-    </div>
-  </div>
-  <div id="signupPage" class="auth-wrap" style="display:none">
-    <div class="auth-card">
-      <h1>Create your account</h1>
-      <p class="sub">Get started with Lucit.</p>
-      <div>
-        <input type="text" id="signupName" placeholder="Name" value="Demo User" autocomplete="name">
-        <input type="email" id="signupEmail" placeholder="Email" value="demo@example.com" autocomplete="email">
-        <input type="password" id="signupPass" placeholder="Password" value="demo123" autocomplete="new-password">
-        <button onclick="fakeSignup()">Get Started</button>
-      </div>
-      <p style="margin-top:18px;font-size:13.5px;color:var(--muted)">Have an account? <a href="#" onclick="navigateTo('login');return false;">Log in</a> · <a href="#" onclick="navigateTo('home');return false;">Back to site</a></p>
-    </div>
-  </div>
-  <div id="appPage" class="auth-wrap" style="display:none">
-    <div class="auth-card" style="max-width:560px">
-      <h1>You're in</h1>
-      <p class="sub">Drop a long video to fill the week.</p>
-      <div style="border:1px dashed var(--line2);border-radius:12px;padding:18px;background:var(--bg2);margin:18px 0">
-        <b style="font-size:13px">Demo project</b>
-        <p style="font-size:13px;color:var(--muted);margin-top:4px">Backend not wired in this preview. Your upload would appear here as 6 scheduled shorts.</p>
-      </div>
-      <button onclick="fakeLogout()" style="background:var(--paper);color:var(--ink);border-color:var(--line2)">Log out</button>
-      <p style="margin-top:16px"><a href="#" onclick="navigateTo('home');return false;">← Back to site</a></p>
-    </div>
-  </div>
-</div>
-
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
 <script>
-// nav
+// Auth overlay — preserved (navigateTo/showPage/fakeLogin/fakeSignup/fakeLogout)
 function navigateTo(page){
   if(page==='home'){ history.pushState('',document.title, location.pathname); showPage('home'); return; }
   location.hash='#'+page; showPage(page);
@@ -169,26 +25,14 @@ function showPage(page){
   const app=document.getElementById('appPage');
   const main=document.querySelector('main');
   const foot=document.querySelector('footer');
-  const navLogin=document.getElementById('navLogin');
   const isAuth=['login','signup','app'].includes(page);
-  if(isAuth){
-    auth.style.display='block';
-    login.style.display=page==='login'?'flex':'none';
-    signup.style.display=page==='signup'?'flex':'none';
-    app.style.display=page==='app'?'flex':'none';
-    if(main) main.style.display='none';
-    if(foot) foot.style.display='none';
-    window.scrollTo(0,0);
-    if(navLogin) navLogin.style.display='none';
-  } else {
-    auth.style.display='none';
-    if(main) main.style.display='block';
-    if(foot) foot.style.display='block';
-    if(login) login.style.display='none';
-    if(signup) signup.style.display='none';
-    if(app) app.style.display='none';
-    if(navLogin) navLogin.style.display='';
-  }
+  if(auth) auth.style.display=isAuth?'block':'none';
+  if(login) login.style.display=page==='login'?'flex':'none';
+  if(signup) signup.style.display=page==='signup'?'flex':'none';
+  if(app) app.style.display=page==='app'?'flex':'none';
+  if(main) main.style.display=isAuth?'none':'block';
+  if(foot) foot.style.display=isAuth?'none':'block';
+  if(isAuth) window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',()=>{
   const h=location.hash.slice(1);
@@ -213,6 +57,8 @@ function fakeSignup(){
   else alert('Check your details.');
 }
 function fakeLogout(){ localStorage.removeItem('session'); navigateTo('home'); }
+window.navigateTo=navigateTo; window.showPage=showPage;
+window.fakeLogin=fakeLogin; window.fakeSignup=fakeSignup; window.fakeLogout=fakeLogout;
 </script>
 </body>
 </html>
