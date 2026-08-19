@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { SectionDivider } from "@/components/SectionDivider";
-import { Features } from "@/components/Features";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Footer } from "@/components/Footer";
 
@@ -17,8 +16,6 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <SectionDivider />
-        <Features />
         <SectionDivider />
         <section
           id="waitlist"
