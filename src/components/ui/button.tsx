@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-ink text-white border border-ink hover:bg-[#1A1A1E] hover:border-[#1A1A1E] active:scale-[0.99]",
+          "bg-ink text-white hover:bg-[#1A1A1E] active:scale-[0.99]",
         outline:
           "bg-paper text-ink border border-line2 hover:border-ink hover:bg-white",
         ghost: "bg-transparent text-ink hover:bg-black/[0.04]",

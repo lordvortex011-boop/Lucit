@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { SectionDivider } from "@/components/SectionDivider";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { Footer } from "@/components/Footer";
 
@@ -16,36 +15,18 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
-        <SectionDivider />
         <section
           id="waitlist"
           aria-label="Waitlist"
-          className="border-b border-line bg-bg px-7 py-12 text-center max-[760px]:px-[18px] max-[760px]:py-10"
+          className="bg-bg px-7 py-12 text-center max-[760px]:px-[18px] max-[760px]:py-10"
         >
-          <div className="mx-auto max-w-[760px]">
-            <p className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-faint">
-              Waitlist
-            </p>
-            <h2 className="mt-3.5 text-balance font-[--sans] text-[22px] font-bold leading-none tracking-[-0.04em] text-ink">
+          <div className="mx-auto max-w-[560px]">
+            <h2 className="text-balance font-[--sans] text-[24px] font-bold leading-none tracking-[-0.04em] text-ink">
               Get early access.
             </h2>
-            <div className="mt-5">
+            <div className="mt-6">
               <WaitlistForm id="waitlistEmail" />
             </div>
-          </div>
-        </section>
-        <SectionDivider />
-        <section
-          aria-label="Closing"
-          className="bg-bg px-7 py-10 text-center max-[760px]:px-[18px] max-[760px]:py-8"
-        >
-          <div className="mx-auto max-w-[760px]">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
-              A closing note
-            </span>
-            <p className="mt-2.5 font-serif text-[17px] italic leading-[1.4] tracking-[-0.02em] text-muted">
-              A quieter way to keep publishing.
-            </p>
           </div>
         </section>
       </main>
