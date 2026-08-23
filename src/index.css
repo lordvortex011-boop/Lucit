@@ -1,24 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #F1F1EF;
+  --color-bg: #FFFFFF;
   --color-paper: #FAFAF9;
   --color-ink: #0E0E10;
   --color-muted: #6B6B70;
   --color-faint: #9AA0A6;
-  --color-line: #E7E7E5;
-  --color-line2: #D8D8D6;
+  --color-line: transparent;
+  --color-line2: transparent;
   --color-surface: #FFFFFF;
 }
 
 :root {
-  --bg: #F1F1EF;
+  --bg: #FFFFFF;
   --paper: #FAFAF9;
   --ink: #0E0E10;
   --muted: #6B6B70;
   --faint: #9AA0A6;
-  --line: #E7E7E5;
-  --line2: #D8D8D6;
+  --line: transparent;
+  --line2: transparent;
   --surface: #FFFFFF;
 }
 
