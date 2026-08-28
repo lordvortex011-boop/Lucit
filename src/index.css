@@ -1,33 +1,77 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme {
-  --color-bg: #FFFFFF;
-  --color-paper: #FAFAF9;
-  --color-ink: #0E0E10;
-  --color-muted: #6B6B70;
-  --color-faint: #9AA0A6;
-  --color-line: transparent;
-  --color-line2: transparent;
-  --color-surface: #FFFFFF;
+  --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
-  --bg: #FFFFFF;
-  --paper: #FAFAF9;
-  --ink: #0E0E10;
-  --muted: #6B6B70;
-  --faint: #9AA0A6;
-  --line: transparent;
-  --line2: transparent;
-  --surface: #FFFFFF;
+  --ink: #0e0e10;
 }
 
-* { scrollbar-width: thin; scrollbar-color: var(--line2) transparent; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14, 14, 16, 0.12) transparent;
 }
-body { background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
-::selection { background: rgba(14,14,16,.09); }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body {
+  background: #ffffff;
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.dark body {
+  background: #09090b;
+  color: #fafafa;
+}
+
+::selection {
+  background: rgba(14, 14, 16, 0.09);
+}
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+.dark :focus-visible {
+  outline-color: #fafafa;
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 0 0;
+  }
+  to {
+    background-position: 350% 50%, 0 0;
+  }
+}
+
+.transition-bg {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}

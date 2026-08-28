@@ -4,61 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lucit — Turn ideas into output.</title>
-<meta name="description" content="Lucit — Automated tools for creating, shaping, and publishing content. Join the waitlist.">
+<meta name="description" content="Lucit — Automated tools for building and running faceless channels. Join the waitlist.">
+<script>try{const k="lucit-theme",s=localStorage.getItem(k),m=window.matchMedia("(prefers-color-scheme: dark)").matches,d=s?s==="dark":m;document.documentElement.classList.toggle("dark",d)}catch{}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.tsx"></script>
-<script>
-// Auth overlay — preserved (navigateTo/showPage/fakeLogin/fakeSignup/fakeLogout)
-function navigateTo(page){
-  if(page==='home'){ history.pushState('',document.title, location.pathname); showPage('home'); return; }
-  location.hash='#'+page; showPage(page);
-}
-function showPage(page){
-  const auth=document.getElementById('authPages');
-  const login=document.getElementById('loginPage');
-  const signup=document.getElementById('signupPage');
-  const app=document.getElementById('appPage');
-  const main=document.querySelector('main');
-  const foot=document.querySelector('footer');
-  const isAuth=['login','signup','app'].includes(page);
-  if(auth) auth.style.display=isAuth?'block':'none';
-  if(login) login.style.display=page==='login'?'flex':'none';
-  if(signup) signup.style.display=page==='signup'?'flex':'none';
-  if(app) app.style.display=page==='app'?'flex':'none';
-  if(main) main.style.display=isAuth?'none':'block';
-  if(foot) foot.style.display=isAuth?'none':'block';
-  if(isAuth) window.scrollTo(0,0);
-}
-window.addEventListener('hashchange',()=>{
-  const h=location.hash.slice(1);
-  if(h) showPage(h);
-});
-window.addEventListener('load',()=>{
-  const h=location.hash.slice(1);
-  if(['login','signup','app'].includes(h)) showPage(h);
-  else showPage('home');
-});
-function fakeLogin(){
-  const e=document.getElementById('loginEmail').value;
-  const p=document.getElementById('loginPass').value;
-  if(e&&p){ localStorage.setItem('session', JSON.stringify({email:e})); navigateTo('app'); }
-  else alert('Check email and password.');
-}
-function fakeSignup(){
-  const n=document.getElementById('signupName').value;
-  const e=document.getElementById('signupEmail').value;
-  const p=document.getElementById('signupPass').value;
-  if(e&&p){ localStorage.setItem('session', JSON.stringify({email:e,name:n})); navigateTo('app'); }
-  else alert('Check your details.');
-}
-function fakeLogout(){ localStorage.removeItem('session'); navigateTo('home'); }
-window.navigateTo=navigateTo; window.showPage=showPage;
-window.fakeLogin=fakeLogin; window.fakeSignup=fakeSignup; window.fakeLogout=fakeLogout;
-</script>
 </body>
 </html>

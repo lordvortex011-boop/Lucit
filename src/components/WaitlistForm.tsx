@@ -11,12 +11,13 @@ type Props = {
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Session-scoped so a refresh keeps the joined state without exposing data.
 const JOINED_KEY = "lucit_joined_email";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 const READY = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+
+const GENERIC_ERROR = "Could not save. Try again.";
 
 export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
   const [value, setValue] = React.useState("");
@@ -47,39 +48,33 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
       setTouched(true);
       return;
     }
+    if (!READY) {
+      setServerError(GENERIC_ERROR);
+      return;
+    }
     setError(null);
     setServerError(null);
     setStatus("loading");
     try {
-      // ponytail: direct PostgREST insert with the anon key — RLS is the
-      // gatekeeper; add an edge function when duplicate handling needs
-      // server-side policy beyond PK uniqueness.
+      const email = value.trim().toLowerCase();
       const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
         method: "POST",
         headers: {
-          apikey: SUPABASE_ANON_KEY,
+          apikey: SUPABASE_ANON_KEY as string,
           authorization: `Bearer ${SUPABASE_ANON_KEY}`,
           "content-type": "application/json",
-          prefer: "resolution=ignore-duplicates,return=minimal",
+          prefer: "return=minimal",
         },
-        body: JSON.stringify({
-          email: value.trim().toLowerCase(),
-          created_at: new Date().toISOString(),
-        }),
+        body: JSON.stringify({ email }),
       });
       if (res.ok || res.status === 409) {
         try {
-          sessionStorage.setItem(JOINED_KEY, value.trim().toLowerCase());
+          sessionStorage.setItem(JOINED_KEY, email);
         } catch {}
         setValue("");
         setStatus("success");
       } else {
-        let detail = "";
-        try {
-          const data = await res.json();
-          detail = data?.message ? ` (${data.message})` : "";
-        } catch {}
-        setServerError(`Could not save. Try again.${detail}`);
+        setServerError(GENERIC_ERROR);
         setStatus("idle");
       }
     } catch {
@@ -121,13 +116,13 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
             }}
             aria-invalid={!!shownError || invalid}
             aria-describedby={shownError ? `${id}-error` : undefined}
-            disabled={status === "loading"}
+            disabled={status === "loading" || !READY}
             required
           />
         </div>
         <Button
           type="submit"
-          disabled={status === "loading"}
+          disabled={status === "loading" || !READY}
           aria-busy={status === "loading"}
           className="shrink-0 max-[520px]:w-full"
         >
@@ -140,13 +135,17 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
               <Check aria-hidden /> You’re in
             </>
           ) : (
-            "Get early access."
+            "Join waitlist"
           )}
         </Button>
       </div>
 
       <div className="min-h-[18px] text-left">
-        {shownError ? (
+        {!READY ? (
+          <p className="text-xs leading-none text-zinc-400">
+            Waitlist unavailable right now.
+          </p>
+        ) : shownError ? (
           <p
             id={`${id}-error`}
             role="alert"
@@ -157,15 +156,15 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
         ) : invalid ? (
           <p className="text-xs leading-none text-red-600">Enter a valid email.</p>
         ) : status === "success" ? (
-          <p role="status" className="text-xs leading-none text-emerald-600">
-            You’re on the list — we’ll email when Lucit opens.
+          <p role="status" className="text-xs font-medium leading-none text-zinc-900 dark:text-white">
+            You&apos;re on the list. We&apos;ll be in touch.
           </p>
         ) : (
-          <p className="text-[11.5px] leading-none text-faint">One email. No spam.</p>
+          <p className="text-[11.5px] leading-none text-zinc-400">
+            No spam. Just the launch.
+          </p>
         )}
       </div>
     </form>
   );
 }
-
-export { READY };

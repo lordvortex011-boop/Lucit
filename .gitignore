@@ -10,3 +10,4 @@ out
 *.log
 vite-env.d.ts
 screenshot-*.png
+server/data/*.db
