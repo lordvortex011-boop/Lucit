@@ -15,7 +15,7 @@ const ORIGINS = (process.env.ALLOWED_ORIGIN || "http://localhost:5173,http://loc
 const DB_PATH = process.env.LUCIT_DB || "server/data/lucit.db";
 const RATE_MAX = Number(process.env.RATE_MAX || 10);
 const RATE_WINDOW_MS = Number(process.env.RATE_WINDOW_MS || 10 * 60_000);
-const SUCCESS = "You're on the list — we'll email when Lucit opens.";
+const SUCCESS = "You're on the list. We'll be in touch.";
 
 mkdirSync(join(DB_PATH, ".."), { recursive: true });
 const db = new DatabaseSync(DB_PATH);

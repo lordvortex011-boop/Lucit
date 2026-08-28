@@ -13,27 +13,17 @@ React + TypeScript + Vite + Tailwind v4 (@tailwindcss/vite) + Motion + shadcn/ui
 ## Structure
 ```
 src/
-  App.tsx                    # page assembly — short, text-led
-  index.css                  # @theme tokens + CSS variables (bg/ink/line/paper…)
+  App.tsx                    # Navbar + Hero (full-screen centered)
+  index.css                  # @theme tokens (bg/paper/ink/muted/faint/accent)
   lib/utils.ts               # cn()
   components/
-    BrandLockup.tsx          # P1 flame (supplied PNG, larger polished) + P2 custom geometric wordmark (SVG, diamond tittle + chamfered t)
-    Navbar.tsx               # BrandLockup + Join waitlist (outline)
-    Hero.tsx                 # lockup hero variant + headline + sub + WaitlistForm
-    SectionDivider.tsx       # Motion scaleX line, respects reduced-motion
-    FeatureLine.tsx          # numbered feature, in-view stagger
-    Features.tsx             # 3-up grid → stacked on mobile
-    WaitlistForm.tsx         # Radix Label + shadcn Input/Button, validation, loading/success, keyboard/focus/aria
-    Footer.tsx
-    ui/button.tsx, input.tsx, label.tsx
-public/assets/brand-mark.png # supplied dark glossy flame (also in assets/)
+    BrandLockup.tsx          # flame PNG + "Lucit" wordmark (Inter, tracking -0.03)
+    Navbar.tsx               # fixed, white/80 + blur, BrandLockup only
+    Hero.tsx                 # full-viewport, fixed aurora, centered headline + waitlist
+    WaitlistForm.tsx         # Radix Label + shadcn Input/Button, validation, Supabase
+    ui/waves-shader.tsx      # WebGL aurora (full-screen, low opacity, slow drift)
+public/assets/brand-mark.png # flame mark
 ```
 
-## Design tokens
-Single source in `src/index.css` (`@theme` + `:root`): `--bg #F1F1EF`, `--ink #0E0E10`, `--line #E7E7E5`, `--paper #FAFAF9`, etc. No scattered hex.
-
-## Notes
-- Flame: `assets/brand-mark.png` → `public/assets/brand-mark.png` at build. Rendered 28px nav / 36px hero, `border-radius: 32%`, soft shadow + top highlight — polished without glow spam.
-- Wordmark: custom SVG in BrandLockup, not system text. Signature: diamond-cut diamond tittle on `i`, chamfered `t` cross — original.
-- Motion only for brand lockup settle, hero stagger, divider draw, feature stagger. Button uses CSS transitions. `prefers-reduced-motion` respected.
-- Auth overlay (`navigateTo`/`showPage`/`fakeLogin`/…) preserved via inline script + hidden `#authPages` in App.tsx.
+## Home layout
+Single viewport: fixed full-screen aurora (pure white fallback, 0.20 opacity, timeScale 0.20), centered `Turn ideas into output.` (`clamp 38–68px`), subtext, `Be the first to know...` + email form. No secondary action. `prefers-reduced-motion` disables canvas.
