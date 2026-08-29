@@ -7,20 +7,15 @@ type Props = {
 };
 
 /**
- * BrandLockup — flame mark + bespoke Bricolage Grotesque 800 wordmark.
- * Bricolage chosen for geometric ink traps + rounded terminals that echo
- * the glossy flame's circular mass. Tight -0.045em tracking + 800 weight
- * gives "wide as logo" presence — wordmark width ≈ 1.15× flame width,
- * single optical unit. Gap 16/20 is intentional baseline rhythm.
+ * BrandLockup — flame mark + Prata 700 wordmark.
+ * Prata serif with 700 weight + 0.1em tracking + uppercase.
+ * Wordmark width locked to flameSize for solid lockup.
  * ponytail: PNG @ 64/88. Beyond 88 hero → SVG/srcset.
  */
 export function BrandLockup({ size = "nav", className }: Props) {
   const reduce = useReducedMotion();
   const flameSize = size === "hero" ? 88 : 64;
-  const wordmarkClass =
-    size === "hero"
-      ? "text-[42px] font-extrabold tracking-[-0.05em] max-[380px]:text-[32px]"
-      : "text-[32px] font-extrabold tracking-[-0.045em] max-[380px]:text-[24px]";
+  const wordmarkClass = size === "hero" ? "text-[23px]" : "text-[17px]";
 
   return (
     <motion.a
@@ -58,10 +53,20 @@ export function BrandLockup({ size = "nav", className }: Props) {
       />
       <span
         className={cn(
-          "whitespace-nowrap font-[--font-display] leading-none text-zinc-900 antialiased dark:text-zinc-50",
+          "whitespace-nowrap uppercase tracking-[0.1em] font-bold leading-none text-zinc-900 antialiased dark:text-zinc-50",
           wordmarkClass
         )}
-        style={{ transform: "translateY(1px)", fontVariantLigatures: "none" }}
+        style={{
+          fontFamily: "'Prata', serif",
+          fontWeight: 700,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          width: flameSize,
+          display: 'inline-block',
+          textAlign: 'center',
+          transform: 'translateY(1px)',
+          fontVariantLigatures: "none",
+        }}
       >
         Lucit
       </span>
