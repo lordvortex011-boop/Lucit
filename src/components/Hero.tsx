@@ -6,12 +6,13 @@ export function Hero() {
     <section className="flex w-full min-h-[100dvh] flex-col items-center justify-center px-7 py-24 max-[760px]:px-[18px] max-[760px]:py-16">
       <div className="flex w-full max-w-[760px] flex-col items-center">
         <motion.h1
-          className="text-center font-[--font-display] text-[clamp(38px,5.6vw,68px)] font-extrabold leading-[0.96] tracking-[-0.05em] text-zinc-900 dark:text-zinc-50"
+          className="text-center font-['Prata'] text-[clamp(38px,5.6vw,68px)] font-extrabold leading-[0.96] tracking-[-0.05em] text-zinc-900 dark:text-zinc-50"
+          style={{ fontFamily: "'Prata', serif" }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
         >
-          Turn ideas into output.
+          Print money with faceless YouTube channels.
         </motion.h1>
 
         <motion.p
@@ -20,7 +21,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
         >
-          Automated tools for building and running faceless channels.
+          Scale your faceless channel to $10k/mo with the 24/7 factory for viral content.
         </motion.p>
 
         <motion.div

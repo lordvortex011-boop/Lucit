@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -5,6 +6,7 @@
 @theme {
   --font-display: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-prata: "Prata", serif;
 }
 
 :root {
