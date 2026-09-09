@@ -7,23 +7,25 @@ type Props = {
 };
 
 /**
- * BrandLockup — flame mark + Prata 700 wordmark.
- * Prata serif with 700 weight + 0.1em tracking + uppercase.
- * Wordmark width locked to flameSize for solid lockup.
+ * BrandLockup — flame mark + wordmark.
+ * Deliberate lockup: icon and type share one optical baseline,
+ * cap-height aligned, tight tracking, uppercase for the premium feel.
  * ponytail: PNG @ 64/88. Beyond 88 hero → SVG/srcset.
  */
 export function BrandLockup({ size = "nav", className }: Props) {
   const reduce = useReducedMotion();
-  const flameSize = size === "hero" ? 88 : 64;
-  const wordmarkClass = size === "hero" ? "text-[23px]" : "text-[17px]";
+  const flameSize = size === "hero" ? 72 : 40;
+  const wordmarkClass = size === "hero" ? "text-[21px]" : "text-[15px]";
+  // Flame art carries dead space — crop in paint larger than layout box.
+  const artScale = 1.18;
 
   return (
     <motion.a
       href="#"
       aria-label="Lucit home"
       className={cn(
-        "flex select-none items-center gap-4 max-[380px]:gap-3",
-        size === "hero" && "gap-5",
+        "flex select-none items-center gap-2.5 leading-none max-[380px]:gap-2",
+        size === "hero" && "gap-3",
         className
       )}
       initial={reduce ? false : { opacity: 0, y: 6 }}
@@ -35,36 +37,38 @@ export function BrandLockup({ size = "nav", className }: Props) {
         history.pushState("", document.title, window.location.pathname);
       }}
     >
-      <img
-        src="/assets/brand-mark.png"
-        alt=""
+      <span
         aria-hidden
-        width={flameSize}
-        height={flameSize}
-        decoding="async"
-        fetchPriority="high"
-        className="shrink-0 rounded-[16px] object-cover max-[380px]:rounded-xl"
-        style={{
-          display: "block",
-          width: flameSize,
-          height: flameSize,
-          imageRendering: "auto" as const,
-        }}
-      />
+        className="block shrink-0 overflow-hidden rounded-[11px] max-[380px]:rounded-[9px]"
+        style={{ width: flameSize, height: flameSize }}
+      >
+        <img
+          src="/assets/brand-mark.png"
+          alt=""
+          width={flameSize * 2}
+          height={flameSize * 2}
+          decoding="async"
+          fetchPriority="high"
+          draggable={false}
+          className="block h-full w-full object-cover"
+          style={{
+            transform: `scale(${artScale})`,
+            imageRendering: "auto" as const,
+          }}
+        />
+      </span>
       <span
         className={cn(
-          "whitespace-nowrap uppercase tracking-[0.1em] font-bold leading-none text-zinc-900 antialiased dark:text-zinc-50",
+          "whitespace-nowrap uppercase font-bold text-zinc-900 antialiased dark:text-zinc-50",
           wordmarkClass
         )}
         style={{
-          fontFamily: "'Prata', serif",
-          fontWeight: 700,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          width: flameSize,
-          display: 'inline-block',
-          textAlign: 'center',
-          transform: 'translateY(1px)',
+          fontFamily: "'Bricolage Grotesque', 'Inter', system-ui, sans-serif",
+          fontWeight: 800,
+          letterSpacing: "0.32em",
+          textIndent: "0.32em", // recenter tracking so caps sit on the optical axis
+          lineHeight: 1,
+          transform: "translateY(0.5px)",
           fontVariantLigatures: "none",
         }}
       >
