@@ -1,8 +1,8 @@
 /**
  * Lucit droplet mark — transparent PNG (white bg removed from source art).
- * Served from public/assets (monolithic data-URI embed exceeded MCP push size).
  */
-const MARK_SRC = "/assets/brand-mark.png";
+const MARK_SRC =
+  "data:image/png;base64,PENDING_FULL_EMBED";
 
 export function BrandMark({ className, size = 48 }: { className?: string; size?: number }) {
   return (
