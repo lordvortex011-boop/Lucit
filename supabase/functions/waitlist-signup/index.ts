@@ -23,11 +23,15 @@ function rateLimited(ip: string): boolean {
 function cors(origin: string) {
   const ok = ALLOWED.length === 0 || ALLOWED.includes(origin);
   return {
-    "access-control-allow-origin": ok ? origin : ALLOWED[0] ?? "",
+    "access-control-allow-origin": ok ? (origin || "*") : ALLOWED[0] ?? "",
     "access-control-allow-methods": "POST, OPTIONS",
     "access-control-allow-headers": "authorization, apikey, content-type",
     "access-control-max-age": "86400",
   };
+}
+
+function json(status: number, body: Record<string, unknown>, headers: Record<string, string>) {
+  return new Response(JSON.stringify(body), { status, headers });
 }
 
 Deno.serve(async (req) => {
@@ -35,54 +39,57 @@ Deno.serve(async (req) => {
   const headers = { "content-type": "application/json", ...cors(origin) };
   if (req.method === "OPTIONS") return new Response("ok", { headers });
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405, headers });
+    return json(405, { error: "Method not allowed" }, headers);
   }
-  if (ALLOWED.length > 0 && !ALLOWED.includes(origin)) {
-    return new Response(JSON.stringify({ error: "Forbidden" }), { status: 403, headers });
+  if (ALLOWED.length > 0 && origin && !ALLOWED.includes(origin)) {
+    return json(403, { error: "Forbidden" }, headers);
   }
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "x";
   if (rateLimited(ip)) {
-    return new Response(JSON.stringify({ error: "Too many attempts. Try again later." }), { status: 429, headers });
+    return json(429, { error: "Too many attempts. Try again later." }, headers);
   }
 
   let body: unknown;
   try {
     body = await req.json();
   } catch {
-    return new Response(JSON.stringify({ error: "Bad request" }), { status: 400, headers });
+    return json(400, { error: "Bad request" }, headers);
   }
-  const raw = typeof (body as Record<string, unknown>)?.email === "string"
-    ? ((body as Record<string, string>).email as string)
-    : "";
-  // Honeypot from client passes nothing here — bots posting `website` get fake success.
-  if (typeof (body as Record<string, unknown>)?.website === "string" && (body as Record<string, string>).website) {
-    return new Response(JSON.stringify({ ok: true }), { headers });
+  const record = (body && typeof body === "object") ? body as Record<string, unknown> : {};
+  // Honeypot from client — bots posting `website` get fake success.
+  if (typeof record.website === "string" && record.website) {
+    return json(200, { ok: true }, headers);
   }
+  const raw = typeof record.email === "string" ? record.email : "";
   const email = raw.trim().toLowerCase();
   if (email.length < 6 || email.length > 320 || !EMAIL_RE.test(email)) {
-    return new Response(JSON.stringify({ error: "Enter a valid email." }), { status: 400, headers });
+    return json(400, { error: "Enter a valid email." }, headers);
   }
 
-  const supabase = createClient(
-    Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-  );
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) {
+    console.error("missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");
+    return json(500, { error: "Could not save. Try again." }, headers);
+  }
+
+  const supabase = createClient(url, key);
   const { error } = await supabase.from("waitlist").insert({ email });
   if (error) {
-    // Duplicate → same success shape (no account enumeration).
-    if (error.code === "23505") return new Response(JSON.stringify({ ok: true }), { headers });
-    console.error("waitlist insert failed", error.code);
-    return new Response(JSON.stringify({ error: "Could not save. Try again." }), { status: 500, headers });
+    // Duplicate → 409 so clients can treat as success without enumeration.
+    if (error.code === "23505") return json(409, { ok: true, duplicate: true }, headers);
+    console.error("waitlist insert failed", error.code, error.message);
+    return json(500, { error: "Could not save. Try again." }, headers);
   }
 
   // Notify owner. Best-effort — signup already succeeded.
   try {
     const to = Deno.env.get("WAITLIST_NOTIFICATION_EMAIL");
-    const key = Deno.env.get("RESEND_API_KEY");
-    if (to && key) {
+    const resendKey = Deno.env.get("RESEND_API_KEY");
+    if (to && resendKey) {
       await fetch("https://api.resend.com/emails", {
         method: "POST",
-        headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
+        headers: { authorization: `Bearer ${resendKey}`, "content-type": "application/json" },
         body: JSON.stringify({
           from: "Lucit waitlist <onboarding@resend.dev>",
           to,
@@ -95,5 +102,5 @@ Deno.serve(async (req) => {
     console.error("notify failed", e);
   }
 
-  return new Response(JSON.stringify({ ok: true }), { headers });
+  return json(200, { ok: true }, headers);
 });

@@ -1,0 +1,8 @@
+# Minimal Supabase config for the waitlist edge function.
+# Deploy: supabase functions deploy waitlist-signup
+# Secrets: SUPABASE_SERVICE_ROLE_KEY (auto), WAITLIST_NOTIFICATION_EMAIL,
+#          RESEND_API_KEY (optional), ALLOWED_ORIGIN=https://lucit.vercel.app
+
+[functions.waitlist-signup]
+# Anon JWT required — form sends apikey + Authorization: Bearer <anon>.
+verify_jwt = true
