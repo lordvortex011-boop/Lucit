@@ -13,20 +13,21 @@ type Props = {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const JOINED_KEY = "lucit_joined_email";
 
-// ponytail: anon key is public by design (RLS + edge fn enforce rules).
-// Service-role key must never appear here — lives in the edge function env.
+// Anon key is public by design; waitlist writes go only through the edge function
+// (service role). Service-role key must never appear here.
 const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.replace(/\/$/, "") ?? "";
 const SUPABASE_ANON_KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) ?? "";
 const FUNCTION_URL = SUPABASE_URL ? `${SUPABASE_URL}/functions/v1/waitlist-signup` : "";
-const REST_URL = SUPABASE_URL ? `${SUPABASE_URL}/rest/v1/waitlist` : "";
 
 const GENERIC_ERROR = "Could not save. Try again.";
 const CONFIG_ERROR = "Waitlist is not configured yet.";
 
 type SubmitResult = { ok: true } | { ok: false; error: string };
 
-async function submitViaEdge(email: string): Promise<SubmitResult | "fallback"> {
-  if (!FUNCTION_URL || !SUPABASE_ANON_KEY) return "fallback";
+async function submitViaEdge(email: string): Promise<SubmitResult> {
+  if (!FUNCTION_URL || !SUPABASE_ANON_KEY) {
+    return { ok: false, error: CONFIG_ERROR };
+  }
   try {
     const res = await fetch(FUNCTION_URL, {
       method: "POST",
@@ -38,37 +39,12 @@ async function submitViaEdge(email: string): Promise<SubmitResult | "fallback"> 
       body: JSON.stringify({ email }),
     });
     if (res.ok || res.status === 409) return { ok: true };
-    // Function missing / gateway errors → try PostgREST + RLS.
-    if (res.status === 404 || res.status === 546 || res.status === 503) return "fallback";
     const data = await res.json().catch(() => null);
     return {
       ok: false,
       error:
         typeof data?.error === "string" && data.error.length < 120 ? data.error : GENERIC_ERROR,
     };
-  } catch {
-    return "fallback";
-  }
-}
-
-async function submitViaRest(email: string): Promise<SubmitResult> {
-  if (!REST_URL || !SUPABASE_ANON_KEY) {
-    return { ok: false, error: CONFIG_ERROR };
-  }
-  try {
-    const res = await fetch(REST_URL, {
-      method: "POST",
-      headers: {
-        apikey: SUPABASE_ANON_KEY,
-        authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        "content-type": "application/json",
-        prefer: "return=minimal",
-      },
-      body: JSON.stringify({ email }),
-    });
-    // 201 created, 409 unique violation — both mean "you're on the list".
-    if (res.ok || res.status === 409) return { ok: true };
-    return { ok: false, error: GENERIC_ERROR };
   } catch {
     return { ok: false, error: "Network error. Try again." };
   }
@@ -124,8 +100,7 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
     setStatus("loading");
     try {
       const email = value.trim().toLowerCase();
-      let result = await submitViaEdge(email);
-      if (result === "fallback") result = await submitViaRest(email);
+      const result = await submitViaEdge(email);
       if (result.ok) {
         try {
           sessionStorage.setItem(JOINED_KEY, email);
