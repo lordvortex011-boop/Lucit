@@ -9,23 +9,24 @@ type Props = {
 };
 
 /**
- * BrandLockup — droplet mark + Prata "Lucit" wordmark.
- * Mark is sized to read clearly; wordmark uses a normal "i" (no custom giant tittle).
+ * BrandLockup — top-left nav droplet + Prata "Lucit".
+ * Nav sizes are intentionally large so the lockup reads clearly.
  */
 export function BrandLockup({ size = "nav", showMark = true, className }: Props) {
   const reduce = useReducedMotion();
-  const markSize = size === "hero" ? 64 : 44;
+  // Top-left: big mark + big wordmark. Hero size kept for reuse but unused on landing.
+  const markSize = size === "hero" ? 72 : 56;
   const wordmarkClass =
     size === "hero"
-      ? "text-[clamp(40px,5.5vw,56px)]"
-      : "text-[26px] max-[380px]:text-[22px]";
+      ? "text-[clamp(44px,6vw,60px)]"
+      : "text-[34px] max-[760px]:text-[30px] max-[380px]:text-[26px]";
 
   return (
     <motion.a
       href="#"
       aria-label="Lucit home"
       className={cn(
-        "flex select-none items-center gap-3 leading-none max-[380px]:gap-2.5",
+        "flex select-none items-center gap-3.5 leading-none max-[760px]:gap-3 max-[380px]:gap-2.5",
         size === "hero" && "gap-4",
         className
       )}

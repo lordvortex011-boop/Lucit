@@ -1,14 +1,10 @@
 import { motion } from "motion/react";
-import { BrandLockup } from "@/components/BrandLockup";
 import { WaitlistForm } from "@/components/WaitlistForm";
 
 export function Hero() {
   return (
     <section className="flex w-full min-h-[100dvh] flex-col items-center justify-center px-7 py-24 max-[760px]:px-[18px] max-[760px]:py-16">
       <div className="flex w-full max-w-[760px] flex-col items-center">
-        <div className="mb-8 max-[760px]:mb-6">
-          <BrandLockup size="hero" />
-        </div>
         <motion.h1
           className="text-center font-['Prata'] text-[clamp(38px,5.6vw,68px)] font-extrabold leading-[0.96] tracking-[-0.05em] text-zinc-900 dark:text-zinc-50"
           style={{ fontFamily: "'Prata', serif" }}
