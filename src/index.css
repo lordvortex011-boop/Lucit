@@ -78,17 +78,3 @@ body {
     background-color 0.3s ease,
     color 0.3s ease;
 }
-
-/* Brand mark glow — softer on light, stronger on dark for contrast */
-.brand-mark-glow {
-  opacity: 0.2;
-}
-.brand-mark-glow-soft {
-  opacity: 0.12;
-}
-.dark .brand-mark-glow {
-  opacity: 0.42;
-}
-.dark .brand-mark-glow-soft {
-  opacity: 0.28;
-}
