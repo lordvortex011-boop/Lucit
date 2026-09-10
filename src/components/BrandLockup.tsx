@@ -4,24 +4,21 @@ import { BrandMark } from "./BrandMark";
 
 type Props = {
   size?: "nav" | "hero";
-  /** Droplet mark beside the wordmark. Default true. */
   showMark?: boolean;
   className?: string;
 };
 
 /**
- * BrandLockup — real droplet mark + larger Prata text wordmark.
- * Text is intentionally bigger than the mark (not matched height/length).
- * Wordmark is CSS text (no PNG cream/compression). Light + dark ink.
+ * BrandLockup — droplet mark + Prata "Lucit" wordmark.
+ * Mark is sized to read clearly; wordmark uses a normal "i" (no custom giant tittle).
  */
 export function BrandLockup({ size = "nav", showMark = true, className }: Props) {
   const reduce = useReducedMotion();
-  // Mark stays compact; wordmark leads the lockup.
-  const markSize = size === "hero" ? 44 : 28;
+  const markSize = size === "hero" ? 64 : 44;
   const wordmarkClass =
     size === "hero"
-      ? "text-[clamp(36px,5vw,52px)]"
-      : "text-[28px] max-[380px]:text-[24px]";
+      ? "text-[clamp(40px,5.5vw,56px)]"
+      : "text-[26px] max-[380px]:text-[22px]";
 
   return (
     <motion.a
@@ -55,20 +52,7 @@ export function BrandLockup({ size = "nav", showMark = true, className }: Props)
           fontVariantLigatures: "none",
         }}
       >
-        Luc
-        <span className="relative inline-block">
-          ı
-          <span
-            aria-hidden
-            className="pointer-events-none absolute left-1/2 top-0 block rounded-full bg-current"
-            style={{
-              width: "0.3em",
-              height: "0.3em",
-              transform: "translate(-50%, -0.06em)",
-            }}
-          />
-        </span>
-        t
+        Lucit
       </span>
     </motion.a>
   );
