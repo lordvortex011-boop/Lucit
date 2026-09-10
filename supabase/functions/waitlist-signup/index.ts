@@ -41,7 +41,8 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") {
     return json(405, { error: "Method not allowed" }, headers);
   }
-  if (ALLOWED.length > 0 && origin && !ALLOWED.includes(origin)) {
+  // When ALLOWED_ORIGIN is set, require a listed Origin (empty Origin = non-browser / bypass attempt).
+  if (ALLOWED.length > 0 && !ALLOWED.includes(origin)) {
     return json(403, { error: "Forbidden" }, headers);
   }
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "x";
