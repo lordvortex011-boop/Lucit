@@ -7,17 +7,18 @@ type Props = {
 };
 
 /**
- * BrandLockup — flame mark + wordmark.
- * Deliberate lockup: icon and type share one optical baseline,
- * cap-height aligned, tight tracking, uppercase for the premium feel.
- * ponytail: PNG @ 64/88. Beyond 88 hero → SVG/srcset.
+ * BrandLockup — flame mark + serif wordmark (Prata, title case).
+ * Icon is sized a touch larger than the wordmark cap-height so the
+ * lockup balances on light and dark themes.
  */
 export function BrandLockup({ size = "nav", className }: Props) {
   const reduce = useReducedMotion();
-  const flameSize = size === "hero" ? 72 : 40;
-  const wordmarkClass = size === "hero" ? "text-[21px]" : "text-[15px]";
+  // Nav: icon ~48px; hero: ~84px — slightly larger than prior lockup
+  // so the mark holds weight next to bold serif type.
+  const flameSize = size === "hero" ? 84 : 48;
+  const wordmarkClass = size === "hero" ? "text-[28px]" : "text-[20px]";
   // Flame art carries dead space — crop in paint larger than layout box.
-  const artScale = 1.18;
+  const artScale = 1.2;
 
   return (
     <motion.a
@@ -25,7 +26,7 @@ export function BrandLockup({ size = "nav", className }: Props) {
       aria-label="Lucit home"
       className={cn(
         "flex select-none items-center gap-2.5 leading-none max-[380px]:gap-2",
-        size === "hero" && "gap-3",
+        size === "hero" && "gap-3.5",
         className
       )}
       initial={reduce ? false : { opacity: 0, y: 6 }}
@@ -39,7 +40,7 @@ export function BrandLockup({ size = "nav", className }: Props) {
     >
       <span
         aria-hidden
-        className="block shrink-0 overflow-hidden rounded-[11px] max-[380px]:rounded-[9px]"
+        className="block shrink-0 overflow-hidden rounded-[12px] max-[380px]:rounded-[10px]"
         style={{ width: flameSize, height: flameSize }}
       >
         <img
@@ -59,16 +60,15 @@ export function BrandLockup({ size = "nav", className }: Props) {
       </span>
       <span
         className={cn(
-          "whitespace-nowrap uppercase font-bold text-zinc-900 antialiased dark:text-zinc-50",
+          // Deep navy/charcoal on light; near-white on dark — matches wordmark ref.
+          "whitespace-nowrap font-normal antialiased text-[#0A111F] dark:text-zinc-50",
           wordmarkClass
         )}
         style={{
-          fontFamily: "'Bricolage Grotesque', 'Inter', system-ui, sans-serif",
-          fontWeight: 800,
-          letterSpacing: "0.32em",
-          textIndent: "0.32em", // recenter tracking so caps sit on the optical axis
+          fontFamily: "'Prata', 'Times New Roman', serif",
+          letterSpacing: "-0.02em",
           lineHeight: 1,
-          transform: "translateY(0.5px)",
+          transform: "translateY(1px)",
           fontVariantLigatures: "none",
         }}
       >
