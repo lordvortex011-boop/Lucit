@@ -4,28 +4,32 @@ import { BrandMark } from "./BrandMark";
 
 type Props = {
   size?: "nav" | "hero";
-  /** Optional clean SVG mark beside the wordmark. Default true. */
+  /** Droplet mark beside the wordmark. Default true. */
   showMark?: boolean;
   className?: string;
 };
 
 /**
- * BrandLockup — optional clean SVG mark + full-text serif wordmark (Prata).
- * No PNG wordmark (avoids cream/texture/compression). Transparent; theme-aware ink.
- * Distinctive large circular i-dot via dotless-i + CSS tittle.
+ * BrandLockup — real droplet mark + larger Prata text wordmark.
+ * Text is intentionally bigger than the mark (not matched height/length).
+ * Wordmark is CSS text (no PNG cream/compression). Light + dark ink.
  */
 export function BrandLockup({ size = "nav", showMark = true, className }: Props) {
   const reduce = useReducedMotion();
-  const markSize = size === "hero" ? 52 : 36;
-  const wordmarkClass = size === "hero" ? "text-[32px]" : "text-[22px]";
+  // Mark stays compact; wordmark leads the lockup.
+  const markSize = size === "hero" ? 44 : 28;
+  const wordmarkClass =
+    size === "hero"
+      ? "text-[clamp(36px,5vw,52px)]"
+      : "text-[28px] max-[380px]:text-[24px]";
 
   return (
     <motion.a
       href="#"
       aria-label="Lucit home"
       className={cn(
-        "flex select-none items-center gap-2.5 leading-none max-[380px]:gap-2",
-        size === "hero" && "gap-3",
+        "flex select-none items-center gap-3 leading-none max-[380px]:gap-2.5",
+        size === "hero" && "gap-4",
         className
       )}
       initial={reduce ? false : { opacity: 0, y: 6 }}
@@ -45,7 +49,7 @@ export function BrandLockup({ size = "nav", showMark = true, className }: Props)
         )}
         style={{
           fontFamily: "'Prata', 'Times New Roman', serif",
-          letterSpacing: "-0.05em",
+          letterSpacing: "-0.04em",
           lineHeight: 1,
           transform: "translateY(1px)",
           fontVariantLigatures: "none",
@@ -58,9 +62,9 @@ export function BrandLockup({ size = "nav", showMark = true, className }: Props)
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-0 block rounded-full bg-current"
             style={{
-              width: "0.32em",
-              height: "0.32em",
-              transform: "translate(-50%, -0.08em)",
+              width: "0.3em",
+              height: "0.3em",
+              transform: "translate(-50%, -0.06em)",
             }}
           />
         </span>
