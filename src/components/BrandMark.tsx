@@ -1,9 +1,7 @@
-/**
- * Lucit droplet mark — transparent PNG (white bg removed from source art).
- * Embedded small asset so deploy works without a binary GitHub upload.
- */
-const MARK_SRC =
-  "data:image/png;base64,SEE_FULL_CONTENT";
+import { P0 } from "./brandMarkPart0";
+import { P1 } from "./brandMarkPart1";
+
+const MARK_SRC = P0 + P1;
 
 export function BrandMark({ className, size = 48 }: { className?: string; size?: number }) {
   return (
