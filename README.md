@@ -20,7 +20,8 @@ src/
     BrandMark.tsx            # clean SVG flame (transparent; PNG retired)
     BrandLockup.tsx          # optional SVG mark + Prata "Lucit" wordmark
     Navbar.tsx               # fixed, BrandLockup + theme toggle
-    Hero.tsx                 # full-viewport, centered headline + waitlist
+    Hero.tsx                 # headline + Founding 50 + waitlist
+    FoundingOffer.tsx        # cap 50, $19 deposit, Payment Link CTA
     WaitlistForm.tsx         # edge-function signup only (no PostgREST fallback)
 supabase/
   functions/waitlist-signup  # service-role insert + rate limit + CORS
@@ -28,4 +29,9 @@ supabase/
 ```
 
 ## Home layout
-Single viewport: fixed full-screen aurora, centered headline, subtext, waitlist form. `prefers-reduced-motion` respected.
+Centered column: eyebrow, headline, subtext, Founding 50 offer, Stickman line, waitlist form. `prefers-reduced-motion` respected.
+
+## Founding 50 env
+Set at Vercel build time:
+- `VITE_STRIPE_PAYMENT_LINK` — Stripe Payment Link URL. Empty = button visible, disabled.
+- `VITE_FOUNDING_TAKEN` — seats already taken (default 1, clamp 0..50).
