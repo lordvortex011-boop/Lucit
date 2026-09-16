@@ -25,6 +25,10 @@ db.exec(`CREATE TABLE IF NOT EXISTS waitlist (
   consent TEXT NOT NULL DEFAULT 'implicit',
   status TEXT NOT NULL DEFAULT 'pending'
 )`);
+// ponytail: email is auto-indexed via PRIMARY KEY. These cover the admin
+// paths (chronological export, status filtering) so they never full-scan.
+db.exec(`CREATE INDEX IF NOT EXISTS idx_waitlist_created_at ON waitlist (created_at)`);
+db.exec(`CREATE INDEX IF NOT EXISTS idx_waitlist_status ON waitlist (status)`);
 const insert = db.prepare(
   "INSERT OR IGNORE INTO waitlist (email, created_at) VALUES (?, ?)"
 );
@@ -64,8 +68,18 @@ const MIME = {
   ".txt": "text/plain; charset=utf-8",
 };
 
+// ponytail: mirrors vercel.json headers so local/prod behave identically.
+const SEC_HEADERS = {
+  "x-content-type-options": "nosniff",
+  "referrer-policy": "strict-origin-when-cross-origin",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "x-frame-options": "DENY",
+  "content-security-policy":
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+};
+
 function send(res, code, body, type = "application/json") {
-  res.writeHead(code, { "content-type": type, "cache-control": "no-store" });
+  res.writeHead(code, { "content-type": type, "cache-control": "no-store", ...SEC_HEADERS });
   res.end(body);
 }
 
@@ -93,11 +107,17 @@ const server = createServer((req, res) => {
     }
 
     let body = "";
+    let tooBig = false;
     req.on("data", (c) => {
       body += c;
-      if (body.length > 2000) req.destroy();
+      if (body.length > 2000 && !tooBig) {
+        tooBig = true;
+        send(res, 413, JSON.stringify({ ok: false, error: "Request too large" }));
+        req.destroy();
+      }
     });
     req.on("end", () => {
+      if (tooBig) return;
       try {
         const { email: raw, website } = JSON.parse(body || "{}");
         // Honeypot: bots fill the hidden field. Fake success, store nothing.
@@ -122,9 +142,12 @@ const server = createServer((req, res) => {
   }
   try {
     const data = readFileSync(file);
+    // Hashed /assets/* filenames are immutable; HTML stays fresh.
+    const immutable = url.pathname.startsWith("/assets/");
     res.writeHead(200, {
       "content-type": MIME[extname(file).toLowerCase()] || "application/octet-stream",
-      "x-content-type-options": "nosniff",
+      "cache-control": immutable ? "public, max-age=31536000, immutable" : "no-store",
+      ...SEC_HEADERS,
     });
     res.end(data);
   } catch {
@@ -134,4 +157,7 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`lucit server on http://localhost:${PORT} (db: ${DB_PATH})`);
+  if (!process.env.ALLOWED_ORIGIN) {
+    console.warn("WARNING: ALLOWED_ORIGIN unset — accepting localhost origins (dev default). Set it to your domain in production.");
+  }
 });
