@@ -24,7 +24,7 @@ const CONFIG_ERROR = "Waitlist is not configured yet.";
 
 type SubmitResult = { ok: true } | { ok: false; error: string };
 
-async function submitViaEdge(email: string): Promise<SubmitResult> {
+async function submitViaEdge(email: string, signal: AbortSignal): Promise<SubmitResult> {
   if (!FUNCTION_URL || !SUPABASE_ANON_KEY) {
     return { ok: false, error: CONFIG_ERROR };
   }
@@ -37,6 +37,7 @@ async function submitViaEdge(email: string): Promise<SubmitResult> {
         "content-type": "application/json",
       },
       body: JSON.stringify({ email }),
+      signal,
     });
     if (res.ok || res.status === 409) return { ok: true };
     const data = await res.json().catch(() => null);
@@ -45,7 +46,9 @@ async function submitViaEdge(email: string): Promise<SubmitResult> {
       error:
         typeof data?.error === "string" && data.error.length < 120 ? data.error : GENERIC_ERROR,
     };
-  } catch {
+  } catch (e) {
+    // Aborts are handled by the caller (a newer submit or unmount won).
+    if (e instanceof DOMException && e.name === "AbortError") throw e;
     return { ok: false, error: "Network error. Try again." };
   }
 }
@@ -57,6 +60,16 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [honeypot, setHoneypot] = React.useState("");
   const lastSubmit = React.useRef(0);
+  const mounted = React.useRef(true);
+  const inflight = React.useRef<AbortController | null>(null);
+
+  React.useEffect(() => {
+    const cur = inflight;
+    return () => {
+      mounted.current = false;
+      cur.current?.abort();
+    };
+  }, []);
   const [status, setStatus] = React.useState<"idle" | "loading" | "success">(
     () =>
       typeof sessionStorage !== "undefined" && sessionStorage.getItem(JOINED_KEY)
@@ -91,7 +104,13 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
     // Client-side throttle: one submit per 5s.
     if (Date.now() - lastSubmit.current < 5_000) return;
     lastSubmit.current = Date.now();
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    // Already joined (cached in sessionStorage) — no duplicate POST.
+    if (status === "success") return;
+    // Cancel any in-flight submit before starting a new one.
+    inflight.current?.abort();
+    const controller = new AbortController();
+    inflight.current = controller;
+    if (!FUNCTION_URL || !SUPABASE_ANON_KEY) {
       setServerError(CONFIG_ERROR);
       return;
     }
@@ -100,7 +119,9 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
     setStatus("loading");
     try {
       const email = value.trim().toLowerCase();
-      const result = await submitViaEdge(email);
+      const result = await submitViaEdge(email, controller.signal);
+      // A newer submit or unmount won — leave state alone.
+      if (!mounted.current || inflight.current !== controller) return;
       if (result.ok) {
         try {
           sessionStorage.setItem(JOINED_KEY, email);
@@ -111,7 +132,13 @@ export function WaitlistForm({ id = "waitlistEmail", className }: Props) {
         setServerError(result.error);
         setStatus("idle");
       }
-    } catch {
+    } catch (e) {
+      // Superseded by a newer submit, or unmounted — leave state alone.
+      if (!mounted.current || inflight.current !== controller) return;
+      if (e instanceof DOMException && e.name === "AbortError") {
+        setStatus("idle");
+        return;
+      }
       setServerError("Network error. Try again.");
       setStatus("idle");
     }
